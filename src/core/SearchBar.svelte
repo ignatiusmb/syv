@@ -4,8 +4,8 @@
 	export let unique = null;
 	import { slide } from 'svelte/transition';
 	import { Filter } from '../icons/feather';
-	import { checkNum } from '../utils/helper';
 	import { duration } from '../utils/options';
+	import { checkNum } from '../utils';
 	const placeholder = 'Type your queries here (Press "/" to focus)';
 	let searchbox = null;
 	let show = false;

@@ -1,1 +1,1 @@
-export const duration: number;
+export const duration: 300;
