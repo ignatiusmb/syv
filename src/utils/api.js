@@ -2,12 +2,12 @@ let base = 'localhost:3000';
 let path_checker = undefined;
 let server_fetch = undefined;
 function send({ method, path, data, token }) {
-	const fetch = typeof window !== undefined ? window.fetch : server_fetch;
+	const fetch = typeof window !== 'undefined' ? window.fetch : server_fetch;
 
 	const opts = { method, headers: {} };
 
-	if (typeof window !== undefined) {
-		if (typeof FormData !== undefined && data instanceof FormData) {
+	if (typeof window !== 'undefined') {
+		if (typeof FormData !== 'undefined' && data instanceof FormData) {
 			opts.body = data;
 		}
 	}
@@ -36,7 +36,7 @@ export const initialize = ({ host, check, fetch }) => {
 	base = host;
 	path_checker = check;
 	server_fetch = fetch && fetch.default;
-	if (!server_fetch) {
+	if (typeof window === 'undefined' && !server_fetch) {
 		try {
 			server_fetch = require('node-fetch').default;
 		} catch (error) {
