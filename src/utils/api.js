@@ -1,18 +1,15 @@
-let base = 'localhost:3000';
-let path_checker = undefined;
-let server_fetch = undefined;
+const options = {
+	base: '',
+	check: undefined,
+	fetch: undefined,
+};
 function send({ method, path, data, token }) {
-	const fetch = typeof window !== 'undefined' ? window.fetch : server_fetch;
+	const browser = typeof window !== 'undefined';
 
 	const opts = { method, headers: {} };
-
-	if (typeof window !== 'undefined') {
-		if (typeof FormData !== 'undefined' && data instanceof FormData) {
-			opts.body = data;
-		}
-	}
-
-	if (data && !opts.body) {
+	if (browser && typeof FormData !== 'undefined' && data instanceof FormData) {
+		opts.body = data;
+	} else if (data) {
 		opts.headers['Content-Type'] = 'application/json';
 		opts.body = JSON.stringify(data);
 	}
@@ -21,7 +18,19 @@ function send({ method, path, data, token }) {
 		opts.headers['Authorization'] = `Bearer ${token}`;
 	}
 
-	return fetch(path_checker ? path_checker(path) : `${base}/${path}`, opts)
+	const { base, check } = options;
+	const fetch = browser ? window.fetch : options.fetch;
+	/**
+	 * 1: check function precedes everything
+	 * 2: use native fetch functionality w/o base
+	 * 3: force base domain for server side fetch
+	 */
+	const url =
+		(check && check(path)) ||
+		(browser && (base ? `${base}/${path}` : path)) ||
+		`${base || 'localhost:3000'}/${path}`;
+
+	return fetch(url, opts)
 		.then((r) => r.text())
 		.then((json) => {
 			try {
@@ -33,12 +42,13 @@ function send({ method, path, data, token }) {
 }
 
 export const initialize = ({ host, check, fetch }) => {
-	base = host;
-	path_checker = check;
-	server_fetch = fetch && fetch.default;
-	if (typeof window === 'undefined' && !server_fetch) {
+	const browser = typeof window !== 'undefined';
+	options.base = host;
+	options.check = check;
+	options.fetch = fetch;
+	if (!browser && !options.fetch) {
 		try {
-			server_fetch = require('node-fetch').default;
+			options.fetch = require('node-fetch').default;
 		} catch (error) {
 			console.error('API warning, fetch cannot be used on the server!');
 		}

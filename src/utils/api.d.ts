@@ -1,7 +1,7 @@
 type InitOptions = {
 	host: string;
 	check: (path: string) => string;
-	fetch: NodeRequire;
+	fetch: (url: RequestInfo, init?: RequestInit) => Promise<Response>;
 };
 export const initialize: (opts: InitOptions) => void;
 
