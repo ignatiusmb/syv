@@ -2,12 +2,13 @@ name: Release-CI
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - "master"
 
 jobs:
   npm-publish:
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '~ v')"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
