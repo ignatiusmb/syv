@@ -9,7 +9,7 @@
 	export let increment = bound;
 	export let tween = false;
 	import { Feather } from '../icons';
-	function update(index) {
+	function moveTo(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
 			let timeout = null;
@@ -35,21 +35,21 @@
 </script>
 
 <section class="lmns lmns-pagination">
-	<span class:disabled={$store === 0} on:click={() => update(0)}>
+	<span class:disabled={$store === 0} on:click={() => moveTo(0)}>
 		<Feather.ChevronsLeft />
 	</span>
-	<span class:disabled={$store === 0} on:click={() => update($store - 1)}>
+	<span class:disabled={$store === 0} on:click={() => moveTo($store - 1)}>
 		<Feather.ChevronLeft />
 	</span>
 
-	<slot {curr} {next} {limit}>
+	<slot {limit} {moveTo}>
 		<div>{curr} - {next} / {total}</div>
 	</slot>
 
-	<span class:disabled={$store === limit} on:click={() => update($store + 1)}>
+	<span class:disabled={$store === limit} on:click={() => moveTo($store + 1)}>
 		<Feather.ChevronRight />
 	</span>
-	<span class:disabled={$store === limit} on:click={() => update(limit)}>
+	<span class:disabled={$store === limit} on:click={() => moveTo(limit)}>
 		<Feather.ChevronsRight />
 	</span>
 </section>
