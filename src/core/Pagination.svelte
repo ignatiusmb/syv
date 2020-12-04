@@ -35,23 +35,33 @@
 </script>
 
 <section class="lmns lmns-pagination">
-	<span class:disabled={$store === 0} on:click={() => moveTo(0)}>
-		<Feather.ChevronsLeft />
-	</span>
-	<span class:disabled={$store === 0} on:click={() => moveTo($store - 1)}>
-		<Feather.ChevronLeft />
-	</span>
-
-	<slot {limit} {moveTo}>
-		<div>{curr} - {next} / {total}</div>
+	<slot name="left">
+		<div class="navigator">
+			<span class:disabled={$store === 0} on:click={() => moveTo(0)}>
+				<Feather.ChevronsLeft />
+			</span>
+			<span class:disabled={$store === 0} on:click={() => moveTo($store - 1)}>
+				<Feather.ChevronLeft />
+			</span>
+		</div>
 	</slot>
 
-	<span class:disabled={$store === limit} on:click={() => moveTo($store + 1)}>
-		<Feather.ChevronRight />
-	</span>
-	<span class:disabled={$store === limit} on:click={() => moveTo(limit)}>
-		<Feather.ChevronsRight />
-	</span>
+	<div class="slot-holder">
+		<slot {limit} {moveTo}>
+			<div>{curr} - {next} / {total}</div>
+		</slot>
+	</div>
+
+	<slot name="right">
+		<div class="navigator">
+			<span class:disabled={$store === limit} on:click={() => moveTo($store + 1)}>
+				<Feather.ChevronRight />
+			</span>
+			<span class:disabled={$store === limit} on:click={() => moveTo(limit)}>
+				<Feather.ChevronsRight />
+			</span>
+		</div>
+	</slot>
 </section>
 
 <style>
@@ -59,11 +69,21 @@
 		max-width: 32em;
 		width: 100%;
 		display: grid;
-		gap: 0.5em;
-		grid-template-columns: 2em 2em 1fr 2em 2em;
+		gap: 1em;
+		grid-template-columns: 5em 1fr 5em;
 		align-items: center;
 		margin: 0 auto;
 		text-align: center;
+	}
+	.navigator {
+		display: grid;
+		gap: 0.5em;
+		grid-template-columns: 1fr 1fr;
+	}
+	.slot-holder {
+		display: grid;
+		gap: 0.5em;
+		grid-auto-flow: column;
 	}
 	span {
 		cursor: pointer;
