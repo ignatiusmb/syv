@@ -1,7 +1,10 @@
 <script>
 	import { writable } from 'svelte/store';
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 	export let store = writable(0);
-	export let total = 0;
+	export let items = [];
 	export let bound = 1;
 	export let increment = bound;
 	export let tween = false;
@@ -18,13 +21,17 @@
 			timeout = setTimeout(repeat, 50);
 		} else $store = index;
 	}
+	$: total = items.length;
 	$: ceil = Math.ceil((total - bound) / increment);
 	$: limit = ceil < 0 ? 0 : ceil;
 	$: $store = $store > limit ? limit : $store;
 
-	$: curr = total ? $store * increment + 1 : 0;
+	$: count = $store * increment;
+	$: curr = total ? count + 1 : 0;
 	$: comp = curr - 1 + bound;
 	$: next = comp <= total ? comp : total;
+
+	$: dispatch('update', items.slice(count, count + bound));
 </script>
 
 <section class="lmns lmns-pagination">
