@@ -196,15 +196,15 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 | Props     | Default       |
 | --------- | ------------- |
 | store *   | `writable(0)` |
-| total *   | `0`           |
-| bound     | `1`           |
+| items *   | `[]`          |
+| bound     | `3`           |
 | increment | `bound`       |
 | tween     | `false`       |
 
 Pagination element handles all the complicated and unnecessary stuff for us, including all the edge cases. We just need to pass in the necessary props and handle the actual items slicing ourself.
 
 - `store` - a Svelte store to manage the state of the current paginated index
-- `total` - usually just the `.length` of your data array
+- `items` - your complete list of items to paginate
 - `bound` - maximum number of items per page
 - `increment` - number of items to skip every next/prev page
 - `tween` - boolean value to use tween increments rather than jump
@@ -214,17 +214,16 @@ Pagination element handles all the complicated and unnecessary stuff for us, inc
   export let items = []; // Your data array
   import { Pagination } from 'svelement';
   import { posts as store } from './stores.js';
-  const bound = 3;
-  const increment = 1;
+  let sieved = items;
 
-  $: count = $store * increment;
-  $: filtered = items.slice(count, count + bound);
-  $: total = filtered.length;
+  function update({ detail }) {
+    if (detail) sieved = detail;
+  }
 </script>
 
-<Pagination {store} {total} {bound} {increment} tween />
+<Pagination {store} {items} on:update={update} />
 
-{#each filtered as post}
+{#each sieved as post}
   <div>
     <h2>{post.title}</h2>
     <p>{post.description}</p>
