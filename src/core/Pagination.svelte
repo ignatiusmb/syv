@@ -8,7 +8,9 @@
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
+
 	import { Feather } from '../icons';
+
 	function moveTo(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
@@ -21,6 +23,7 @@
 			timeout = setTimeout(repeat, 50);
 		} else $store = index;
 	}
+
 	$: total = items.length;
 	$: ceil = Math.ceil((total - bound) / increment);
 	$: limit = ceil < 0 ? 0 : ceil;
@@ -66,7 +69,6 @@
 
 <style>
 	section {
-		max-width: 32em;
 		width: 100%;
 		display: grid;
 		gap: 1em;
