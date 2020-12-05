@@ -5,7 +5,7 @@
 
 	export let store = writable(0);
 	export let items = [];
-	export let bound = 1;
+	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
 	import { Feather } from '../icons';
