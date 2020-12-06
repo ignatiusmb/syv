@@ -1,66 +1,64 @@
 <script>
 	import { writable } from 'svelte/store';
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
+	import { Feather } from '../icons';
 
-	export let store = writable(0);
+	export let store = writable([]);
 	export let items = [];
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
 
-	import { Feather } from '../icons';
-
+	let page = 0;
 	function moveTo(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
 			let timeout = null;
 			const repeat = () => {
-				$store = index === 0 ? $store - 1 : $store + 1;
-				if ($store === 0 || $store === limit) clearTimeout(timeout);
+				page = index === 0 ? page - 1 : page + 1;
+				if (page === 0 || page === limit) clearTimeout(timeout);
 				else timeout = setTimeout(repeat, 50);
 			};
 			timeout = setTimeout(repeat, 50);
-		} else $store = index;
+		} else page = index;
 	}
 
 	$: total = items.length;
 	$: ceil = Math.ceil((total - bound) / increment);
 	$: limit = ceil < 0 ? 0 : ceil;
-	$: $store = $store > limit ? limit : $store;
+	$: page = page > limit ? limit : page;
 
-	$: count = $store * increment;
+	$: count = page * increment;
 	$: curr = total ? count + 1 : 0;
 	$: comp = curr - 1 + bound;
 	$: next = comp <= total ? comp : total;
 
-	$: dispatch('update', items.slice(count, count + bound));
+	$: $store = items.slice(count, count + bound);
 </script>
 
 <section class="lmns lmns-pagination">
 	<slot name="left">
 		<div class="navigator">
-			<span class:disabled={$store === 0} on:click={() => moveTo(0)}>
+			<span class:disabled={page === 0} on:click={() => moveTo(0)}>
 				<Feather.ChevronsLeft />
 			</span>
-			<span class:disabled={$store === 0} on:click={() => moveTo($store - 1)}>
+			<span class:disabled={page === 0} on:click={() => moveTo(page - 1)}>
 				<Feather.ChevronLeft />
 			</span>
 		</div>
 	</slot>
 
 	<div class="slot-holder">
-		<slot {limit} {moveTo}>
+		<slot {limit} {page} {moveTo}>
 			<div>{curr} - {next} / {total}</div>
 		</slot>
 	</div>
 
 	<slot name="right">
 		<div class="navigator">
-			<span class:disabled={$store === limit} on:click={() => moveTo($store + 1)}>
+			<span class:disabled={page === limit} on:click={() => moveTo(page + 1)}>
 				<Feather.ChevronRight />
 			</span>
-			<span class:disabled={$store === limit} on:click={() => moveTo(limit)}>
+			<span class:disabled={page === limit} on:click={() => moveTo(limit)}>
 				<Feather.ChevronsRight />
 			</span>
 		</div>
