@@ -193,13 +193,13 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ### Pagination
 
-| Props     | Default      |
-| --------- | ------------ |
-| store \*  | `writable()` |
-| items \*  | `[]`         |
-| bound     | `3`          |
-| increment | `bound`      |
-| tween     | `false`      |
+| Props     | Default        |
+| --------- | -------------- |
+| store \*  | `writable([])` |
+| items \*  | `[]`           |
+| bound     | `3`            |
+| increment | `bound`        |
+| tween     | `false`        |
 
 Pagination element will handle all the complicated and unnecessary stuff, including all the edge cases (hopefully). We just need to pass in a store and the items. There's other props as well for further customization, but only those 2 are necessary.
 
@@ -225,7 +225,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 <Pagination {store} {items} />
 <!-- or with custom buttons -->
 <Pagination {store} {items} let:limit let:page let:moveTo>
-  {#each { length: limit + 1} as _, i}
+  {#each { length: limit + 1 } as _, i}
     <button on:click={() => moveTo(i)} class:active={i === page}>
       {i + 1}
     </button>
