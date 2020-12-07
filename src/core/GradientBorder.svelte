@@ -23,7 +23,17 @@
 		top: calc(-1 * var(--border-width));
 		left: calc(-1 * var(--border-width));
 
-		background: linear-gradient(60deg, #5f86f2, #a65ff2, #f25fd0, #f25f61, #f2cb5f, #abf25f, #5ff281, #5ff2f0);
+		background: linear-gradient(
+			60deg,
+			#5f86f2,
+			#a65ff2,
+			#f25fd0,
+			#f25f61,
+			#f2cb5f,
+			#abf25f,
+			#5ff281,
+			#5ff2f0
+		);
 		background-size: 300% 300%;
 		background-position: 0 50%;
 		animation: gradient-move 4s alternate infinite;

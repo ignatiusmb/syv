@@ -2,13 +2,15 @@
   "name": "svelement",
   "author": "Ignatius Bagus",
   "description": "Reusable Svelte components",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "svelte": "index.js",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "check": "prettier -c src",
+    "format": "prettier -w src",
     "build": "run-p build:**",
     "build:icons": "node src/icons/build.js",
     "prepublishOnly": "npm run build && mv src/* ."
