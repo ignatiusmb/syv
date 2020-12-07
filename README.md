@@ -193,38 +193,46 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ### Pagination
 
-| Props     | Default       |
-| --------- | ------------- |
-| store *   | `writable(0)` |
-| total *   | `0`           |
-| bound     | `1`           |
-| increment | `bound`       |
-| tween     | `false`       |
+| Props     | Default        |
+| --------- | -------------- |
+| store \*  | `writable([])` |
+| items \*  | `[]`           |
+| bound     | `3`            |
+| increment | `bound`        |
+| tween     | `false`        |
 
-Pagination element handles all the complicated and unnecessary stuff for us, including all the edge cases. We just need to pass in the necessary props and handle the actual items slicing ourself.
+Pagination element will handle all the complicated and unnecessary stuff, including all the edge cases (hopefully). We just need to pass in a store and the items. There's other props as well for further customization, but only those 2 are necessary.
 
-- `store` - a Svelte store to manage the state of the current paginated index
-- `total` - usually just the `.length` of your data array
+- `store` - data store that will be updated from the component and can be read
+- `items` - your complete list of items for the component to paginate
 - `bound` - maximum number of items per page
 - `increment` - number of items to skip every next/prev page
 - `tween` - boolean value to use tween increments rather than jump
+
+There's also 3 exposed slot props available to use to manually move to certain page or for styling purposes.
+
+- `let:limit` - the maximum number of page with the current items
+- `let:page` - a number to indicate the current page it is on
+- `let:moveTo` - function that takes in a number between `0` and `limit`
 
 ```svelte
 <script>
   export let items = []; // Your data array
   import { Pagination } from 'svelement';
   import { posts as store } from './stores.js';
-  const bound = 3;
-  const increment = 1;
-
-  $: count = $store * increment;
-  $: filtered = items.slice(count, count + bound);
-  $: total = filtered.length;
 </script>
 
-<Pagination {store} {total} {bound} {increment} tween />
+<Pagination {store} {items} />
+<!-- or with custom buttons -->
+<Pagination {store} {items} let:limit let:page let:moveTo>
+  {#each { length: limit + 1 } as _, i}
+    <button on:click={() => moveTo(i)} class:active={i === page}>
+      {i + 1}
+    </button>
+  {/each}
+</Pagination>
 
-{#each filtered as post}
+{#each $store as post}
   <div>
     <h2>{post.title}</h2>
     <p>{post.description}</p>
