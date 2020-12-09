@@ -1,7 +1,7 @@
 <script>
 	export let show = false;
 	import { fade } from 'svelte/transition';
-	import { duration } from '../utils/options';
+	import { duration } from '../options';
 </script>
 
 {#if show}
