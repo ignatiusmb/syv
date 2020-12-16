@@ -26,14 +26,6 @@
   "bugs": {
     "url": "https://github.com/ignatiusmb/svelement/issues"
   },
-  "files": [
-    "core",
-    "icons",
-    "loader",
-    "utils",
-    "index.js",
-    "index.d.ts"
-  ],
   "keywords": [
     "svelte",
     "reusable",
