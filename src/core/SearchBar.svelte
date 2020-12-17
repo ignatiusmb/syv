@@ -6,8 +6,7 @@
 	import { slide } from 'svelte/transition';
 	import { Filter } from '../icons/feather';
 	import { duration } from '../options';
-	let searchbox = null;
-	let show = false;
+	let searchbox, show;
 </script>
 
 <svelte:window
