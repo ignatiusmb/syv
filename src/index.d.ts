@@ -1,7 +1,6 @@
 import { SvelteComponentTyped } from 'svelte';
 // essentials
 export { default as Dialog } from './core/Dialog.svelte';
-// export { default as Image } from './core/Image.svelte';
 export class Image extends SvelteComponentTyped<
 	{
 		src: string;
