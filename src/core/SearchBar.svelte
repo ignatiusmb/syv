@@ -21,7 +21,7 @@
 			type="text"
 			bind:this={searchbox}
 			bind:value={query}
-			placeholder="Type your queries here (Press {`"/"`} to focus)" />
+			placeholder="Type your queries here (Press {'"/"'} to focus)" />
 		{#if filters}
 			<span on:click={() => (show = !show)}>
 				<Filter />
