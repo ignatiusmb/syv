@@ -2,7 +2,7 @@
   "name": "svelement",
   "author": "Ignatius Bagus",
   "description": "Reusable Svelte components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "svelte": "index.js",
   "main": "index.js",
@@ -36,7 +36,7 @@
     "styles"
   ],
   "dependencies": {
-    "mauss": "0.0.2"
+    "mauss": "0.0.3"
   },
   "devDependencies": {
     "feather-icons": "^4.28.0",
