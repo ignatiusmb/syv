@@ -17,7 +17,14 @@ export class Image extends SvelteComponentTyped<
 		dblclick: MouseEvent;
 	}
 > {}
-export { default as Link } from './core/Link.svelte';
+export class Link extends SvelteComponentTyped<{
+	href?: string;
+	label?: string;
+	download?: boolean;
+	newTab?: boolean;
+	inherit?: boolean;
+	invert?: boolean;
+}> {}
 export { default as Modal } from './core/Modal.svelte';
 export { default as Observe } from './core/Observe.svelte';
 export { default as Overlay } from './core/Overlay.svelte';
