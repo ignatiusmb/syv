@@ -32,10 +32,14 @@ const icons = Object.keys(feather).map((name) => {
 
 const listComponents = (isDeclaration = false) => {
 	const components = icons.map(({ original, pascal }) => {
-		if (isDeclaration) return `export class ${pascal} {}`;
+		if (isDeclaration) return `export class ${pascal} extends BaseIcon {}`;
 		writeFile(join(__dirname, `${pascal}.svelte`), generate(original), () => {});
 		return `export { default as ${pascal} } from './${pascal}.svelte';`;
 	});
+	if (isDeclaration)
+		components.unshift(
+			`import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tfloat?: number | string;\n\tcolor?: string;\n}> {}\n`
+		);
 	return components.join('\n');
 };
 
