@@ -1,6 +1,21 @@
+import { SvelteComponentTyped } from 'svelte';
 // essentials
 export { default as Dialog } from './core/Dialog.svelte';
-export { default as Image } from './core/Image.svelte';
+export class Image extends SvelteComponentTyped<
+	{
+		src: string;
+		alt: string;
+		lazy?: boolean;
+		contain?: boolean;
+		overlay?: boolean;
+		absolute?: boolean;
+		ratio?: number;
+	},
+	{
+		click: MouseEvent;
+		dblclick: MouseEvent;
+	}
+> {}
 export { default as Link } from './core/Link.svelte';
 export { default as Modal } from './core/Modal.svelte';
 export { default as Observe } from './core/Observe.svelte';
