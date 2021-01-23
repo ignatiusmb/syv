@@ -1,4 +1,5 @@
 import { SvelteComponentTyped } from 'svelte';
+import { Writable } from 'svelte/store';
 // essentials
 export { default as Dialog } from './core/Dialog.svelte';
 export class Image extends SvelteComponentTyped<
@@ -22,7 +23,11 @@ export { default as Observe } from './core/Observe.svelte';
 export { default as Overlay } from './core/Overlay.svelte';
 
 // functional
-export { default as Pagination } from './core/Pagination.svelte';
+export class Pagination extends SvelteComponentTyped<
+	{ store: Writable<[]>; items: any[]; bound?: number; increment?: number; tween?: boolean },
+	{},
+	{ default: { limit: number; page: number } }
+> {}
 export { default as SearchBar } from './core/SearchBar.svelte';
 export { default as ThemeSwitcher } from './core/ThemeSwitcher.svelte';
 
