@@ -36,7 +36,11 @@ export class Pagination extends SvelteComponentTyped<
 	{},
 	{ default: { limit: number; page: number; moveTo: (index: number) => void } }
 > {}
-export { default as SearchBar } from './core/SearchBar.svelte';
+export class SearchBar extends SvelteComponentTyped<{
+	query: string;
+	filters?: Record<string, string | string[]>;
+	unique?: Record<string, string[] | Record<string, string>>;
+}> {}
 export { default as ThemeSwitcher } from './core/ThemeSwitcher.svelte';
 
 // styled
