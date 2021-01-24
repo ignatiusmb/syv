@@ -1,14 +1,17 @@
 <script>
-	const scrollTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 	import { onMount } from 'svelte';
 	import { ChevronsUp } from '../icons/feather';
-	let y, mounted;
+	let mounted = typeof window !== 'undefined',
+		y;
 	onMount(() => (mounted = true));
 	$: show = y > (mounted ? document.body.scrollHeight / 3 : y);
 </script>
 
 <svelte:window bind:scrollY={y} />
-<span class="lmns lmns-scroll-top" class:show on:click={scrollTop}>
+<span
+	class="lmns lmns-scroll-top"
+	class:show
+	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
 	<ChevronsUp />
 </span>
 
