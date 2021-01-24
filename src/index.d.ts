@@ -1,7 +1,7 @@
 import { SvelteComponentTyped } from 'svelte';
 import { Writable } from 'svelte/store';
 // essentials
-export { default as Dialog } from './core/Dialog.svelte';
+export class Dialog extends SvelteComponentTyped<{ show?: boolean }> {}
 export class Image extends SvelteComponentTyped<
 	{
 		src: string;
@@ -25,7 +25,7 @@ export class Link extends SvelteComponentTyped<{
 	inherit?: boolean;
 	invert?: boolean;
 }> {}
-export { default as Modal } from './core/Modal.svelte';
+export class Modal extends SvelteComponentTyped<{ show?: boolean }> {}
 export { default as Observe } from './core/Observe.svelte';
 export { default as Overlay } from './core/Overlay.svelte';
 
