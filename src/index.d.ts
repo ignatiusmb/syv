@@ -32,9 +32,9 @@ export class Overlay extends SvelteComponentTyped<{ show?: boolean }> {}
 
 // functional
 export class Pagination extends SvelteComponentTyped<
-	{ store: Writable<[]>; items: any[]; bound?: number; increment?: number; tween?: boolean },
+	{ store: Writable<any[]>; items: any[]; bound?: number; increment?: number; tween?: boolean },
 	{},
-	{ default: { limit: number; page: number } }
+	{ default: { limit: number; page: number; moveTo: (index: number) => void } }
 > {}
 export { default as SearchBar } from './core/SearchBar.svelte';
 export { default as ThemeSwitcher } from './core/ThemeSwitcher.svelte';
