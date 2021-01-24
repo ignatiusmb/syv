@@ -41,7 +41,11 @@ export class SearchBar extends SvelteComponentTyped<{
 	filters?: Record<string, string | string[]>;
 	unique?: Record<string, string[] | Record<string, string>>;
 }> {}
-export { default as ThemeSwitcher } from './core/ThemeSwitcher.svelte';
+export class ThemeSwitcher extends SvelteComponentTyped<
+	{ themes?: string[] },
+	{},
+	{ default: { current: string } }
+> {}
 
 // styled
 export { default as ButtonLink } from './core/ButtonLink.svelte';
