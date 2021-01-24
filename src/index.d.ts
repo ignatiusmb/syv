@@ -48,8 +48,15 @@ export class ThemeSwitcher extends SvelteComponentTyped<
 > {}
 
 // styled
-export { default as ButtonLink } from './core/ButtonLink.svelte';
-export { default as GradientBorder } from './core/GradientBorder.svelte';
-export { default as ProgressBar } from './core/ProgressBar.svelte';
-export { default as ScrollTop } from './core/ScrollTop.svelte';
-export { default as WeavedImage } from './core/WeavedImage.svelte';
+export class ButtonLink extends SvelteComponentTyped<{
+	href?: string;
+	disabled?: boolean;
+	label?: string;
+	download?: boolean;
+	newTab?: boolean;
+	invert?: boolean;
+}> {}
+export class GradientBorder extends SvelteComponentTyped {}
+export class ProgressBar extends SvelteComponentTyped {}
+export class ScrollTop extends SvelteComponentTyped {}
+export class WeavedImage extends SvelteComponentTyped<{ src: string; alt: string }> {}
