@@ -28,7 +28,7 @@ export class Observer extends SvelteComponentTyped<
 	{},
 	{ default: { sighted: boolean } }
 > {}
-export { default as Overlay } from './core/Overlay.svelte';
+export class Overlay extends SvelteComponentTyped<{ show?: boolean }> {}
 
 // functional
 export class Pagination extends SvelteComponentTyped<
