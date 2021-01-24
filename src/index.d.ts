@@ -12,10 +12,7 @@ export class Image extends SvelteComponentTyped<
 		absolute?: boolean;
 		ratio?: number;
 	},
-	{
-		click: MouseEvent;
-		dblclick: MouseEvent;
-	}
+	{ click: MouseEvent; dblclick: MouseEvent }
 > {}
 export class Link extends SvelteComponentTyped<{
 	href?: string;
@@ -26,7 +23,11 @@ export class Link extends SvelteComponentTyped<{
 	invert?: boolean;
 }> {}
 export class Modal extends SvelteComponentTyped<{ show?: boolean }> {}
-export { default as Observe } from './core/Observe.svelte';
+export class Observer extends SvelteComponentTyped<
+	{ once?: boolean; top?: number; right?: number; bottom?: number; left?: number },
+	{},
+	{ default: { sighted: boolean } }
+> {}
 export { default as Overlay } from './core/Overlay.svelte';
 
 // functional
