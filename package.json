@@ -4,22 +4,22 @@
   "description": "Reusable Svelte components",
   "version": "0.0.10",
   "license": "MIT",
-  "svelte": "index.js",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "svelte": "src/index.js",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "check": "prettier -c src",
     "format": "prettier -w src",
     "build": "run-p build:**",
     "build:icons": "node src/icons/build.js",
-    "prepublishOnly": "npm run build && mv src/* ."
+    "prepublishOnly": "npm run build"
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": "./index.js",
-    "./icons": "./icons/index.js",
-    "./loader": "./loader/index.js"
+    ".": "./src/index.js",
+    "./icons": "./src/icons/index.js",
+    "./loader": "./src/loader/index.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,9 @@
   ],
   "dependencies": {
     "mauss": "0.0.3"
+  },
+  "peerDependencies": {
+    "svelte": "^3.31.0"
   },
   "devDependencies": {
     "feather-icons": "^4.28.0",
