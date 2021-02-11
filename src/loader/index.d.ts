@@ -1,1 +1,3 @@
-export class ThreeWavyBalls {}
+import { SvelteComponentTyped } from 'svelte';
+
+export class ThreeWavyBalls extends SvelteComponentTyped {}
