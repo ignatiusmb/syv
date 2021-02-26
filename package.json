@@ -4,22 +4,22 @@
   "description": "Reusable Svelte components",
   "version": "0.0.10",
   "license": "MIT",
-  "svelte": "src/index.js",
-  "main": "src/index.js",
-  "module": "src/index.js",
-  "types": "src/index.d.ts",
+  "svelte": "index.js",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "check": "prettier -c src",
     "format": "prettier -w src",
     "build": "run-p build:**",
     "build:icons": "node src/icons/build.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && mv src/* ."
   },
   "exports": {
-    "./package.json": "./package.json",
-    ".": "./src/index.js",
-    "./icons": "./src/icons/index.js",
-    "./loader": "./src/loader/index.js"
+    ".": "./index.js",
+    "./icons": "./icons/index.js",
+    "./loader": "./loader/index.js",
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "styles"
   ],
   "dependencies": {
-    "mauss": "0.0.3"
+    "mauss": "^0.0.7"
   },
   "peerDependencies": {
     "svelte": "^3.31.0"
@@ -45,7 +45,7 @@
     "feather-icons": "^4.28.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
-    "prettier-plugin-svelte": "^1.1.1",
+    "prettier-plugin-svelte": "^2.1.6",
     "svelte": "^3.31.0",
     "svelte-preprocess": "^4.6.1"
   }
