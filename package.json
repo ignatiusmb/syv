@@ -16,10 +16,10 @@
     "prepublishOnly": "npm run build && mv src/* ."
   },
   "exports": {
-    "./package.json": "./package.json",
     ".": "./index.js",
     "./icons": "./icons/index.js",
-    "./loader": "./loader/index.js"
+    "./loader": "./loader/index.js",
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,10 @@
     "styles"
   ],
   "dependencies": {
-    "mauss": "0.0.3"
+    "mauss": "^0.0.7"
+  },
+  "peerDependencies": {
+    "svelte": "^3.31.0"
   },
   "devDependencies": {
     "feather-icons": "^4.28.0",
