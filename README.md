@@ -1,27 +1,23 @@
 # Svelement ![Total npm downloads](https://img.shields.io/npm/dt/svelement) &middot; ![Published npm version](https://img.shields.io/npm/v/svelement) ![Monthly npm downloads](https://img.shields.io/npm/dm/svelement) ![License](https://img.shields.io/github/license/ignatiusmb/elements) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
 
-> A collection of hassle-free and ready-to-use functional components made with Svelte. [Feather](https://feathericons.com/) icons included.
+> A collection of lightweight and optimized SSR-compliant Svelte components.
 
-Svelement is a Svelte component library consisting of various essential, mostly functional, and some pre-styled components. Create your own or use pre-existing, uniquely styled components and still get all the benefits from Svelement. By utilizing [Svelte `<slot>`](https://svelte.dev/docs#slot), we're able to integrate our components while still getting the benefits of scoped styles and not having to worry about global styling modifiers or how to integrate components.
+Svelement is a Svelte component library consisting of various essential, mostly functional, and some pre-styled components. Create your own or use pre-existing, uniquely styled components and still get all the benefits from Svelement.
 
-Svelement is not a(nother) UI library / components library adhering to specific design language or certain guidelines. Though Svelement has some generic components, the focus is mostly on its functionality. There's already a ton of UI libraries with various buttons, cards, menus, and other components in one complete package if you're looking for that kind of stuff.
+Though Svelement has some generic components, it doesn't adhere to a specific design language or certain guidelines. Instead, the focus is mostly on its functionality. There's already a ton of UI libraries with various styled buttons, cards, menus, and other components in one complete package if you're looking for that kind of stuff.
 
-Originally made with ease of use in mind for personal projects only, turned into something potentially bigger and useful to other projects as well. As it grew bigger and more components being added, I realize this might also be beneficial to others as well, in hopes that this would help fellow Svelte developers in quick-starting new projects as well.
+Originally made with ease of use in mind for personal projects only, turned into something potentially bigger and useful to other projects as well. As more components are being added, I realize this might also be beneficial to others as well, in hopes that this would help fellow Svelte developers in quick-starting new projects as well.
 
 Notes:
 
 - All classes in Namespaces are also written in `PascalCase` and can be accessed as such.
-- Prop attributes with `*` means it's required to pass a non-null and non-empty value to the prop
+- Prop attributes with `*` means it's required to pass a value that's not nullish or empty
 
 ## Usage
 
 ```bash
-# Not recommended to use without bundler!
-# Install as a devDependency instead for tree-shaking
 npm install -D svelement
 ```
-
-Working with Sapper and already having a ton of devDependencies, installing `svelte-*` packages e.g. `svelte-search-bar`, `svelte-pagination`, `svelte-theme-switcher`, and so on feels like it would make it harder to manage and quite the chore to keep up with each updates. I also like to create my own components as pure as possible, and I find myself reusing the same components across multiple projects. Hence, why I try to (re)create most components myself and bundle it as one collection here in Svelement, Svelte-flavoured.
 
 ### Disclaimer
 
