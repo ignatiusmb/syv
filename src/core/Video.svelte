@@ -46,6 +46,7 @@
 
 <style>
 	video {
+		width: 100%;
 		border-radius: inherit;
 	}
 </style>
