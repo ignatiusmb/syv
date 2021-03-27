@@ -2,8 +2,9 @@
   "name": "svelement",
   "author": "Ignatius Bagus",
   "description": "Reusable Svelte components",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "license": "MIT",
+  "type": "module",
   "svelte": "index.js",
   "main": "index.js",
   "module": "index.js",
@@ -17,8 +18,15 @@
   },
   "exports": {
     ".": "./index.js",
-    "./icons": "./icons/index.js",
-    "./loader": "./loader/index.js",
+    "./icons": {
+      "import": "./icons/index.js"
+    },
+    "./icons/feather": {
+      "import": "./icons/feather/index.js"
+    },
+    "./loader": {
+      "import": "./loader/index.js"
+    },
     "./package.json": "./package.json"
   },
   "repository": {

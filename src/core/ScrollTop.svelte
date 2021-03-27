@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
 	import { ChevronsUp } from '../icons/feather';
-	let mounted = typeof window !== 'undefined',
-		y;
-	onMount(() => (mounted = true));
+	let y = 0,
+		mounted = typeof window !== 'undefined';
+	onMount(() => (mounted = typeof window !== 'undefined'));
 	$: show = y > (mounted ? document.body.scrollHeight / 3 : y);
 </script>
 

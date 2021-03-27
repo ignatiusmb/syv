@@ -1,6 +1,6 @@
 <script>
 	import { writable } from 'svelte/store';
-	import { Feather } from '../icons';
+	import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from '../icons/feather';
 
 	export let store = writable([]);
 	export let items = [];
@@ -39,10 +39,10 @@
 	<slot name="left">
 		<div class="navigator">
 			<span class:disabled={page === 0} on:click={() => moveTo(0)}>
-				<Feather.ChevronsLeft />
+				<ChevronsLeft />
 			</span>
 			<span class:disabled={page === 0} on:click={() => moveTo(page - 1)}>
-				<Feather.ChevronLeft />
+				<ChevronLeft />
 			</span>
 		</div>
 	</slot>
@@ -56,10 +56,10 @@
 	<slot name="right">
 		<div class="navigator">
 			<span class:disabled={page === limit} on:click={() => moveTo(page + 1)}>
-				<Feather.ChevronRight />
+				<ChevronRight />
 			</span>
 			<span class:disabled={page === limit} on:click={() => moveTo(limit)}>
-				<Feather.ChevronsRight />
+				<ChevronsRight />
 			</span>
 		</div>
 	</slot>
