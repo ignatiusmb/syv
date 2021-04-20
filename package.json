@@ -16,7 +16,7 @@
     "build:tsc": "tsc -d",
     "build:icons": "node src/icons/build.mjs",
     "prepublishOnly": "npm run build && mv src/* .",
-    "reset": "git reset --hard && git clean -dfx -e node_modules"
+    "reset": "git reset --hard && git clean -df"
   },
   "exports": {
     ".": "./index.js",
