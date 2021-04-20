@@ -29,6 +29,9 @@
     "./loader": {
       "import": "./loader/index.js"
     },
+    "./store": {
+      "import": "./store/index.js"
+    },
     "./package.json": "./package.json"
   },
   "repository": {
