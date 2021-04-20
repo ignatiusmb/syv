@@ -1,8 +1,12 @@
 node_modules
 .DS_Store
 
-dist/
-**/icons/**/**.svelte
-**/icons/**/index.**
-!**/icons/index.js
-!**/icons/index.d.ts
+# Generated Icons
+!src/icons/index.js
+!src/icons/index.d.ts
+src/icons/**/**.svelte
+src/icons/**/index.**
+
+# TypeScript Sources
+src/store/**/*.js
+src/store/**/*.d.ts
