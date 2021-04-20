@@ -13,7 +13,7 @@
     "check": "prettier -c src",
     "format": "prettier -w src",
     "build": "run-p build:**",
-    "build:icons": "node src/icons/build.js",
+    "build:icons": "node src/icons/build.mjs",
     "prepublishOnly": "npm run build && mv src/* ."
   },
   "exports": {
