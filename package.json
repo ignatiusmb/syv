@@ -2,8 +2,9 @@
   "name": "svelement",
   "author": "Ignatius Bagus",
   "description": "Reusable Svelte components",
-  "version": "0.0.6",
+  "version": "0.0.11",
   "license": "MIT",
+  "type": "module",
   "svelte": "index.js",
   "main": "index.js",
   "module": "index.js",
@@ -16,8 +17,17 @@
     "prepublishOnly": "npm run build && mv src/* ."
   },
   "exports": {
-    "./package.json": "./package.json",
-    ".": "./index.js"
+    ".": "./index.js",
+    "./icons": {
+      "import": "./icons/index.js"
+    },
+    "./icons/feather": {
+      "import": "./icons/feather/index.js"
+    },
+    "./loader": {
+      "import": "./loader/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "repository": {
     "type": "git",
@@ -26,14 +36,6 @@
   "bugs": {
     "url": "https://github.com/ignatiusmb/svelement/issues"
   },
-  "files": [
-    "core",
-    "icons",
-    "loader",
-    "utils",
-    "index.js",
-    "index.d.ts"
-  ],
   "keywords": [
     "svelte",
     "reusable",
@@ -41,14 +43,18 @@
     "components",
     "styles"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "mauss": "^0.0.7"
+  },
+  "peerDependencies": {
+    "svelte": "^3.31.0"
+  },
   "devDependencies": {
     "feather-icons": "^4.28.0",
-    "mauss": "0.0.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.1.2",
-    "prettier-plugin-svelte": "^1.1.1",
-    "svelte": "^3.31.0",
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.1.0",
+    "svelte": "^3.31.2",
     "svelte-preprocess": "^4.6.1"
   }
 }

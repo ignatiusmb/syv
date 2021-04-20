@@ -5,6 +5,7 @@ export { default as Link } from './core/Link.svelte';
 export { default as Modal } from './core/Modal.svelte';
 export { default as Observe } from './core/Observe.svelte';
 export { default as Overlay } from './core/Overlay.svelte';
+export { default as Video } from './core/Video.svelte';
 
 // functional
 export { default as Pagination } from './core/Pagination.svelte';

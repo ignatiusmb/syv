@@ -6,20 +6,22 @@
 	import { slide } from 'svelte/transition';
 	import { Filter } from '../icons/feather';
 	import { duration } from '../options';
-	const placeholder = 'Type your queries here (Press "/" to focus)';
-	let searchbox = null;
-	let show = false;
-	function focus(event) {
-		if (document.activeElement === searchbox) return;
-		if (event.key === '/') event.preventDefault(), searchbox.focus();
-	}
+	let searchbox, show;
 </script>
 
-<svelte:window on:keydown={focus} />
+<svelte:window
+	on:keydown={(event) => {
+		if (document.activeElement === searchbox) return;
+		if (event.key === '/') event.preventDefault(), searchbox.focus();
+	}} />
 
 <div class="lmns lmns-search-bar">
 	<header class:filters>
-		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+		<input
+			type="text"
+			bind:this={searchbox}
+			bind:value={query}
+			placeholder="Type your queries here (Press {'"/"'} to focus)" />
 		{#if filters}
 			<span on:click={() => (show = !show)}>
 				<Filter />
