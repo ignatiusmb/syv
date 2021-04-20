@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 const cache = new Map();
 
-export function fetcher(url) {
+export function fetcher(url: RequestInfo) {
 	const store = writable(new Promise(() => {}));
 	if (cache.has(url)) store.set(Promise.resolve(cache.get(url)));
 	const load = async () => {
