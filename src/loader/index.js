@@ -1,1 +1,1 @@
-export { default as ThreeWavyBalls } from './ThreeWavyBalls.svelte';
+export { default as Ellipsis } from './Ellipsis.svelte';

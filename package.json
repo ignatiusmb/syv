@@ -13,8 +13,10 @@
     "check": "prettier -c src",
     "format": "prettier -w src",
     "build": "run-p build:**",
+    "build:tsc": "tsc -d",
     "build:icons": "node src/icons/build.mjs",
-    "prepublishOnly": "npm run build && mv src/* ."
+    "prepublishOnly": "npm run build && mv src/* .",
+    "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "exports": {
     ".": "./index.js",
@@ -26,6 +28,9 @@
     },
     "./loader": {
       "import": "./loader/index.js"
+    },
+    "./store": {
+      "import": "./store/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -55,6 +60,7 @@
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.1.0",
     "svelte": "^3.31.2",
-    "svelte-preprocess": "^4.6.1"
+    "svelte-preprocess": "^4.6.1",
+    "typescript": "^4.2.4"
   }
 }
