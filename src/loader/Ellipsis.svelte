@@ -6,11 +6,10 @@
 
 <style>
 	div {
-		display: inline-flex;
-		flex-flow: row nowrap;
-		align-items: center;
-		justify-content: space-between;
-		margin: 0 auto;
+		display: grid;
+		gap: 0.5em;
+		grid-auto-flow: column;
+		margin: 1em auto;
 		padding: 1em;
 	}
 	div span {
