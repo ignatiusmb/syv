@@ -6,16 +6,18 @@
 	export let inherit = false;
 	export let invert = false;
 
-	// Sapper specific
 	export let noscroll = false;
+	$: external = /^https?:\/\//.test(href);
 </script>
 
 <a
 	{href}
 	{download}
 	target={newTab ? '_blank' : undefined}
-	sapper:noscroll={noscroll ? 'on' : undefined}
-	rel={href.includes('//') ? 'noopener noreferrer' : 'prefetch'}
+	sapper:noscroll={noscroll || undefined}
+	sveltekit:noscroll={noscroll || undefined}
+	sveltekit:prefetch={external || undefined}
+	rel={external ? 'noopener noreferrer' : 'prefetch'}
 	aria-label={label}
 	class="lmns lmns-link"
 	class:disabled={!href}
