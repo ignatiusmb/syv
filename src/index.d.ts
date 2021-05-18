@@ -21,6 +21,8 @@ export class Link extends SvelteComponentTyped<{
 	newTab?: boolean;
 	inherit?: boolean;
 	invert?: boolean;
+	noscroll?: boolean;
+	refer?: boolean;
 }> {}
 export class Modal extends SvelteComponentTyped<{ show?: boolean }> {}
 export class Observer extends SvelteComponentTyped<

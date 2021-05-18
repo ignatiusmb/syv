@@ -1,12 +1,13 @@
 <script>
 	export let href = '';
+	export let label = '';
 	export let download = null;
 	export let newTab = false;
-	export let label = null;
 	export let inherit = false;
 	export let invert = false;
 
 	export let noscroll = false;
+	export let refer = false;
 	$: external = /^https?:\/\//.test(href);
 </script>
 
@@ -14,10 +15,9 @@
 	{href}
 	{download}
 	target={newTab ? '_blank' : undefined}
-	sapper:noscroll={noscroll || undefined}
 	sveltekit:noscroll={noscroll || undefined}
 	sveltekit:prefetch={external || undefined}
-	rel={external ? 'noopener noreferrer' : 'prefetch'}
+	rel={external ? `noopener ${refer ? '' : 'noreferrer'}` : undefined}
 	aria-label={label}
 	class="lmns lmns-link"
 	class:disabled={!href}
