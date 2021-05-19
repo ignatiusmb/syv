@@ -2,7 +2,7 @@
 	export let query = '';
 	export let filters = null;
 	export let unique = null;
-	import { checkNum } from 'mauss/utils';
+	import { tryNumber } from 'mauss/utils';
 	import { slide } from 'svelte/transition';
 	import { Filter } from '../icons/feather';
 	import { duration } from '../options';
@@ -51,9 +51,9 @@
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<label>
 								{#if typeof filters[key] === 'string'}
-									<input type="radio" bind:group={filters[key]} value={checkNum(val)} />
+									<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
 								{:else}
-									<input type="checkbox" bind:group={filters[key]} value={checkNum(val)} />
+									<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
 								{/if}
 								<span>{desc}</span>
 							</label>
