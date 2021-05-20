@@ -2,7 +2,7 @@
   "name": "svelement",
   "author": "Ignatius Bagus",
   "description": "Reusable Svelte components",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "MIT",
   "type": "module",
   "svelte": "index.js",
