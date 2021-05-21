@@ -23,7 +23,7 @@
 	class:disabled={!href}
 	class:inherit
 	class:invert>
-	<slot />
+	<slot {external} />
 </a>
 
 <style>

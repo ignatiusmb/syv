@@ -14,16 +14,20 @@ export class Image extends SvelteComponentTyped<
 	},
 	{ click: MouseEvent; dblclick: MouseEvent }
 > {}
-export class Link extends SvelteComponentTyped<{
-	href?: string;
-	label?: string;
-	download?: boolean;
-	newTab?: boolean;
-	inherit?: boolean;
-	invert?: boolean;
-	noscroll?: boolean;
-	refer?: boolean;
-}> {}
+export class Link extends SvelteComponentTyped<
+	{
+		href?: string;
+		label?: string;
+		download?: boolean;
+		newTab?: boolean;
+		inherit?: boolean;
+		invert?: boolean;
+		noscroll?: boolean;
+		refer?: boolean;
+	},
+	{},
+	{ default: { external: boolean } }
+> {}
 export class Modal extends SvelteComponentTyped<{ show?: boolean }> {}
 export class Observer extends SvelteComponentTyped<
 	{ once?: boolean; top?: number; right?: number; bottom?: number; left?: number },
