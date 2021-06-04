@@ -60,14 +60,14 @@ All icons from [Feather Icons](https://feathericons.com/) are available as class
 | ----- | ------- |
 | -     | `-`     |
 
-There's currently only one loader available to use, which is `ThreeWavyBalls`. More is coming soon...
+There's currently only one loader available to use, which is `Ellipsis`. More is coming soon...
 
 ```svelte
 <script>
   import { Loader } from 'svelement';
 </script>
 
-<Loader.ThreeWavyBalls />
+<Loader.Ellipsis />
 ```
 
 ## Components
