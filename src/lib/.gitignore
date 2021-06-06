@@ -1,0 +1,9 @@
+# Generated Icons
+icons/**/**.svelte
+icons/**/index.**
+!icons/index.js
+!icons/index.d.ts
+
+# TypeScript Sources
+store/**/*.js
+store/**/*.d.ts
