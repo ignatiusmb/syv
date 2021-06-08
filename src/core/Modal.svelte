@@ -5,8 +5,8 @@
 </script>
 
 {#if show}
-	<div class="lmns lmns-modal-backdrop">
-		<section class="lmns lmns-modal" transition:fly={{ duration }}>
+	<div class="syv syv-modal-backdrop">
+		<section class="syv syv-modal" transition:fly={{ duration }}>
 			<slot />
 		</section>
 	</div>

@@ -15,7 +15,7 @@
 
 <div
 	style="padding-top: {ratio * 100}%"
-	class="lmns lmns-image"
+	class="syv syv-image"
 	class:absolute
 	on:click
 	on:dblclick

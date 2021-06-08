@@ -24,7 +24,7 @@
 </script>
 
 <span
-	class="lmns lmns-theme-switcher"
+	class="syv syv-theme-switcher"
 	aria-label="Toggle Theme"
 	class:nice
 	on:click={toggle}

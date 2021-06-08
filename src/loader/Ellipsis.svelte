@@ -1,4 +1,4 @@
-<div class="lmns lmns-loader three-wavy-balls">
+<div class="syv syv-loader three-wavy-balls">
 	<span />
 	<span />
 	<span />

@@ -36,7 +36,7 @@
 	});
 </script>
 
-<div bind:this={container} class="lmns lmns-observe">
+<div bind:this={container} class="syv syv-observe">
 	<slot {sighted} />
 </div>
 

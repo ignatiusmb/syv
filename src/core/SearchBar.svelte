@@ -15,7 +15,7 @@
 		if (event.key === '/') event.preventDefault(), searchbox.focus();
 	}} />
 
-<div class="lmns lmns-search-bar">
+<div class="syv syv-search-bar">
 	<header class:filters>
 		<input
 			type="text"

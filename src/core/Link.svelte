@@ -19,7 +19,7 @@
 	sveltekit:prefetch={!external || undefined}
 	rel={external ? `noopener ${refer ? '' : 'noreferrer'}` : undefined}
 	aria-label={label || undefined}
-	class="lmns lmns-link"
+	class="syv syv-link"
 	class:disabled={!href}
 	class:inherit
 	class:invert>

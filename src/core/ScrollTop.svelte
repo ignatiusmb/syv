@@ -9,7 +9,7 @@
 
 <svelte:window bind:scrollY={y} />
 <span
-	class="lmns lmns-scroll-top"
+	class="syv syv-scroll-top"
 	class:show
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
 	<ChevronsUp />

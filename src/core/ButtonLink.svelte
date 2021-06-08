@@ -8,7 +8,7 @@
 	import Link from './Link.svelte';
 </script>
 
-<span class="lmns lmns-button-link" class:disabled>
+<span class="syv syv-button-link" class:disabled>
 	<Link href={!disabled ? href : ''} inherit {newTab} {label} {download} {invert}>
 		<slot />
 	</Link>
