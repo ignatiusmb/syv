@@ -1,4 +1,4 @@
-# Syv ![Total npm downloads](https://img.shields.io/npm/dt/syv) &middot; ![Published npm version](https://img.shields.io/npm/v/syv) ![Monthly npm downloads](https://img.shields.io/npm/dm/syv) ![License](https://img.shields.io/github/license/ignatiusmb/elements) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
+# Syv ![Total npm downloads](https://img.shields.io/npm/dt/syv) &middot; ![Published npm version](https://img.shields.io/npm/v/syv) ![Monthly npm downloads](https://img.shields.io/npm/dm/syv) ![License](https://img.shields.io/github/license/ignatiusmb/syv) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
 
 > One-stop multipurpose complementary library for working with Svelte.
 
@@ -263,7 +263,7 @@ SearchBar element provides a searchbox and `query` to bind the value.
       updated: 'Last Updated'
     }
   };
-  import { SearchBar } from '@ignatiusmb/elements';
+  import { SearchBar } from 'syv';
   let filters = { categories: [], tags: [], sort_by: 'updated', custom: 'hello' };
   let query;
 </script>
