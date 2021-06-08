@@ -1,12 +1,12 @@
-# Svelement ![Total npm downloads](https://img.shields.io/npm/dt/svelement) &middot; ![Published npm version](https://img.shields.io/npm/v/svelement) ![Monthly npm downloads](https://img.shields.io/npm/dm/svelement) ![License](https://img.shields.io/github/license/ignatiusmb/elements) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
+# Syv ![Total npm downloads](https://img.shields.io/npm/dt/syv) &middot; ![Published npm version](https://img.shields.io/npm/v/syv) ![Monthly npm downloads](https://img.shields.io/npm/dm/syv) ![License](https://img.shields.io/github/license/ignatiusmb/elements) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
 
-> A collection of lightweight and optimized SSR-compliant Svelte components.
+> One-stop multipurpose complementary library for working with Svelte.
 
-Svelement is a Svelte component library consisting of various essential, mostly functional, and some pre-styled components. Create your own or use pre-existing, uniquely styled components and still get all the benefits from Svelement.
+Syv is a Svelte Complementary Library consisting of various essential, mostly functional, and some pre-styled components, modules, and many more.
 
-Though Svelement has some generic components, it doesn't adhere to a specific design language or certain guidelines. Instead, the focus is mostly on its functionality. There's already a ton of UI libraries with various styled buttons, cards, menus, and other components in one complete package if you're looking for that kind of stuff.
+Though Syv has some generic components, it doesn't adhere to a specific design language or certain guidelines. Instead, the focus is mostly on its functionality. There's already a ton of UI libraries with various styled buttons, cards, menus, and other components in one complete package if you're looking for that kind of stuff.
 
-Originally made with ease of use in mind for personal projects only, turned into something potentially bigger and useful to other projects as well. As more components are being added, I realize this might also be beneficial to others as well, in hopes that this would help fellow Svelte developers in quick-starting new projects as well.
+Originally made with ease of use in mind for personal projects, turned into something potentially bigger and useful to other projects as well. As more components are being added, I realize this might also be beneficial to others as well, in hopes that this would help fellow Svelte developers in quick-starting new projects as well.
 
 Notes:
 
@@ -16,12 +16,12 @@ Notes:
 ## Usage
 
 ```bash
-npm install -D svelement
+npm install -D syv
 ```
 
 ### Disclaimer
 
-Please keep in mind that this is basically still a hobby project I'm doing to help myself in other projects. Svelement will try to be as design agnostic as possible except for styled components, which would be whatever I thought was good at the time of making it. Svelement does not adhere to any existing design language, any resemblance to certain design language is either inspired by or just purely coincidental. In other words, please do not expect a lot design-wise.
+Please keep in mind that this is basically still a hobby project I'm doing to help myself in other projects. Syv will try to be as design agnostic as possible except for styled components, which would be whatever I thought was good at the time of making it. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or just purely coincidental. In other words, please do not expect a lot design-wise.
 
 If some components you think are essential is missing and you feel it should be here, please understand that it was specifically excluded to spite you personally. All jokes aside, contributions are welcome as always!
 
@@ -48,7 +48,7 @@ All icons from [Feather Icons](https://feathericons.com/) are available as class
 
 ```svelte
 <script>
-  import { Feather } from 'svelement';
+  import { Feather } from 'syv/icons';
 </script>
 
 <Feather.IconName />
@@ -64,7 +64,7 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 
 ```svelte
 <script>
-  import { Loader } from 'svelement';
+  import Loader from 'syv/loader';
 </script>
 
 <Loader.Ellipsis />
@@ -91,7 +91,7 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 ```svelte
 <script>
-  import { Dialog } from 'svelement';
+  import { Dialog } from 'syv';
 </script>
 
 <Dialog show>
@@ -101,7 +101,7 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 ```svelte
 <script>
-  import { Dialog } from 'svelement';
+  import { Dialog } from 'syv';
   let show = false;
 </script>
 
@@ -131,7 +131,7 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ```svelte
 <script>
-  import { Image } from 'svelement';
+  import { Image } from 'syv';
   const src = '//example.com/image.png';
   const alt = 'An example text for this element';
 </script>
@@ -143,7 +143,7 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ```svelte
 <script>
-  import { Image } from 'svelement';
+  import { Image } from 'syv';
   const src = '//example.com/image.png';
   const alt = 'An example text for this element';
 </script>
@@ -157,7 +157,7 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ```svelte
 <script>
-  import { Image } from 'svelement';
+  import { Image } from 'syv';
   const src = '//example.com/image.png';
   const alt = 'An example text for this element';
 </script>
@@ -172,7 +172,7 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ```svelte
 <script>
-  import { Image } from 'svelement';
+  import { Image } from 'syv';
   const src = '//example.com/image.png';
   const alt = 'An example text for this element';
 </script>
@@ -214,7 +214,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 ```svelte
 <script>
   export let items = []; // Your data array
-  import { Pagination } from 'svelement';
+  import { Pagination } from 'syv';
   import { posts as store } from './stores.js';
 </script>
 
@@ -293,11 +293,11 @@ SearchBar element provides a searchbox and `query` to bind the value.
 ***
 
 <h3 align="center"><pre>
-Svelement | <a href="LICENSE">MIT License</a>
+Syv | <a href="LICENSE">MIT License</a>
 </pre></h3>
 
 ***
 
 <h5 align="center"><pre>
-Copyright &copy; 2020 <a href="https://mauss.dev">Ignatius Bagussuputra</a>
+Copyright &copy; 2020 - 2021 <a href="https://mauss.dev">Ignatius Bagussuputra</a>
 </pre></h5>
