@@ -3,38 +3,30 @@ import { Writable } from 'svelte/store';
 // essentials
 export class Dialog extends SvelteComponentTyped<{ show?: boolean }> {}
 export class Image extends SvelteComponentTyped<
-	{
-		src: string;
-		alt: string;
-		lazy?: boolean;
-		contain?: boolean;
-		overlay?: boolean;
-		absolute?: boolean;
-		ratio?: number;
-	},
-	{ click: MouseEvent; dblclick: MouseEvent }
+	{ src: string; alt: string; ratio?: number } & Partial<
+		Record<'lazy' | 'contain' | 'overlay' | 'absolute', boolean>
+	>,
+	Record<'click' | 'dblclick', MouseEvent>
 > {}
-export class Link extends SvelteComponentTyped<{
-	href?: string;
-	label?: string;
-	download?: boolean;
-	newTab?: boolean;
-	inherit?: boolean;
-	invert?: boolean;
-	noscroll?: boolean;
-	refer?: boolean;
-}> {}
+export class Link extends SvelteComponentTyped<
+	Partial<Record<'href' | 'label', string>> &
+		Partial<Record<'download' | 'newTab' | 'inherit' | 'invert' | 'noscroll' | 'refer', boolean>>,
+	{},
+	{ default: Record<'external', boolean> }
+> {}
 export class Modal extends SvelteComponentTyped<{ show?: boolean }> {}
 export class Observer extends SvelteComponentTyped<
-	{ once?: boolean; top?: number; right?: number; bottom?: number; left?: number },
+	Partial<Record<'once', boolean>> & Partial<Record<'top' | 'right' | 'bottom' | 'left', number>>,
 	{},
-	{ default: { sighted: boolean } }
+	{ default: Record<'sighted', boolean> }
 > {}
 export class Overlay extends SvelteComponentTyped<{ show?: boolean }> {}
 
 // functional
 export class Pagination extends SvelteComponentTyped<
-	{ store: Writable<any[]>; items: any[]; bound?: number; increment?: number; tween?: boolean },
+	{ store: Writable<any[]>; items: any[]; tween?: boolean } & Partial<
+		Record<'bound' | 'increment', number>
+	>,
 	{},
 	{ default: { limit: number; page: number; moveTo: (index: number) => void } }
 > {}
@@ -44,40 +36,32 @@ export class SearchBar extends SvelteComponentTyped<{
 	unique?: Record<string, string[] | Record<string, string>>;
 }> {}
 export class ThemeSwitcher extends SvelteComponentTyped<
-	{ themes?: string[] },
+	Partial<Record<'themes', Array<string>>>,
 	{},
-	{ default: { current: string } }
+	{ default: Record<'current', string> }
 > {}
 
 // styled
-export class ButtonLink extends SvelteComponentTyped<{
-	href?: string;
-	disabled?: boolean;
-	label?: string;
-	download?: boolean;
-	newTab?: boolean;
-	invert?: boolean;
-}> {}
+export class ButtonLink extends SvelteComponentTyped<
+	Partial<Record<'href' | 'label', string>> &
+		Partial<Record<'disable' | 'download' | 'newTab' | 'invert', boolean>>
+> {}
 export class GradientBorder extends SvelteComponentTyped {}
 export class ProgressBar extends SvelteComponentTyped {}
 export class ScrollTop extends SvelteComponentTyped {}
 export class Video extends SvelteComponentTyped<
-	{
-		src: string | string[];
-		autoplay?: boolean;
-		controls?: boolean;
-		loop?: boolean;
-		width?: number | string;
-		height?: number | string;
-		/* Binding Values */
-		buffered?: TimeRanges;
-		currentTime?: number;
-		duration?: number;
-		muted?: boolean;
-	},
-	{
-		contact: { detail: { self: HTMLVideoElement; event: MouseEvent | TouchEvent } };
-		leave: { detail: { self: HTMLVideoElement; event: MouseEvent | TouchEvent } };
-	}
+	Record<'src', string | Array<string>> &
+		Partial<Record<'width' | 'height', number | string>> &
+		Partial<Record<'autoplay' | 'controls' | 'loop', boolean>> & {
+			/* Binding Values */
+			buffered?: TimeRanges;
+			currentTime?: number;
+			duration?: number;
+			muted?: boolean;
+		},
+	Record<
+		'contact' | 'leave',
+		{ detail: { self: HTMLVideoElement; event: MouseEvent | TouchEvent } }
+	>
 > {}
-export class WeavedImage extends SvelteComponentTyped<{ src: string; alt: string }> {}
+export class WeavedImage extends SvelteComponentTyped<Record<'src' | 'alt', string>> {}
