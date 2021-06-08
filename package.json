@@ -23,9 +23,6 @@
     "./icons": {
       "import": "./icons/index.js"
     },
-    "./icons/feather": {
-      "import": "./icons/feather/index.js"
-    },
     "./loader": {
       "import": "./loader/index.js"
     },
