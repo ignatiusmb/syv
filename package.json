@@ -2,7 +2,7 @@
   "name": "syv",
   "author": "Ignatius Bagus",
   "description": "Svelte Complementary Library",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "license": "MIT",
   "type": "module",
   "svelte": "index.js",
@@ -42,7 +42,13 @@
   "bugs": {
     "url": "https://github.com/ignatiusmb/syv/issues"
   },
-  "keywords": ["svelte", "library", "complementary", "components", "kit"],
+  "keywords": [
+    "svelte",
+    "library",
+    "complementary",
+    "components",
+    "kit"
+  ],
   "dependencies": {
     "mauss": "^0.0.11"
   },
