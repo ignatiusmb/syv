@@ -23,7 +23,7 @@ import WeavedImage from './core/WeavedImage.svelte';
 export { ButtonLink, GradientBorder, ProgressBar, ScrollTop, WeavedImage };
 
 export default {
-	/** Essentials */
+	// essentials
 	Dialog,
 	Image,
 	Link,
@@ -32,12 +32,12 @@ export default {
 	Overlay,
 	Video,
 
-	/** Functional */
+	// functional
 	Pagination,
 	SearchBar,
 	ThemeSwitcher,
 
-	/** Styled */
+	// styled
 	ButtonLink,
 	GradientBorder,
 	ProgressBar,
