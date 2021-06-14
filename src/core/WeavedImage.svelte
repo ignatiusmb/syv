@@ -5,7 +5,7 @@
 	import Image from './Image.svelte';
 </script>
 
-<div class="lmns lmns-weaved-image">
+<div class="syv-core-weaved-image">
 	<Image {src} {alt} absolute />
 	<div class="absolute border" />
 
@@ -28,13 +28,13 @@
 </div>
 
 <style>
-	div.lmns {
+	div {
 		width: 15em;
 		height: 15em;
 		position: relative;
 		margin: 3em auto;
 	}
-	div.lmns :global(img) {
+	div :global(img) {
 		border: none;
 		border-radius: 0;
 		box-shadow: 0 0 1em rgba(255, 255, 255, 0.7);

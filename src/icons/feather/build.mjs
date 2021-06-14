@@ -21,7 +21,7 @@ const generate = (icon) => `<script>
 	stroke-width={weight}
 	stroke-linecap="round"
 	stroke-linejoin="round"
-	class="lmns lmns-icons feather-${icon} {className}">
+	class="syv syv-icons feather-${icon} {className}">
 	${feather[icon]}
 </svg>
 `;

@@ -1,8 +1,8 @@
 {
-  "name": "svelement",
+  "name": "syv",
   "author": "Ignatius Bagus",
-  "description": "Reusable Svelte components",
-  "version": "0.0.13",
+  "description": "Svelte Complementary Library",
+  "version": "0.0.1",
   "license": "MIT",
   "type": "module",
   "svelte": "index.js",
@@ -23,9 +23,6 @@
     "./icons": {
       "import": "./icons/index.js"
     },
-    "./icons/feather": {
-      "import": "./icons/feather/index.js"
-    },
     "./loader": {
       "import": "./loader/index.js"
     },
@@ -37,20 +34,23 @@
   "prettier": "mauss/prettier.json",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ignatiusmb/svelement.git"
+    "url": "https://github.com/ignatiusmb/syv.git"
   },
   "bugs": {
-    "url": "https://github.com/ignatiusmb/svelement/issues"
+    "url": "https://github.com/ignatiusmb/syv/issues"
   },
   "keywords": [
     "svelte",
-    "reusable",
-    "elements",
+    "complementary",
     "components",
-    "styles"
+    "icons",
+    "loaders",
+    "stores",
+    "library",
+    "kit"
   ],
   "dependencies": {
-    "mauss": "^0.0.11"
+    "mauss": "^0.1.2"
   },
   "peerDependencies": {
     "svelte": "^3.31.0"
