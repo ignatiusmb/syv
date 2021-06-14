@@ -1,17 +1,8 @@
 # Syv ![Total npm downloads](https://img.shields.io/npm/dt/syv) &middot; ![Published npm version](https://img.shields.io/npm/v/syv) ![Monthly npm downloads](https://img.shields.io/npm/dm/syv) ![License](https://img.shields.io/github/license/ignatiusmb/syv) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
 
-> One-stop multipurpose complementary library for working with Svelte.
+> The Svelte Complementary Library, one-stop multipurpose complementary library for working with Svelte.
 
-Syv is a Svelte Complementary Library consisting of various essential, mostly functional, and some pre-styled components, modules, and many more.
-
-Though Syv has some generic components, it doesn't adhere to a specific design language or certain guidelines. Instead, the focus is mostly on its functionality. There's already a ton of UI libraries with various styled buttons, cards, menus, and other components in one complete package if you're looking for that kind of stuff.
-
-Originally made with ease of use in mind for personal projects, turned into something potentially bigger and useful to other projects as well. As more components are being added, I realize this might also be beneficial to others as well, in hopes that this would help fellow Svelte developers in quick-starting new projects as well.
-
-Notes:
-
-- All classes in Namespaces are also written in `PascalCase` and can be accessed as such.
-- Prop attributes with `*` means it's required to pass a value that's not nullish or empty
+Focus on your ideation, let Syv handle the minutiae. Boost any Svelte projects, especially those in the early development stages.
 
 ## Usage
 
@@ -19,11 +10,14 @@ Notes:
 npm install -D syv
 ```
 
+Notes:
+
+- All classes in Namespaces are also written in `PascalCase` and can be accessed as such.
+- Prop attributes with `*` means it's required to pass a value that's not nullish or empty
+
 ### Disclaimer
 
-Please keep in mind that this is basically still a hobby project I'm doing to help myself in other projects. Syv will try to be as design agnostic as possible except for styled components, which would be whatever I thought was good at the time of making it. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or just purely coincidental. In other words, please do not expect a lot design-wise.
-
-If some components you think are essential is missing and you feel it should be here, please understand that it was specifically excluded to spite you personally. All jokes aside, contributions are welcome as always!
+This starts out as (and is still is) a hobby project I'm doing to help myself in other projects. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or purely coincidental. The focus is mostly on functionality, go with an actual component library implementation of a certain design if you need pre-made styled components.
 
 ***
 
@@ -35,7 +29,9 @@ API Documentation
 
 ## Namespaces
 
-### `Feather`
+### `syv/icons`
+
+#### Feather
 
 | Props  | Default          |
 | ------ | ---------------- |
@@ -54,7 +50,7 @@ All icons from [Feather Icons](https://feathericons.com/) are available as class
 <Feather.IconName />
 ```
 
-### `Loader`
+### `syv/loader`
 
 | Props | Default |
 | ----- | ------- |
