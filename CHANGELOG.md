@@ -9,4 +9,5 @@
 - [#5](https://github.com/ignatiusmb/syv/pull/5): Rename `ThreeWavyBalls` to `Ellipsis`
 - [#4](https://github.com/ignatiusmb/syv/pull/4): Fix packed files for npm bundle
 - [#1](https://github.com/ignatiusmb/syv/pull/1): Improve `Pagination` component
-- Migrate namespace from `@ignatiusmb/elements`
+- Migrate namespace from `svelement` to `syv` for beta release
+- Migrate namespace from `@ignatiusmb/elements` to `svelement` for alpha
