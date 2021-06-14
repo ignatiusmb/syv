@@ -1,4 +1,4 @@
-<div class="syv syv-loader three-wavy-balls">
+<div class="syv-loader-ellipsis">
 	<span />
 	<span />
 	<span />
