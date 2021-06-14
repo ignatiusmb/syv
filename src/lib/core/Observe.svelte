@@ -36,7 +36,7 @@
 	});
 </script>
 
-<div bind:this={container} class="lmns lmns-observe">
+<div bind:this={container} class="syv-core-observe">
 	<slot {sighted} />
 </div>
 
@@ -44,5 +44,6 @@
 	div {
 		width: 100%;
 		height: 100%;
+		border-radius: inherit;
 	}
 </style>

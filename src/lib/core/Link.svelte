@@ -16,14 +16,14 @@
 	{download}
 	target={newTab ? '_blank' : undefined}
 	sveltekit:noscroll={noscroll || undefined}
-	sveltekit:prefetch={external || undefined}
-	rel={external ? `noopener ${refer ? '' : 'noreferrer'}` : undefined}
-	aria-label={label}
-	class="lmns lmns-link"
+	sveltekit:prefetch={!external || undefined}
+	rel={external ? `noopener${refer ? '' : ' noreferrer'}` : undefined}
+	aria-label={label || undefined}
+	class="syv-core-link"
 	class:disabled={!href}
 	class:inherit
 	class:invert>
-	<slot />
+	<slot {external} />
 </a>
 
 <style>

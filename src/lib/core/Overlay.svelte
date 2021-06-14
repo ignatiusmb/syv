@@ -5,7 +5,7 @@
 </script>
 
 {#if show}
-	<div class="lmns lmns-overlay" transition:fade={{ duration }}>
+	<div class="syv-core-overlay" transition:fade={{ duration }}>
 		<slot />
 	</div>
 {/if}

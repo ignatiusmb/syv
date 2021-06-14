@@ -5,8 +5,8 @@
 </script>
 
 {#if show}
-	<div class="lmns lmns-dialog-backdrop" on:click|self={() => (show = false)}>
-		<section class="lmns lmns-dialog" transition:fly={{ duration }}>
+	<div class="syv-core-dialog-backdrop" on:click|self={() => (show = false)}>
+		<section class="syv-core-dialog" transition:fly={{ duration }}>
 			<slot />
 		</section>
 	</div>

@@ -33,7 +33,8 @@
 	on:mouseleave={(event) => dispatch('leave', { self: video, event })}
 	on:touchstart={(event) => dispatch('contact', { self: video, event })}
 	on:touchend={(event) => dispatch('leave', { self: video, event })}
-	on:touchcancel={(event) => dispatch('leave', { self: video, event })}>
+	on:touchcancel={(event) => dispatch('leave', { self: video, event })}
+	class="syv-core-video">
 	{#if typeof src === 'string'}
 		<source {src} type="video/{src.slice(src.lastIndexOf('.') + 1)}" />
 	{:else if src instanceof Array}

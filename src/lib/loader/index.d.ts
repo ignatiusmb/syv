@@ -1,3 +1,3 @@
 import { SvelteComponentTyped } from 'svelte';
 
-export class ThreeWavyBalls extends SvelteComponentTyped {}
+export class Ellipsis extends SvelteComponentTyped {}

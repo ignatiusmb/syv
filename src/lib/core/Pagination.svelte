@@ -35,7 +35,7 @@
 	$: $store = items.slice(count, count + bound);
 </script>
 
-<section class="lmns lmns-pagination">
+<section class="syv-core-pagination">
 	<slot name="left">
 		<div class="navigator">
 			<span class:disabled={page === 0} on:click={() => moveTo(0)}>
