@@ -41,13 +41,16 @@
   },
   "keywords": [
     "svelte",
-    "library",
     "complementary",
     "components",
+    "icons",
+    "loaders",
+    "stores",
+    "library",
     "kit"
   ],
   "dependencies": {
-    "mauss": "^0.0.11"
+    "mauss": "^0.1.2"
   },
   "peerDependencies": {
     "svelte": "^3.31.0"
