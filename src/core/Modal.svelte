@@ -5,8 +5,8 @@
 </script>
 
 {#if show}
-	<div class="syv syv-modal-backdrop">
-		<section class="syv syv-modal" transition:fly={{ duration }}>
+	<div class="syv-core-modal-backdrop">
+		<section class="syv-core-modal" transition:fly={{ duration }}>
 			<slot />
 		</section>
 	</div>

@@ -15,7 +15,7 @@
 
 <div
 	style="padding-top: {ratio * 100}%"
-	class="syv syv-image"
+	class="syv-core-image"
 	class:absolute
 	on:click
 	on:dblclick

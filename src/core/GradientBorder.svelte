@@ -1,5 +1,5 @@
 <!-- ref: https://codepen.io/alphardex/pen/vYEYGzp -->
-<div class="syv syv-gradient-border">
+<div class="syv-core-gradient-border">
 	<slot />
 </div>
 

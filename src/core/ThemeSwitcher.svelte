@@ -18,13 +18,13 @@
 		}
 	}
 
-	onMount(async () => {
+	onMount(() => {
 		current = localStorage.theme;
 	});
 </script>
 
 <span
-	class="syv syv-theme-switcher"
+	class="syv-theme-switcher"
 	aria-label="Toggle Theme"
 	class:nice
 	on:click={toggle}

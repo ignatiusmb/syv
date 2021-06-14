@@ -36,7 +36,7 @@
 	});
 </script>
 
-<div bind:this={container} class="syv syv-observe">
+<div bind:this={container} class="syv-core-observe">
 	<slot {sighted} />
 </div>
 
