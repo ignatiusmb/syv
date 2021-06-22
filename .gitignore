@@ -1,6 +1,7 @@
 node_modules
 .DS_Store
-.svelte-kit
+/.svelte-kit
+/package
 
 # Manual Override
 !svelte.config.js
