@@ -6,7 +6,7 @@
 	export let left = 0;
 
 	let sighted = false;
-	let container;
+	let container: HTMLDivElement;
 
 	import { onMount } from 'svelte';
 	onMount(() => {

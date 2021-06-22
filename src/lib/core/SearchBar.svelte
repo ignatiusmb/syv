@@ -1,12 +1,15 @@
 <script>
 	export let query = '';
-	export let filters = null;
-	export let unique = null;
+	export let filters: Record<string, any>;
+	export let unique: Record<string, string>;
+
 	import { tryNumber } from 'mauss/utils';
 	import { slide } from 'svelte/transition';
-	import { Filter } from '../icons/feather';
 	import { duration } from '../options';
-	let searchbox, show;
+
+	import Filter from '../icons/feather/Filter.svelte';
+
+	let searchbox: HTMLInputElement, show: boolean;
 </script>
 
 <svelte:window

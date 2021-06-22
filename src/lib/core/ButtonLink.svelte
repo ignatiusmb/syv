@@ -1,10 +1,10 @@
 <script>
 	export let href = '';
-	export let disabled = false;
+	export let label = '';
+	export let download = false;
 	export let newTab = false;
-	export let download = null;
-	export let label = null;
 	export let invert = false;
+	export let disabled = false;
 	import Link from './Link.svelte';
 </script>
 

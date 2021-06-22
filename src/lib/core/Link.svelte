@@ -1,7 +1,7 @@
 <script>
 	export let href = '';
 	export let label = '';
-	export let download = null;
+	export let download = false;
 	export let newTab = false;
 	export let inherit = false;
 	export let invert = false;
@@ -13,7 +13,7 @@
 
 <a
 	{href}
-	{download}
+	download={download || undefined}
 	target={newTab ? '_blank' : undefined}
 	sveltekit:noscroll={noscroll || undefined}
 	sveltekit:prefetch={!external || undefined}

@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { ChevronsUp } from '../icons/feather';
+	import ChevronsUp from '../icons/feather/ChevronsUp.svelte';
 	let y = 0,
 		mounted = typeof window !== 'undefined';
 	onMount(() => (mounted = typeof window !== 'undefined'));

@@ -1,18 +1,22 @@
 <script>
-	import { writable } from 'svelte/store';
-	import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from '../icons/feather';
-
-	export let store = writable([]);
-	export let items = [];
+	export let store = writable<any[]>([]);
+	export let items: any[] = [];
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
 
+	import { writable } from 'svelte/store';
+
+	import ChevronsLeft from '../icons/feather/ChevronsLeft.svelte';
+	import ChevronLeft from '../icons/feather/ChevronLeft.svelte';
+	import ChevronRight from '../icons/feather/ChevronRight.svelte';
+	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
+
 	let page = 0;
-	function moveTo(index) {
+	function moveTo(index: number) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
-			let timeout = null;
+			let timeout: NodeJS.Timeout;
 			const repeat = () => {
 				page = index === 0 ? page - 1 : page + 1;
 				if (page === 0 || page === limit) clearTimeout(timeout);
