@@ -1,6 +1,6 @@
 <script>
-	export let store = writable<any[]>([]);
-	export let items: any[] = [];
+	export let store = writable([]);
+	export let items = [];
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
@@ -13,10 +13,10 @@
 	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
 
 	let page = 0;
-	function moveTo(index: number) {
+	function moveTo(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
-			let timeout: NodeJS.Timeout;
+			let timeout;
 			const repeat = () => {
 				page = index === 0 ? page - 1 : page + 1;
 				if (page === 0 || page === limit) clearTimeout(timeout);

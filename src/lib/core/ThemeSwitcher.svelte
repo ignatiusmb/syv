@@ -3,12 +3,12 @@
 	import { onMount } from 'svelte';
 	const browser = typeof window !== 'undefined';
 	const prefersDark = browser && matchMedia('(prefers-color-scheme: dark)').matches;
-	let current = browser ? localStorage.theme || (prefersDark ? 'dark' : 'light') : themes[0];
+	let current = browser ? localStorage.theme || (prefersDark ? 'dark' : 'light') : null;
 	let nice = false;
 
 	async function toggle() {
 		let switched = false;
-		const { classList } = document.querySelector('html')!;
+		const { classList } = document.querySelector('html');
 		for (let i = 0; i < themes.length; i++) {
 			if (!switched || themes[i] !== current) classList.remove(themes[i]);
 			if (themes[i] === current && !switched) {

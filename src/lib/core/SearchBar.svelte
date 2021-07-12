@@ -1,7 +1,7 @@
 <script>
 	export let query = '';
-	export let filters: Record<string, any>;
-	export let unique: Record<string, string>;
+	export let filters = null;
+	export let unique = null;
 
 	import { tryNumber } from 'mauss/utils';
 	import { slide } from 'svelte/transition';
@@ -9,7 +9,7 @@
 
 	import Filter from '../icons/feather/Filter.svelte';
 
-	let searchbox: HTMLInputElement, show: boolean;
+	let searchbox, show;
 </script>
 
 <svelte:window

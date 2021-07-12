@@ -1,5 +1,5 @@
 <script>
-	let y: number, innerHeight: number, mounted: boolean;
+	let y, innerHeight, mounted;
 	import { onMount } from 'svelte';
 	onMount(() => (mounted = true));
 	$: progress = (y / ((mounted ? document.body.scrollHeight : y) - innerHeight)) * 100;

@@ -1,14 +1,14 @@
 <script>
-	let video: HTMLVideoElement; // Bind Video Element
+	let video; // Bind Video Element
 
-	export let src: string | string[] = '';
+	export let src = '';
 	/* Passed Values */
 	export let autoplay = false;
 	export let controls = false;
 	export let loop = false;
 	// export let poster = '';
-	export let width: number;
-	export let height: number;
+	export let width = null;
+	export let height = null;
 	/* Binding Values */
 	export let buffered = undefined;
 	export let currentTime = 0.0;
