@@ -27,8 +27,8 @@ const generate = (icon) => `<script>
 `;
 
 export default {
-	build() {
-		const base = './src/icons/feather';
+	async build() {
+		const base = './package/icons/feather';
 		let idx = '';
 		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tfloat?: number | string;\n\tcolor?: string;\n}> {}\n`;
 		for (const kebab in feather) {
