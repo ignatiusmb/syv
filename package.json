@@ -11,10 +11,11 @@
   "types": "index.d.ts",
   "scripts": {
     "dev": "svelte-kit dev",
+    "dev:prepare": "cd src/lib/icons && node build",
     "check": "prettier -c src",
     "format": "prettier -w src",
     "package": "svelte-kit package && run-p package:**",
-    "package:icons": "node package/icons/build.mjs",
+    "package:icons": "cd package/icons && node build",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "exports": {
