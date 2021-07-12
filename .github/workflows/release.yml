@@ -15,7 +15,9 @@ jobs:
         with:
           node-version: 14
           registry-url: "https://registry.npmjs.org"
-      - name: Install and publish
-        run: npm install && npm publish
+      - name: Install and compile package
+        run: npm install && npm run package
+      - name: Publish package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
