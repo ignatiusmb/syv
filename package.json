@@ -13,11 +13,8 @@
     "dev": "svelte-kit dev",
     "check": "prettier -c src",
     "format": "prettier -w src",
-    "build": "run-p build:**",
-    "build:tsc": "tsc -d",
-    "build:icons": "node src/icons/build.mjs",
-    "package": "svelte-kit package",
-    "prepublishOnly": "npm run build && mv src/* .",
+    "package": "svelte-kit package && run-p package:**",
+    "package:icons": "node package/icons/build.mjs",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "exports": {
