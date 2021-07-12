@@ -1,7 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { icons as feather } from 'feather-icons';
 import { writeFile } from 'fs/promises';
 
-const feather = JSON.parse(readFileSync('node_modules/feather-icons/dist/icons.json', 'utf-8'));
 const pascalCase = (w) => `${w[0].toUpperCase()}${w.slice(1).toLowerCase()}`;
 const generate = (icon) => `<script>
 	let className = '';
@@ -22,22 +21,23 @@ const generate = (icon) => `<script>
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	class="syv syv-icons feather-${icon} {className}">
-	${feather[icon]}
+	${feather[icon].contents}
 </svg>
 `;
 
 export default {
 	async build() {
-		const base = './package/icons/feather';
 		let idx = '';
 		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tfloat?: number | string;\n\tcolor?: string;\n}> {}\n`;
 		for (const kebab in feather) {
 			const pascal = kebab.replace(/\w+/g, pascalCase).replace(/-/g, '');
-			writeFile(`${base}/${pascal}.svelte`, generate(kebab));
+			writeFile(`./feather/${pascal}.svelte`, generate(kebab));
 			idx += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 			dts += `export class ${pascal} extends BaseIcon {}\n`;
 		}
-		writeFileSync(`${base}/index.js`, idx);
-		writeFileSync(`${base}/index.d.ts`, dts);
+		await Promise.all([
+			writeFile('./feather/index.js', idx),
+			writeFile('./feather/index.d.ts', dts),
+		]);
 	},
 };
