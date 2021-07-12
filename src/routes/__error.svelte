@@ -1,9 +1,9 @@
-<script context="module">
+<script context="module" lang="ts">
 	import type { ErrorLoad } from '@sveltejs/kit';
 	export const load: ErrorLoad = (props) => ({ props });
 </script>
 
-<script>
+<script lang="ts">
 	export let status: number, error: Error;
 </script>
 

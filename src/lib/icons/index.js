@@ -2,6 +2,4 @@ import * as Feather from './feather';
 
 export { Feather };
 
-export default {
-	Feather,
-};
+export default { Feather };

@@ -6,13 +6,14 @@ const config = {
 	preprocess: preprocess(),
 	kit: {
 		adapter: adapter(),
+		target: '#svelte',
 		vite: {
 			optimizeDeps: {
 				exclude: ['marqua'],
 				include: ['markdown-it'],
 			},
 			ssr: {
-				noExternal: ['mauss'],
+				noExternal: ['mauss', 'marqua'],
 			},
 		},
 	},
