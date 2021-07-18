@@ -4,6 +4,8 @@
 
 Focus on your ideation, let Syv handle the minutiae. Boost any Svelte projects, especially those in the early development stages.
 
+--- **Previously `svelement`**, last published [v0.0.13](https://github.com/ignatiusmb/syv/tree/9c0f59cb811bdbeb9d5eee5544142119307bb4bd) (click to browse files in tree) ---
+
 ## Usage
 
 ```bash
