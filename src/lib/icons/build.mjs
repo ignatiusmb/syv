@@ -1,3 +1,4 @@
+import { existsSync } from 'fs';
 import feather from './feather/build.mjs';
 
-feather.build();
+if (!existsSync('./feather/index.js')) feather.build();
