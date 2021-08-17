@@ -1,5 +1,6 @@
 import { icons as feather } from 'feather-icons';
 import { writeFile } from 'fs/promises';
+import { format } from 'prettier';
 
 const pascalCase = (w) => `${w[0].toUpperCase()}${w.slice(1).toLowerCase()}`;
 const generate = (icon) => `<script>
@@ -20,7 +21,8 @@ const generate = (icon) => `<script>
 	stroke-width={weight}
 	stroke-linecap="round"
 	stroke-linejoin="round"
-	class="syv syv-icons feather-${icon} {className}">
+	class="syv-icons-feather-${icon} {className}"
+>
 	${feather[icon].contents}
 </svg>
 `;
@@ -31,7 +33,7 @@ export default {
 		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tfloat?: number | string;\n\tcolor?: string;\n}> {}\n`;
 		for (const kebab in feather) {
 			const pascal = kebab.replace(/\w+/g, pascalCase).replace(/-/g, '');
-			writeFile(`./feather/${pascal}.svelte`, generate(kebab));
+			writeFile(`./feather/${pascal}.svelte`, format(generate(kebab)));
 			idx += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 			dts += `export class ${pascal} extends BaseIcon {}\n`;
 		}
