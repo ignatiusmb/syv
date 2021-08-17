@@ -20,7 +20,8 @@
 	on:click
 	on:dblclick
 	on:mouseenter={() => (show = true)}
-	on:mouseleave={() => (show = false)}>
+	on:mouseleave={() => (show = false)}
+>
 	{#if lazy}
 		<Observe once let:sighted>
 			{#if sighted}

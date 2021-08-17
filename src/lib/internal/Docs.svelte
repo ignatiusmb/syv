@@ -24,7 +24,8 @@
 					id={slug}
 					class:anchor
 					on:mouseenter={() => (anchor = true)}
-					on:mouseleave={() => (anchor = false)}>
+					on:mouseleave={() => (anchor = false)}
+				>
 					<Link href="#{slug}">
 						<LinkIcon />
 					</Link>

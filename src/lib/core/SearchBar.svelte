@@ -16,7 +16,8 @@
 	on:keydown={(event) => {
 		if (document.activeElement === searchbox) return;
 		if (event.key === '/') event.preventDefault(), searchbox.focus();
-	}} />
+	}}
+/>
 
 <div class="syv-core-search-bar">
 	<header class:filters>
@@ -24,7 +25,8 @@
 			type="text"
 			bind:this={searchbox}
 			bind:value={query}
-			placeholder="Type your queries here (Press {'"/"'} to focus)" />
+			placeholder="Type your queries here (Press {'"/"'} to focus)"
+		/>
 		{#if filters}
 			<span on:click={() => (show = !show)}>
 				<Filter />

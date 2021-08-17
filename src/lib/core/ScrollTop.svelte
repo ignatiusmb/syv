@@ -11,7 +11,8 @@
 <span
 	class="syv-core-scroll-top"
 	class:show
-	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}>
+	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+>
 	<ChevronsUp />
 </span>
 

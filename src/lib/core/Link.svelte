@@ -22,7 +22,8 @@
 	class="syv-core-link"
 	class:disabled={!href}
 	class:inherit
-	class:invert>
+	class:invert
+>
 	<slot {external} />
 </a>
 
