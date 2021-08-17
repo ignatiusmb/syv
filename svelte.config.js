@@ -7,6 +7,10 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		target: '#svelte',
+		package: {
+			emitTypes: false,
+			files: { exclude: ['**/build.mjs'] },
+		},
 		vite: {
 			optimizeDeps: {
 				exclude: ['marqua'],
