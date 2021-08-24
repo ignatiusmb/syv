@@ -18,19 +18,6 @@
     "package": "npm run build && svelte-kit package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
-  "exports": {
-    ".": "./index.js",
-    "./icons": {
-      "import": "./icons/index.js"
-    },
-    "./loader": {
-      "import": "./loader/index.js"
-    },
-    "./store": {
-      "import": "./store/index.js"
-    },
-    "./package.json": "./package.json"
-  },
   "prettier": "mauss/prettier.json",
   "repository": {
     "type": "git",
@@ -66,6 +53,7 @@
     "prettier-plugin-svelte": "^2.1.0",
     "svelte": "^3.31.2",
     "svelte-preprocess": "^4.7.3",
+    "svelte2tsx": "^0.4.5",
     "typescript": "^4.2.4"
   }
 }
