@@ -10,26 +10,13 @@
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "check": "prettier -c src",
-    "format": "prettier -w src",
+    "dev": "npm run build && svelte-kit dev",
+    "check": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
+    "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "build": "run-p build:**",
-    "build:tsc": "tsc -d",
-    "build:icons": "node src/icons/build.mjs",
-    "prepublishOnly": "npm run build && mv src/* .",
+    "build:icons": "cd src/lib/icons && node build.mjs",
+    "package": "npm run build && svelte-kit package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
-  },
-  "exports": {
-    ".": "./index.js",
-    "./icons": {
-      "import": "./icons/index.js"
-    },
-    "./loader": {
-      "import": "./loader/index.js"
-    },
-    "./store": {
-      "import": "./store/index.js"
-    },
-    "./package.json": "./package.json"
   },
   "prettier": "mauss/prettier.json",
   "repository": {
@@ -56,12 +43,17 @@
     "svelte": "^3.31.0"
   },
   "devDependencies": {
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
     "feather-icons": "^4.28.0",
+    "markdown-it": "^12.0.6",
+    "marqua": "^0.2.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.1.0",
     "svelte": "^3.31.2",
-    "svelte-preprocess": "^4.6.1",
+    "svelte-preprocess": "^4.7.3",
+    "svelte2tsx": "^0.4.5",
     "typescript": "^4.2.4"
   }
 }

@@ -1,3 +1,13 @@
 {
-	"extends": "mauss/tsconfig.json"
+	"extends": "mauss/tsconfig.json",
+	"compilerOptions": {
+		"resolveJsonModule": true,
+		"target": "ES2020",
+		"baseUrl": ".",
+		"paths": {
+			"$lib": ["src/lib"],
+			"$lib/*": ["src/lib/*"]
+		}
+	},
+	"include": ["src/**/*"]
 }

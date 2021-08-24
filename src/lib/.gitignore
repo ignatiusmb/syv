@@ -1,0 +1,7 @@
+# Workaround for Prettier
+.gitignore
+
+# Generated Icons
+icons/**/*.svelte
+icons/**/index.*
+!icons/index.ts

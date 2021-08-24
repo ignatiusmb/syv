@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#ffffff">
+	<script>
+		try {
+			const html = document.querySelector('html');
+			const preferDark = window.matchMedia('(prefers-color-scheme: dark)');
+			const initial = preferDark.matches ? 'dark' : 'light';
+			if (!localStorage.theme) localStorage.theme = initial;
+			html.classList.add(localStorage.theme);
+			preferDark.addEventListener('change', function (event) {
+				const theme = event.matches ? 'dark' : 'light';
+				html.classList.add(theme), localStorage.theme = theme;
+				html.classList.remove(event.matches ? 'light' : 'dark');
+			});
+		} catch (error) {}
+
+	</script>
+
+	<link rel="manifest" href="/site.webmanifest" crossorigin="use-credentials">
+	<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
+	%svelte.head%
+</head>
+
+<body>
+	<div id="svelte">%svelte.body%</div>
+</body>
+
+</html>
