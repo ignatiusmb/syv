@@ -8,7 +8,7 @@ const config = {
 		adapter: adapter(),
 		target: '#svelte',
 		package: {
-			emitTypes: false,
+			exports: { exclude: ['icons/**/*.svelte', 'internal/lib/**'] },
 			files: { exclude: ['**/build.mjs'] },
 		},
 		vite: {
