@@ -33,7 +33,7 @@ export default {
 		const config = await this.config();
 
 		let idx = '';
-		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tfloat?: number | string;\n\tcolor?: string;\n}> {}\n`;
+		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tweight?: number | string;\n\tcolor?: string;\n}> {}\n`;
 		for (const kebab in feather) {
 			const pascal = kebab.replace(/\w+/g, pascalCase).replace(/-/g, '');
 			const formatted = prettier.format(generate(kebab), config);
