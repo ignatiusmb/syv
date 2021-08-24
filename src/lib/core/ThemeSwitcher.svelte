@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let themes = ['light', 'dark'];
 	import { onMount } from 'svelte';
 	const browser = typeof window !== 'undefined';
@@ -24,7 +26,7 @@
 </script>
 
 <span
-	class="syv-theme-switcher"
+	class="syv-theme-switcher {className}"
 	aria-label="Toggle Theme"
 	class:nice
 	on:click={toggle}

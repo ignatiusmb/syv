@@ -1,4 +1,7 @@
 <script>
+	let className = '';
+	export { className as class };
+
 	import { onMount } from 'svelte';
 	import ChevronsUp from '../icons/feather/ChevronsUp.svelte';
 	let y = 0,
@@ -9,7 +12,7 @@
 
 <svelte:window bind:scrollY={y} />
 <span
-	class="syv-core-scroll-top"
+	class="syv-core-scroll-top {className}"
 	class:show
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
 >

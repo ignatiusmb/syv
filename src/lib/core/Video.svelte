@@ -1,6 +1,8 @@
 <script>
-	let video; // Bind Video Element
+	let className = '';
+	export { className as class };
 
+	let video; // Bind Video Element
 	export let src = '';
 	/* Passed Values */
 	export let autoplay = false;
@@ -35,7 +37,7 @@
 	on:touchstart={(event) => dispatch('contact', { self: video, event })}
 	on:touchend={(event) => dispatch('leave', { self: video, event })}
 	on:touchcancel={(event) => dispatch('leave', { self: video, event })}
-	class="syv-core-video"
+	class="syv-core-video {className}"
 >
 	{#if typeof src === 'string'}
 		<source {src} type="video/{src.slice(src.lastIndexOf('.') + 1)}" />

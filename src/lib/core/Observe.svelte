@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let once = false;
 	export let top = 0;
 	export let right = 0;
@@ -36,7 +38,7 @@
 	});
 </script>
 
-<div bind:this={container} class="syv-core-observe">
+<div bind:this={container} class="syv-core-observe {className}">
 	<slot {sighted} />
 </div>
 

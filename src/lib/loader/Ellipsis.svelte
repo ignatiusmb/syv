@@ -1,4 +1,9 @@
-<div class="syv-loader-ellipsis">
+<script>
+	let className = '';
+	export { className as class };
+</script>
+
+<div class="syv-loader-ellipsis {className}">
 	<span />
 	<span />
 	<span />

@@ -1,4 +1,7 @@
 <script>
+	let className = '';
+	export { className as class };
+
 	let y, innerHeight, mounted;
 	import { onMount } from 'svelte';
 	onMount(() => (mounted = true));
@@ -6,7 +9,7 @@
 </script>
 
 <svelte:window bind:scrollY={y} bind:innerHeight />
-<div class="syv-core-progress-bar" style="transform:translateX({progress}%)" />
+<div class="syv-core-progress-bar {className}" style="transform:translateX({progress}%)" />
 
 <style>
 	div {

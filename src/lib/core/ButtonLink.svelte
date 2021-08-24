@@ -1,14 +1,17 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let href = '';
 	export let label = '';
 	export let download = false;
 	export let newTab = false;
 	export let invert = false;
 	export let disabled = false;
+
 	import Link from './Link.svelte';
 </script>
 
-<span class="syv-core-button-link" class:disabled>
+<span class="syv-core-button-link {className}" class:disabled>
 	<Link href={!disabled ? href : ''} inherit {newTab} {label} {download} {invert}>
 		<slot />
 	</Link>

@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let href = '';
 	export let label = '';
 	export let download = false;
@@ -19,7 +21,7 @@
 	sveltekit:prefetch={!external || undefined}
 	rel={external ? `noopener${refer ? '' : ' noreferrer'}` : undefined}
 	aria-label={label || undefined}
-	class="syv-core-link"
+	class="syv-core-link {className}"
 	class:disabled={!href}
 	class:inherit
 	class:invert

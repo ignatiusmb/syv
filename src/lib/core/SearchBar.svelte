@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let query = '';
 	export let filters = null;
 	export let unique = null;
@@ -19,7 +21,7 @@
 	}}
 />
 
-<div class="syv-core-search-bar">
+<div class="syv-core-search-bar {className}">
 	<header class:filters>
 		<input
 			type="text"

@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let store = writable([]);
 	export let items = [];
 	export let bound = 3;
@@ -39,7 +41,7 @@
 	$: $store = items.slice(count, count + bound);
 </script>
 
-<section class="syv-core-pagination">
+<section class="syv-core-pagination {className}">
 	<slot name="left">
 		<div class="navigator">
 			<span class:disabled={page === 0} on:click={() => moveTo(0)}>

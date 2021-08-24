@@ -1,11 +1,14 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let show = false;
+
 	import { fade } from 'svelte/transition';
 	import { duration } from '../options';
 </script>
 
 {#if show}
-	<div class="syv-core-overlay" transition:fade={{ duration }}>
+	<div class="syv-core-overlay {className}" transition:fade={{ duration }}>
 		<slot />
 	</div>
 {/if}

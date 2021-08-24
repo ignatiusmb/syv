@@ -1,4 +1,6 @@
 <script>
+	let className = '';
+	export { className as class };
 	export let src = '';
 	export let alt = '';
 	export let lazy = false;
@@ -15,7 +17,7 @@
 
 <div
 	style="padding-top: {ratio * 100}%"
-	class="syv-core-image"
+	class="syv-core-image {className}"
 	class:absolute
 	on:click
 	on:dblclick
