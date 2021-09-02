@@ -1,12 +1,13 @@
 // essentials
 import Dialog from './core/Dialog.svelte';
 import Image from './core/Image.svelte';
+import LazyLoad from './core/LazyLoad.svelte';
 import Link from './core/Link.svelte';
 import Modal from './core/Modal.svelte';
 import Observe from './core/Observe.svelte';
 import Overlay from './core/Overlay.svelte';
 import Video from './core/Video.svelte';
-export { Dialog, Image, Link, Modal, Observe, Overlay, Video };
+export { Dialog, Image, LazyLoad, Link, Modal, Observe, Overlay, Video };
 
 // functional
 import Pagination from './core/Pagination.svelte';
@@ -26,6 +27,7 @@ export default {
 	// essentials
 	Dialog,
 	Image,
+	LazyLoad,
 	Link,
 	Modal,
 	Observe,
