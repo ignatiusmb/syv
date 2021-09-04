@@ -4,6 +4,7 @@
 	export let query = '';
 	export let filters = null;
 	export let unique = null;
+	export let placeholder = 'Type your queries here (Press "/" to focus)';
 
 	import { tryNumber } from 'mauss/utils';
 	import { slide } from 'svelte/transition';
@@ -23,12 +24,7 @@
 
 <div class="syv-core-search-bar {className}">
 	<header class:filters>
-		<input
-			type="text"
-			bind:this={searchbox}
-			bind:value={query}
-			placeholder="Type your queries here (Press {'"/"'} to focus)"
-		/>
+		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
 		{#if filters}
 			<span on:click={() => (show = !show)}>
 				<Filter />
