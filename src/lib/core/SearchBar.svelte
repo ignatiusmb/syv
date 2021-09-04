@@ -23,14 +23,14 @@
 />
 
 <div class="syv-core-search-bar {className}">
-	<header class:filters>
+	<label class:filters>
 		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
 		{#if filters}
 			<span on:click={() => (show = !show)}>
 				<Filter />
 			</span>
 		{/if}
-	</header>
+	</label>
 
 	{#if filters && unique && show}
 		<aside transition:slide={{ duration }}>
@@ -76,20 +76,20 @@
 		gap: 0.5em;
 	}
 	/* SearchBar */
-	header {
+	label {
 		display: grid;
 		gap: 0.5em;
 		grid-template-columns: 1fr;
 	}
-	header.filters {
+	label.filters {
 		grid-template-columns: 1fr auto;
 	}
-	header input,
-	header span {
+	label input,
+	label span {
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	header span {
+	label span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
