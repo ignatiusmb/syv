@@ -91,7 +91,7 @@
 </div>
 
 <style>
-	div {
+	.syv-core-search-bar {
 		display: grid;
 		gap: 0.5em;
 	}
@@ -133,7 +133,7 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 0.7em;
-		border-radius: 0.3em;
+		border-radius: inherit;
 	}
 	/* FilterGrid */
 	aside {
