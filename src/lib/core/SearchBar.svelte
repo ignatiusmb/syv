@@ -23,7 +23,7 @@
 />
 
 <div class="syv-core-search-bar {className}">
-	<label class:filters>
+	<label class:filters class="sb">
 		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
 		{#if filters}
 			<span on:click={() => (show = !show)}>
@@ -76,20 +76,22 @@
 		gap: 0.5em;
 	}
 	/* SearchBar */
-	label {
+	.sb {
 		display: grid;
 		gap: 0.5em;
 		grid-template-columns: 1fr;
+		border-radius: inherit;
 	}
-	label.filters {
+	.sb.filters {
 		grid-template-columns: 1fr auto;
 	}
-	label input,
-	label span {
+	.sb input,
+	.sb span {
+		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	label span {
+	.sb span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
