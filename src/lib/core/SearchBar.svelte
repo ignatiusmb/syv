@@ -32,8 +32,8 @@
 		{#if icon}
 			<slot name="search">
 				<span>
-					<LazyLoad when file={icons.search} let:loaded={FeatherSearch}>
-						<FeatherSearch />
+					<LazyLoad when file={icons.search} let:loaded={SearchIcon}>
+						<SearchIcon />
 					</LazyLoad>
 				</span>
 			</slot>
@@ -44,8 +44,8 @@
 		{#if filters}
 			<slot name="filter">
 				<span on:click={() => (show = !show)}>
-					<LazyLoad when file={icons.filter} let:loaded={FeatherFilter}>
-						<FeatherFilter />
+					<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
+						<FilterIcon />
 					</LazyLoad>
 				</span>
 			</slot>
