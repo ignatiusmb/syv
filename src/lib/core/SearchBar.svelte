@@ -91,7 +91,7 @@
 </div>
 
 <style>
-	.syv-core-search-bar {
+	div {
 		display: grid;
 		gap: 0.5em;
 	}
