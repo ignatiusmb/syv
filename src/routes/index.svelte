@@ -15,12 +15,7 @@
 
 <!-- <Docs {sections} repo="ignatiusmb/aqua" /> -->
 <main>
-	<SearchBar
-		icon
-		placeholder="検索する（例：ログイン、顧客登録、パスワードの初期化）"
-		class="max-w-2xl w-full rounded-xl"
-		filters
-	/>
+	<SearchBar icon filters />
 </main>
 
 <style>

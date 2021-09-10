@@ -30,21 +30,19 @@ const generate = (icon) => `<script>
 
 export default {
 	async build() {
-		const config = await this.config();
+		const config = this.config();
 
-		let idx = '';
-		let dts = `import { SvelteComponentTyped } from 'svelte';\nexport class BaseIcon extends SvelteComponentTyped<{\n\tclass?: string;\n\tsize?: number | string;\n\tweight?: number | string;\n\tcolor?: string;\n}> {}\n`;
+		let exp = '';
 		for (const kebab in feather) {
 			const pascal = kebab.replace(/\w+/g, pascalCase).replace(/-/g, '');
-			const formatted = prettier.format(generate(kebab), config);
+			const formatted = prettier.format(generate(kebab), await config);
 			writeFile(`./feather/${pascal}.svelte`, formatted);
-			idx += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
-			dts += `export class ${pascal} extends BaseIcon {}\n`;
+			exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 		}
 
 		await Promise.all([
-			writeFile('./feather/index.js', idx),
-			writeFile('./feather/index.d.ts', dts),
+			writeFile('./feather/index.js', exp),
+			writeFile('./feather/index.d.ts', exp),
 		]);
 	},
 	async config() {

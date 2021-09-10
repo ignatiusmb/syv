@@ -2,6 +2,8 @@
 	let className = '';
 	export { className as class };
 	export let query = '';
+	export let placeholder = 'Type your queries here (Press "/" to focus)';
+	export let icon = false;
 	export let filters = null;
 	export let unique = null;
 
@@ -9,7 +11,11 @@
 	import { slide } from 'svelte/transition';
 	import { duration } from '../options';
 
-	import Filter from '../icons/feather/Filter.svelte';
+	import LazyLoad from './LazyLoad.svelte';
+	const icons = {
+		search: typeof icon === 'function' ? icon : () => import('../icons/feather/Search.svelte'),
+		filter: () => import('../icons/feather/Filter.svelte'),
+	};
 
 	let searchbox, show;
 </script>
@@ -22,19 +28,29 @@
 />
 
 <div class="syv-core-search-bar {className}">
-	<header class:filters>
-		<input
-			type="text"
-			bind:this={searchbox}
-			bind:value={query}
-			placeholder="Type your queries here (Press {'"/"'} to focus)"
-		/>
-		{#if filters}
-			<span on:click={() => (show = !show)}>
-				<Filter />
-			</span>
+	<label class:icon class:filters class="sb">
+		{#if icon}
+			<slot name="search">
+				<span>
+					<LazyLoad when file={icons.search} let:loaded={SearchIcon}>
+						<SearchIcon />
+					</LazyLoad>
+				</span>
+			</slot>
 		{/if}
-	</header>
+
+		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+
+		{#if filters}
+			<slot name="filter">
+				<span on:click={() => (show = !show)}>
+					<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
+						<FilterIcon />
+					</LazyLoad>
+				</span>
+			</slot>
+		{/if}
+	</label>
 
 	{#if filters && unique && show}
 		<aside transition:slide={{ duration }}>
@@ -80,25 +96,44 @@
 		gap: 0.5em;
 	}
 	/* SearchBar */
-	header {
+	.sb {
+		position: relative;
 		display: grid;
 		gap: 0.5em;
 		grid-template-columns: 1fr;
+		border-radius: inherit;
 	}
-	header.filters {
+	.sb.filters {
 		grid-template-columns: 1fr auto;
 	}
-	header input,
-	header span {
+	.sb.icon input {
+		padding-left: 2.7em;
+	}
+	.sb.icon span:first-child {
+		max-width: 1.5em;
+		max-height: 1.5em;
+		position: absolute;
+		top: 50%;
+		left: 0.6em;
+		transform: translate(0, -50%);
+		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+	}
+	.sb.icon span:first-child > :global(*) {
+		width: 100%;
+		height: 100%;
+	}
+	.sb input,
+	.sb input + span {
+		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	header span {
+	.sb input + span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
 		padding: 0.7em;
-		border-radius: 0.3em;
+		border-radius: inherit;
 	}
 	/* FilterGrid */
 	aside {
