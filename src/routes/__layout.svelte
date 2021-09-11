@@ -1,4 +1,5 @@
 <script>
+	import '../app.postcss';
 	import '@ignatiusmb/aqua/lib/aqua.cbs.js';
 	import '@ignatiusmb/aqua/lib/aqua.min.css';
 
@@ -15,5 +16,6 @@
 		display: flex;
 		flex-direction: column;
 		font-family: var(--aqua-default);
+		background-color: #242424;
 	}
 </style>
