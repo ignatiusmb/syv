@@ -1,8 +1,16 @@
 # Syv ![Total npm downloads](https://img.shields.io/npm/dt/syv) &middot; ![Published npm version](https://img.shields.io/npm/v/syv) ![Monthly npm downloads](https://img.shields.io/npm/dm/syv) ![License](https://img.shields.io/github/license/ignatiusmb/syv) [![Made with Svelte](https://img.shields.io/badge/made%20with-Svelte-ff3e00)](https://svelte.dev/)
 
-> The Svelte Complementary Library, one-stop multipurpose complementary library for working with Svelte.
+> The Svelte Complementary Library, a multipurpose library for working with Svelte.
 
-Focus on your ideation, let Syv handle the minutiae. Boost any Svelte projects, especially those in the early development stages.
+Relieve the initial heavy-lifting and focus on your ideation. These are some of the advantages of using Syv
+
+- Provides most of the essential components that are usually rewritten in a new project
+  - Need to lazy-load a component? `import { LazyLoad } from 'syv';`
+  - Need to observe an intersection? `import { Observe } from 'syv';`
+- Prepackaged customizable set of icons from various sources, import from `syv/icons`
+- Built-in loaders that are ready-to-use anywhere transitions are needed, import from `syv/loader`
+- Imports are modularized into their own namespaces and provides intuitive API for a nice usage with Svelte
+- All modules works for both client-side and server-side, no need to short-circuit or guard your code with `if (browser)`
 
 --- **Previously `svelement`**, last published [v0.0.13](https://github.com/ignatiusmb/syv/tree/9c0f59cb811bdbeb9d5eee5544142119307bb4bd) (click to browse files in tree) ---
 
@@ -19,13 +27,11 @@ Notes:
 
 ### Disclaimer
 
-This starts out as (and is still is) a hobby project I'm doing to help myself in other projects. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or purely coincidental. The focus is mostly on functionality, go with an actual component library implementation of a certain design if you need pre-made styled components.
+This starts out as (and is still is) a hobby project I'm doing to help myself in other projects. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or purely coincidental. The focus is mostly on functionality, so go with an actual component library implementation of a certain design if you need pre-made styled components.
 
 ***
 
-<h3 align="center"><pre>
-API Documentation
-</pre></h3>
+<h3 align="center"><pre>API Documentation</pre></h3>
 
 ***
 
@@ -66,6 +72,25 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 </script>
 
 <Loader.Ellipsis />
+```
+
+### `syv/store`
+
+#### Browser
+
+```svelte
+<script>
+  import { browser } from 'syv/store';
+  const { viewport } = browser;
+  // or import directly without destructuring
+  // import { viewport } from 'syv/store/browser';
+</script>
+
+{#if $viewport.sm}
+  ...
+{:else if $viewport.xl}
+  ...
+{/if}
 ```
 
 ## Components
@@ -252,8 +277,10 @@ SearchBar element provides a searchbox and `query` to bind the value.
 
 ```svelte
 <script>
+  import { SearchBar } from 'syv';
+
   // Filtered object of arrays with unique values
-  export let unique = {
+  let unique = {
     categories: [],
     tags: [],
     sort_by: {
@@ -261,8 +288,14 @@ SearchBar element provides a searchbox and `query` to bind the value.
       updated: 'Last Updated'
     }
   };
-  import { SearchBar } from 'syv';
-  let filters = { categories: [], tags: [], sort_by: 'updated', custom: 'hello' };
+
+  let filters = {
+    categories: [],
+    tags: [],
+    sort_by: 'updated',
+    custom: 'hello'
+  };
+  
   let query;
 </script>
 
@@ -290,12 +323,8 @@ SearchBar element provides a searchbox and `query` to bind the value.
 
 ***
 
-<h3 align="center"><pre>
-Syv | <a href="LICENSE">MIT License</a>
-</pre></h3>
+<h3 align="center"><pre>Syv | <a href="LICENSE">MIT License</a></pre></h3>
 
 ***
 
-<h5 align="center"><pre>
-Copyright &copy; 2020 - 2021 <a href="https://mauss.dev">Ignatius Bagussuputra</a>
-</pre></h5>
+<h5 align="center"><pre>Copyright &copy; 2020 - 2021 <a href="https://mauss.dev">Ignatius Bagussuputra</a></pre></h5>
