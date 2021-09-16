@@ -6,7 +6,7 @@ Relieve the initial heavy-lifting and focus on your ideation. These are some of 
 
 - Provides most of the essential components that are usually rewritten in a new project
   - Need to lazy-load a component? `import { LazyLoad } from 'syv';`
-  - Need to observe an intersection? `import { Observe } from 'syv';`
+  - Need to see if an element is in view? `import { Observe } from 'syv';`
 - Prepackaged customizable set of icons from various sources, import from `syv/icons`
 - Built-in loaders that are ready-to-use anywhere transitions are needed, import from `syv/loader`
 - Imports are modularized into their own namespaces and provides intuitive API for a nice usage with Svelte
@@ -22,8 +22,9 @@ npm install -D syv
 
 Notes:
 
-- All classes in Namespaces are also written in `PascalCase` and can be accessed as such.
+- All components are written in `PascalCase` and can be accessed as such, including icons.
 - Prop attributes with `*` means it's required to pass a value that's not nullish or empty
+- You might need to add `vite: { ssr: { noExternal: ['mauss'] } }` to `svelte.config.js` when working with SvelteKit
 
 ### Disclaimer
 
@@ -53,9 +54,12 @@ All icons from [Feather Icons](https://feathericons.com/) are available as class
 ```svelte
 <script>
   import { Feather } from 'syv/icons';
+  // or import each icons individually
+  // import { IconName } from 'syv/icons/feather';
 </script>
 
 <Feather.IconName />
+<!-- <IconName weight="2" /> -->
 ```
 
 ### `syv/loader`
@@ -69,9 +73,12 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 ```svelte
 <script>
   import Loader from 'syv/loader';
+  // or import each loader individually
+  // import { Ellipsis } from 'syv/loader';
 </script>
 
 <Loader.Ellipsis />
+<!-- <Ellipsis /> -->
 ```
 
 ### `syv/store`
@@ -87,22 +94,19 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 </script>
 
 {#if $viewport.sm}
-  ...
+  <!-- Stuff for devices wider than 640px -->
 {:else if $viewport.xl}
-  ...
+  <!-- Stuff for devices wider than 1280px -->
 {/if}
 ```
 
 ## Components
 
-| Essentials | Functional      | Styled           |
-| ---------- | --------------- | ---------------- |
-| `Dialog`   | `LazyLoadImage` | `ButtonLink`     |
-| `Image`    | `Pagination`    | `GradientBorder` |
-| `Link`     | `SearchBar`     | `ProgressBar`    |
-| `Modal`    | `ThemeSwitcher` | `ScrollTop`      |
-| `Observer` |                 | `WeavedImage`    |
-| `Overlay`  |                 |                  |
+| Type       | Components                                                                     |
+| ---------- | ------------------------------------------------------------------------------ |
+| Essentials | `Dialog`, `Image`, `LazyLoad`, `Link`, `Modal`, `Observer`, `Overlay`, `Video` |
+| Functional | `Pagination`, `SearchBar`, `ThemeSwitcher`                                     |
+| Styled     | `ButtonLink`, `GradientBorder`, `ProgressBar`, `ScrollTop`, `WeavedImage`      |
 
 ### Dialog
 
@@ -141,8 +145,9 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 | Props    | Default  |
 | -------- | -------- |
-| src *    | `''`     |
-| alt *    | `''`     |
+| src \*   | `''`     |
+| alt \*   | `''`     |
+| lazy     | `false`  |
 | contain  | `false`  |
 | overlay  | `false`  |
 | absolute | `false`  |
@@ -150,8 +155,6 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 Image element is created to have a fixed ratio, **not size**. It will be responsive by default and will follow its parent container size. To set a fixed size, just explicitly set the parent container size.
 
-- `contain` - images will have property `object-fit` with the value of `cover` by default, pass this prop to set the value to `contain`
-
 ```svelte
 <script>
   import { Image } from 'syv';
@@ -159,19 +162,27 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
   const alt = 'An example text for this element';
 </script>
 
+<Image {src} {alt}  />
+```
+
+- `contain` - images will have property `object-fit` with the value of `cover` by default, pass this prop to set the value to `contain`
+
+```svelte
 <Image {src} {alt} contain />
 ```
 
 - `overlay` - Overlay element is provided and available to use if you need it, you can pass in other components when this prop is used
 
 ```svelte
-<script>
-  import { Image } from 'syv';
-  const src = '//example.com/image.png';
-  const alt = 'An example text for this element';
-</script>
-
 <Image {src} {alt} overlay>
+  <p>I will appear when this Image is hovered</p>
+</Image>
+```
+
+- `lazy` - lazy load image when it's sighted in viewport
+
+```svelte
+<Image {src} {alt} lazy>
   <p>I will appear when this Image is hovered</p>
 </Image>
 ```
@@ -179,12 +190,6 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 - `absolute` - set the Image container position as absolute
 
 ```svelte
-<script>
-  import { Image } from 'syv';
-  const src = '//example.com/image.png';
-  const alt = 'An example text for this element';
-</script>
-
 <div style="position: relative">
   <!-- Image is now absolute positioned in this div -->
   <Image {src} {alt} absolute />
@@ -194,12 +199,6 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 - `ratio` - this receives a float to determine the ratio of your image, set to 16:9 by default
 
 ```svelte
-<script>
-  import { Image } from 'syv';
-  const src = '//example.com/image.png';
-  const alt = 'An example text for this element';
-</script>
-
 <!-- Square Image -->
 <Image {src} {alt} ratio={1} />
 
@@ -208,6 +207,34 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 <!-- Horizontal format -->
 <Image {src} {alt} ratio={3 / 4} />
+```
+
+### LazyLoad
+
+| Props   | Default     |
+| ------- | ----------- |
+| file \* | `undefined` |
+| when    | `true`      |
+
+Lazily loads a component defined from the callback passed to `file`.
+
+```svelte
+<script>
+  import { LazyLoad } from 'syv';
+  let show = false;
+</script>
+
+<LazyLoad file={() => import('../components/Modal.svelte')} when={show} let:loaded={Modal}>
+  <Modal bind:show other modal props />
+</LazyLoad>
+```
+
+- `when` - the prop with a default value of `true`, the component will load immediately when this is not used
+
+```svelte
+<LazyLoad file={() => import('../icons/Burger.svelte')} let:loaded={BurgerIcon}>
+  <BurgerIcon />
+</LazyLoad>
 ```
 
 ### Pagination
@@ -263,15 +290,19 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 ### SearchBar
 
-| Props   | Default |
-| ------- | ------- |
-| query * | `''`    |
-| filters | `null`  |
-| unique  | `null`  |
+| Props       | Default                                         |
+| ----------- | ----------------------------------------------- |
+| query \*    | `''`                                            |
+| placeholder | `'Type your queries here (Press "/" to focus)'` |
+| icon        | `false`                                         |
+| filters     | `null`                                          |
+| unique      | `null`                                          |
 
 SearchBar element provides a searchbox and `query` to bind the value.
 
 - `query` - prop that holds the query value from the searchbox
+- `placeholder` - string placeholder passed to input attribute
+- `icon` - can be `true` to use built-in icon, `string` to use as `src` in `<img>`, or a callback function that imports a svelte component
 - `filters` - object that consists of arrays or string that holds the checked value(s) by user
 - `unique` - object that consists of arrays consisting of unique values complementing filters or objects with the key as unique values and value as the displayed text
 
@@ -295,18 +326,28 @@ SearchBar element provides a searchbox and `query` to bind the value.
     sort_by: 'updated',
     custom: 'hello'
   };
-  
+
   let query;
 </script>
 
-<!-- Only searchbox -->
-<SearchBar bind:query />
+<!-- Only searchbox with icon -->
+<SearchBar bind:query icon />
 
-<!-- With filters -->
-<SearchBar bind:query bind:filters {unique} />
+<!-- With filters and custom icon -->
+<SearchBar
+  bind:query
+  bind:filters
+  icon={() => import('../icons/CustomIcon.svelte')}
+  {unique}
+/>
 
-<!-- With filters using slot -->
-<SearchBar bind:query bind:filters {unique}>
+<!-- With filters using slot and string icon -->
+<SearchBar
+  bind:query
+  bind:filters
+  icon="/assets/custom-icon.svg"
+  {unique}
+>
   <section>
     <h3>Satisfaction</h3>
     <label>
