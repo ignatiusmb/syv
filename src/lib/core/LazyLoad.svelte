@@ -1,6 +1,6 @@
 <script>
 	export let file;
-	export let when = false;
+	export let when = true;
 
 	let component;
 	$: if (when && !component) component = file();

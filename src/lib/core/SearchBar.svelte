@@ -13,7 +13,7 @@
 
 	import LazyLoad from './LazyLoad.svelte';
 	const icons = {
-		search: typeof icon === 'function' ? icon : () => import('../icons/feather/Search.svelte'),
+		search: () => import('../icons/feather/Search.svelte'),
 		filter: () => import('../icons/feather/Filter.svelte'),
 	};
 
@@ -32,9 +32,17 @@
 		{#if icon}
 			<slot name="search">
 				<span>
-					<LazyLoad when file={icons.search} let:loaded={SearchIcon}>
-						<SearchIcon />
-					</LazyLoad>
+					{#if typeof icon === 'string'}
+						<img src={icon} alt="icon" />
+					{:else}
+						<LazyLoad
+							when
+							file={typeof icon === 'function' ? icon : icons.search}
+							let:loaded={SearchIcon}
+						>
+							<SearchIcon />
+						</LazyLoad>
+					{/if}
 				</span>
 			</slot>
 		{/if}
