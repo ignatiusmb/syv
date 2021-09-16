@@ -2,7 +2,7 @@
   "name": "syv",
   "author": "Ignatius Bagus",
   "description": "Svelte Complementary Library",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "type": "module",
   "svelte": "index.js",
