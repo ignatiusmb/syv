@@ -28,13 +28,13 @@
 </div>
 
 <style>
-	div {
+	.syv-core-weaved-image {
 		width: 15em;
 		height: 15em;
 		position: relative;
 		margin: 3em auto;
 	}
-	div :global(img) {
+	.syv-core-weaved-image :global(img) {
 		border: none;
 		border-radius: 0;
 		box-shadow: 0 0 1em rgba(255, 255, 255, 0.7);
