@@ -49,7 +49,7 @@ This starts out as (and is still is) a hobby project I'm doing to help myself in
 | color  | `'currentColor'` |
 | class  | `''`             |
 
-All icons from [Feather Icons](https://feathericons.com/) are available as classes to use in this namespace. Declaration `.d.ts` file is included, but if you don't get the autocompletion, you can just refer to Feather's website and convert the `kebab-name` to `PascalName`.
+All icons from [Feather Icons](https://feathericons.com/) are available as classes to use in this namespace. Declaration `.d.ts` files are included as well, but if you don't get the autocompletion, you can just refer to Feather's website and convert the `kebab-name` to `PascalName`.
 
 ```svelte
 <script>
