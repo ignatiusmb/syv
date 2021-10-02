@@ -8,8 +8,11 @@ const config = {
 		adapter: adapter(),
 		target: '#svelte',
 		package: {
-			exports: { exclude: ['icons/**/*.svelte', 'internal/lib/**'] },
-			files: { exclude: ['**/build.mjs'] },
+			exports: (filepath) => {
+				if (filepath.startsWith('.')) return false;
+				return !filepath.startsWith('internal/lib');
+			},
+			files: (filepath) => !filepath.endsWith('build.mjs'),
 		},
 		vite: {
 			optimizeDeps: {
