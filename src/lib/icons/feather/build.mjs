@@ -23,6 +23,7 @@ const generate = (icon) => `<script>
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	class="syv-icons-feather-${icon} {className}"
+	on:click
 >
 	${feather[icon].contents}
 </svg>
