@@ -1,8 +1,15 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let query = '';
 	export let placeholder = 'Type your queries here (Press "/" to focus)';
+	export { className as class };
+	let className = '';
+
+	// autocomplete
+	export let items = [];
+	export let selected = undefined;
+	export let limit = 7;
+
+	// filter
 	export let icon = false;
 	export let filters = null;
 	export let unique = null;
@@ -28,9 +35,9 @@
 />
 
 <div class="syv-core-search-bar {className}">
-	<label class:icon class:filters class="sb">
-		{#if icon}
-			<slot name="search">
+	<div class:icon class:filters class="sb">
+		<label>
+			{#if icon}
 				<span>
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
@@ -44,21 +51,27 @@
 						</LazyLoad>
 					{/if}
 				</span>
-			</slot>
-		{/if}
+			{/if}
 
-		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+			<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+
+			{#if items.length}
+				<div>
+					{#each items.slice(0, limit) as item}
+						<span on:click={() => (selected = item)}>{JSON.stringify(item)}</span>
+					{/each}
+				</div>
+			{/if}
+		</label>
 
 		{#if filters}
-			<slot name="filter">
-				<span on:click={() => (show = !show)}>
-					<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
-						<FilterIcon />
-					</LazyLoad>
-				</span>
-			</slot>
+			<span on:click={() => (show = !show)}>
+				<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
+					<FilterIcon />
+				</LazyLoad>
+			</span>
 		{/if}
-	</label>
+	</div>
 
 	{#if filters && unique && show}
 		<aside transition:slide={{ duration }}>
@@ -99,13 +112,13 @@
 </div>
 
 <style>
-	div {
+	.syv-core-search-bar {
 		display: grid;
 		gap: 0.5em;
 	}
 	/* SearchBar */
 	.sb {
-		position: relative;
+		/* position: relative; */
 		display: grid;
 		gap: 0.5em;
 		grid-template-columns: 1fr;
@@ -114,10 +127,10 @@
 	.sb.filters {
 		grid-template-columns: 1fr auto;
 	}
-	.sb.icon input {
+	.sb.icon label > input {
 		padding-left: 2.7em;
 	}
-	.sb.icon span:first-child {
+	.sb.icon label > span:first-child {
 		max-width: 1.5em;
 		max-height: 1.5em;
 		position: absolute;
@@ -126,17 +139,48 @@
 		transform: translate(0, -50%);
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 	}
-	.sb.icon span:first-child > :global(*) {
+	.sb.icon label > span:first-child > :global(*) {
 		width: 100%;
 		height: 100%;
 	}
+
+	.sb label,
 	.sb input,
-	.sb input + span {
+	.sb label + span {
 		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	.sb input + span {
+	.sb label {
+		position: relative;
+	}
+
+	.sb input {
+		height: 100%;
+	}
+	.sb input + div {
+		z-index: 9;
+		width: 100%;
+		position: absolute;
+
+		display: grid;
+		padding: 0.5em 0;
+		border: 1px solid var(--fg-surface, rgba(255, 255, 255, 0.65));
+
+		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+		background-color: var(--bg-overlay, #2d2f34);
+	}
+	.sb input + div span {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		padding: 0.4em 0.8em;
+	}
+	/* .sb input:focus + div {
+		display: grid;
+	} */
+	.sb label + span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
