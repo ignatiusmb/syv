@@ -4,10 +4,14 @@
 	export { className as class };
 	let className = '';
 
-	// autocomplete
 	export let items = [];
 	export let selected = undefined;
 	export let limit = 7;
+	/**
+	 * @param {any} item individually limited looped items
+	 * @returns {string} final text to be shown
+	 */
+	export let labeler = (item) => (typeof item !== 'string' ? JSON.stringify(item) : item);
 
 	// filter
 	export let icon = false;
@@ -54,7 +58,7 @@
 			{#if items.length}
 				<div>
 					{#each items.slice(0, limit) as item}
-						<span on:click={() => (selected = item)}>{JSON.stringify(item)}</span>
+						<span on:click={() => (selected = item)}>{labeler(item)}</span>
 					{/each}
 				</div>
 			{/if}
