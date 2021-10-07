@@ -42,12 +42,8 @@
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<LazyLoad
-							when
-							file={typeof icon === 'function' ? icon : icons.search}
-							let:loaded={SearchIcon}
-						>
-							<SearchIcon />
+						<LazyLoad file={typeof icon === 'function' ? icon : icons.search} let:loaded>
+							<svelte:component this={loaded} />
 						</LazyLoad>
 					{/if}
 				</span>
@@ -66,8 +62,8 @@
 
 		{#if filters}
 			<span on:click={() => (show = !show)}>
-				<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
-					<FilterIcon />
+				<LazyLoad file={icons.filter} let:loaded>
+					<svelte:component this={loaded} />
 				</LazyLoad>
 			</span>
 		{/if}
