@@ -5,7 +5,6 @@
 	let className = '';
 
 	export let items = [];
-	export let selected = undefined;
 	export let limit = 7;
 	/**
 	 * @param {any} item individually limited looped items
@@ -18,9 +17,12 @@
 	export let filters = null;
 	export let unique = null;
 
+	import { debounce } from 'mauss';
 	import { tryNumber } from 'mauss/utils';
+	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { duration } from '../options';
+	const dispatch = createEventDispatcher();
 
 	import LazyLoad from './LazyLoad.svelte';
 	const icons = {
@@ -28,13 +30,30 @@
 		filter: () => import('../icons/feather/Filter.svelte'),
 	};
 
-	let searchbox, show;
+	const show = { autocomplete: false, filter: false };
+	/** @type {HTMLInputElement} */
+	let searchbox;
+
+	/**
+	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
+	 */
+
+	const handle = {
+		/** @returns {(event: ClickEvent) => void} */
+		select: (item) => (event) => {
+			dispatch('select', item);
+			setTimeout(() => searchbox.blur(), 1);
+		},
+	};
 </script>
 
 <svelte:window
 	on:keydown={(event) => {
-		if (document.activeElement === searchbox) return;
-		if (event.key === '/') event.preventDefault(), searchbox.focus();
+		if (document.activeElement === searchbox) {
+			if (event.key === 'Escape') searchbox.blur();
+		} else if (event.key === '/') {
+			event.preventDefault(), searchbox.focus();
+		}
 	}}
 />
 
@@ -53,19 +72,26 @@
 				</span>
 			{/if}
 
-			<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+			<input
+				type="text"
+				{placeholder}
+				bind:this={searchbox}
+				bind:value={query}
+				on:blur={() => (show.autocomplete = false)}
+				on:focus={() => (show.autocomplete = true)}
+			/>
 
-			{#if items.length}
-				<div>
+			{#if show.autocomplete && items.length}
+				<div class="autocomplete" on:pointerdown|preventDefault>
 					{#each items.slice(0, limit) as item}
-						<span on:click={() => (selected = item)}>{labeler(item)}</span>
+						<span on:click={handle.select(item)}>{labeler(item)}</span>
 					{/each}
 				</div>
 			{/if}
 		</label>
 
 		{#if filters}
-			<span on:click={() => (show = !show)}>
+			<span on:click={() => (show.filter = !show.filter)}>
 				<LazyLoad file={icons.filter} let:loaded>
 					<svelte:component this={loaded} />
 				</LazyLoad>
@@ -73,7 +99,7 @@
 		{/if}
 	</div>
 
-	{#if filters && unique && show}
+	{#if filters && unique && show.filter}
 		<aside transition:slide={{ duration }}>
 			{#each Object.keys(unique) as key}
 				<section>
@@ -131,6 +157,7 @@
 		padding-left: 2.7em;
 	}
 	.sb.icon label > span:first-child {
+		pointer-events: none;
 		max-width: 1.5em;
 		max-height: 1.5em;
 		position: absolute;
@@ -177,15 +204,18 @@
 
 		padding: 0.4em 0.8em;
 	}
-	/* .sb input:focus + div {
-		display: grid;
-	} */
 	.sb label + span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
 		padding: 0.7em;
 		border-radius: inherit;
+	}
+	/* Autocomplete */
+	.autocomplete > span:hover {
+		cursor: pointer;
+		color: #ffffff;
+		background: #2e69e2;
 	}
 	/* FilterGrid */
 	aside {
