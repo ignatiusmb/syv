@@ -12,12 +12,10 @@
 	 */
 	export let labeler = (item) => (typeof item !== 'string' ? JSON.stringify(item) : item);
 
-	// filter
 	export let icon = false;
 	export let filters = null;
 	export let unique = null;
 
-	import { debounce } from 'mauss';
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
@@ -36,13 +34,22 @@
 
 	/**
 	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
+	 * @typedef {(event: ClickEvent) => void} ClickHandler
 	 */
 
 	const handle = {
-		/** @returns {(event: ClickEvent) => void} */
+		/** @returns {ClickHandler} */
 		select: (item) => (event) => {
 			dispatch('select', item);
-			setTimeout(() => searchbox.blur(), 1);
+			searchbox.blur();
+		},
+		/**
+		 * @param {keyof typeof show} property
+		 * @param {boolean} value
+		 * @returns {ClickHandler}
+		 */
+		toggle: (property, value) => (event) => {
+			show[property] = value;
 		},
 	};
 </script>
@@ -77,21 +84,21 @@
 				{placeholder}
 				bind:this={searchbox}
 				bind:value={query}
-				on:blur={() => (show.autocomplete = false)}
-				on:focus={() => (show.autocomplete = true)}
+				on:blur={handle.toggle('autocomplete', false)}
+				on:focus={handle.toggle('autocomplete', true)}
 			/>
 
 			{#if show.autocomplete && items.length}
 				<div class="autocomplete" on:pointerdown|preventDefault>
 					{#each items.slice(0, limit) as item}
-						<span on:click={handle.select(item)}>{labeler(item)}</span>
+						<span on:pointerup={handle.select(item)}>{labeler(item)}</span>
 					{/each}
 				</div>
 			{/if}
 		</label>
 
 		{#if filters}
-			<span on:click={() => (show.filter = !show.filter)}>
+			<span on:click={handle.toggle('filter', !show.filter)}>
 				<LazyLoad file={icons.filter} let:loaded>
 					<svelte:component this={loaded} />
 				</LazyLoad>
