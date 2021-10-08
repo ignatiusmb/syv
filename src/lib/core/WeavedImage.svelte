@@ -60,6 +60,6 @@
 		mix-blend-mode: multiply;
 	}
 	div.empty {
-		background-color: white;
+		background-color: #ffffff;
 	}
 </style>
