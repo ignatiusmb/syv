@@ -1,15 +1,26 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let query = '';
 	export let placeholder = 'Type your queries here (Press "/" to focus)';
+	export { className as class };
+	let className = '';
+
+	export let items = [];
+	export let limit = 7;
+	/**
+	 * @param {any} item individually limited looped items
+	 * @returns {string} final text to be shown
+	 */
+	export let labeler = (item) => (typeof item !== 'string' ? JSON.stringify(item) : item);
+
 	export let icon = false;
 	export let filters = null;
 	export let unique = null;
 
 	import { tryNumber } from 'mauss/utils';
+	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { duration } from '../options';
+	const dispatch = createEventDispatcher();
 
 	import LazyLoad from './LazyLoad.svelte';
 	const icons = {
@@ -17,50 +28,85 @@
 		filter: () => import('../icons/feather/Filter.svelte'),
 	};
 
-	let searchbox, show;
+	const show = { autocomplete: false, filter: false };
+	/** @type {HTMLInputElement} */
+	let searchbox;
+
+	/**
+	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
+	 * @typedef {(event: ClickEvent) => void} ClickHandler
+	 */
+
+	const handle = {
+		/** @returns {ClickHandler} */
+		select: (item) => (event) => {
+			dispatch('select', item);
+			searchbox.blur();
+		},
+		/**
+		 * @param {keyof typeof show} property
+		 * @param {boolean} value
+		 * @returns {ClickHandler}
+		 */
+		toggle: (property, value) => (event) => {
+			show[property] = value;
+		},
+	};
 </script>
 
 <svelte:window
 	on:keydown={(event) => {
-		if (document.activeElement === searchbox) return;
-		if (event.key === '/') event.preventDefault(), searchbox.focus();
+		if (document.activeElement === searchbox) {
+			if (event.key === 'Escape') searchbox.blur();
+		} else if (event.key === '/') {
+			event.preventDefault(), searchbox.focus();
+		}
 	}}
 />
 
 <div class="syv-core-search-bar {className}">
-	<label class:icon class:filters class="sb">
-		{#if icon}
-			<slot name="search">
+	<div class:icon class:filters class="sb">
+		<label>
+			{#if icon}
 				<span>
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<LazyLoad
-							when
-							file={typeof icon === 'function' ? icon : icons.search}
-							let:loaded={SearchIcon}
-						>
-							<SearchIcon />
+						<LazyLoad file={typeof icon === 'function' ? icon : icons.search} let:loaded>
+							<svelte:component this={loaded} />
 						</LazyLoad>
 					{/if}
 				</span>
-			</slot>
-		{/if}
+			{/if}
 
-		<input type="text" bind:this={searchbox} bind:value={query} {placeholder} />
+			<input
+				type="text"
+				{placeholder}
+				bind:this={searchbox}
+				bind:value={query}
+				on:blur={handle.toggle('autocomplete', false)}
+				on:focus={handle.toggle('autocomplete', true)}
+			/>
+
+			{#if show.autocomplete && items.length}
+				<div class="autocomplete" on:pointerdown|preventDefault>
+					{#each items.slice(0, limit) as item}
+						<span on:pointerup={handle.select(item)}>{labeler(item)}</span>
+					{/each}
+				</div>
+			{/if}
+		</label>
 
 		{#if filters}
-			<slot name="filter">
-				<span on:click={() => (show = !show)}>
-					<LazyLoad when file={icons.filter} let:loaded={FilterIcon}>
-						<FilterIcon />
-					</LazyLoad>
-				</span>
-			</slot>
+			<span on:click={handle.toggle('filter', !show.filter)}>
+				<LazyLoad file={icons.filter} let:loaded>
+					<svelte:component this={loaded} />
+				</LazyLoad>
+			</span>
 		{/if}
-	</label>
+	</div>
 
-	{#if filters && unique && show}
+	{#if filters && unique && show.filter}
 		<aside transition:slide={{ duration }}>
 			{#each Object.keys(unique) as key}
 				<section>
@@ -99,13 +145,13 @@
 </div>
 
 <style>
-	div {
+	.syv-core-search-bar {
 		display: grid;
 		gap: 0.5em;
 	}
 	/* SearchBar */
 	.sb {
-		position: relative;
+		/* position: relative; */
 		display: grid;
 		gap: 0.5em;
 		grid-template-columns: 1fr;
@@ -114,10 +160,11 @@
 	.sb.filters {
 		grid-template-columns: 1fr auto;
 	}
-	.sb.icon input {
+	.sb.icon label > input {
 		padding-left: 2.7em;
 	}
-	.sb.icon span:first-child {
+	.sb.icon label > span:first-child {
+		pointer-events: none;
 		max-width: 1.5em;
 		max-height: 1.5em;
 		position: absolute;
@@ -126,22 +173,56 @@
 		transform: translate(0, -50%);
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 	}
-	.sb.icon span:first-child > :global(*) {
+	.sb.icon label > span:first-child > :global(*) {
 		width: 100%;
 		height: 100%;
 	}
+
+	.sb label,
 	.sb input,
-	.sb input + span {
+	.sb label + span {
 		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	.sb input + span {
+	.sb label {
+		position: relative;
+	}
+
+	.sb input {
+		height: 100%;
+	}
+	.sb input + div {
+		z-index: 9;
+		width: 100%;
+		position: absolute;
+
+		display: grid;
+		padding: 0.5em 0;
+		border: 1px solid var(--fg-surface, rgba(255, 255, 255, 0.65));
+
+		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+		background-color: var(--bg-overlay, #2d2f34);
+	}
+	.sb input + div span {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+
+		padding: 0.4em 0.8em;
+	}
+	.sb label + span {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
 		padding: 0.7em;
 		border-radius: inherit;
+	}
+	/* Autocomplete */
+	.autocomplete > span:hover {
+		cursor: pointer;
+		color: #ffffff;
+		background: #2e69e2;
 	}
 	/* FilterGrid */
 	aside {
