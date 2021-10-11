@@ -20,6 +20,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { duration } from '../options';
+	import { noop } from '../utils';
 	const dispatch = createEventDispatcher();
 
 	import LazyLoad from './LazyLoad.svelte';
@@ -89,7 +90,7 @@
 			/>
 
 			{#if show.autocomplete && items.length}
-				<div class="autocomplete" on:pointerdown|preventDefault>
+				<div class="autocomplete" on:pointerdown|preventDefault={noop}>
 					{#each items.slice(0, limit) as item}
 						<span on:pointerup={handle.select(item)}>{labeler(item)}</span>
 					{/each}
@@ -190,6 +191,7 @@
 	}
 
 	.sb input {
+		width: 100%;
 		height: 100%;
 	}
 	.sb input + div {
