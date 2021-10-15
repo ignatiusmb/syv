@@ -1,12 +1,12 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let href = '';
 	export let label = '';
 	export let download = false;
 	export let newTab = false;
 	export let invert = false;
 	export let disabled = false;
+	export { className as class };
+	let className = '';
 
 	import Link from './Link.svelte';
 </script>

@@ -1,6 +1,4 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let href = '';
 	export let label = '';
 	export let download = false;
@@ -10,6 +8,9 @@
 
 	export let noscroll = false;
 	export let refer = false;
+	export { className as class };
+	let className = '';
+
 	$: external = /^https?:\/\//.test(href);
 </script>
 

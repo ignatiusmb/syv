@@ -1,8 +1,4 @@
 <script>
-	let className = '';
-	export { className as class };
-
-	let video; // Bind Video Element
 	export let src = '';
 	/* Passed Values */
 	export let autoplay = false;
@@ -16,6 +12,9 @@
 	export let currentTime = 0.0;
 	export let duration = 0.0;
 	export let muted = false;
+	export { className as class };
+	let className = '';
+	let video; // Bind Video Element
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();

@@ -1,7 +1,8 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let themes = ['light', 'dark'];
+	export { className as class };
+	let className = '';
+
 	import { onMount } from 'svelte';
 	const browser = typeof window !== 'undefined';
 	const prefersDark = browser && matchMedia('(prefers-color-scheme: dark)').matches;

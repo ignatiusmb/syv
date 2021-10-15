@@ -1,11 +1,11 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let once = false;
 	export let top = 0;
 	export let right = 0;
 	export let bottom = 0;
 	export let left = 0;
+	export { className as class };
+	let className = '';
 
 	let sighted = false;
 	let container;

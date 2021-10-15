@@ -1,6 +1,6 @@
 <script>
-	let className = '';
 	export { className as class };
+	let className = '';
 </script>
 
 <div class="syv-loader-ellipsis {className}">
