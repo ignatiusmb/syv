@@ -1,11 +1,14 @@
 <script>
-	let className = '';
 	export { className as class };
+	let className = '';
 
-	let y, innerHeight, mounted;
+	let y,
+		mounted = typeof window !== 'undefined',
+		innerHeight = mounted && document.body.scrollHeight;
 	import { onMount } from 'svelte';
 	onMount(() => (mounted = true));
-	$: progress = (y / ((mounted ? document.body.scrollHeight : y) - innerHeight)) * 100;
+	$: scrolled = mounted ? document.body.scrollHeight : y;
+	$: progress = (y / (scrolled - innerHeight)) * 100;
 </script>
 
 <svelte:window bind:scrollY={y} bind:innerHeight />
