@@ -1,6 +1,6 @@
 <script>
-	let className = '';
 	export { className as class };
+	let className = '';
 
 	import { onMount } from 'svelte';
 	import ChevronsUp from '../icons/feather/ChevronsUp.svelte';

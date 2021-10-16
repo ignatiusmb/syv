@@ -1,7 +1,7 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let show = false;
+	export { className as class };
+	let className = '';
 
 	import { fly } from 'svelte/transition';
 	import { duration } from '../options';

@@ -1,6 +1,4 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let src = '';
 	export let alt = '';
 	export let lazy = false;
@@ -8,6 +6,8 @@
 	export let overlay = false;
 	export let absolute = false;
 	export let ratio = 9 / 16;
+	export { className as class };
+	let className = '';
 
 	import { fade } from 'svelte/transition';
 	import Observe from './Observe.svelte';

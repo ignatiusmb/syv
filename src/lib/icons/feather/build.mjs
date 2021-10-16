@@ -5,11 +5,11 @@ import prettier from 'prettier';
 
 const pascalCase = (w) => `${w[0].toUpperCase()}${w.slice(1).toLowerCase()}`;
 const generate = (icon) => `<script>
-	let className = '';
-	export { className as class };
 	export let size = 24;
 	export let weight = 1.5;
 	export let color = 'currentColor';
+	export { className as class };
+	let className = '';
 </script>
 
 <svg

@@ -1,11 +1,11 @@
 <script>
-	let className = '';
-	export { className as class };
 	export let store = writable([]);
 	export let items = [];
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
+	export { className as class };
+	let className = '';
 
 	import { writable } from 'svelte/store';
 
