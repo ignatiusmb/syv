@@ -1,7 +1,9 @@
 <script>
+	/** @type {Array<() => Promise<typeof import('*.svelte')>>} */
 	export let files;
 	export let when = true;
 
+	/** @type {Promise<typeof import('*.svelte')>[] | undefined} */
 	let promises;
 	$: if (when && !promises && files.length) {
 		promises = files.map((file) => file());
