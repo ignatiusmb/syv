@@ -5,7 +5,7 @@
 
 	/** @type {Promise<typeof import('*.svelte')>[] | undefined} */
 	let promises;
-	$: if (when && !promises && files.length) {
+	$: if (when && !promises && Array.isArray(files)) {
 		promises = files.map((file) => file());
 	}
 </script>
