@@ -211,10 +211,10 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ### LazyLoad
 
-| Props   | Default     |
-| ------- | ----------- |
-| file \* | `undefined` |
-| when    | `true`      |
+| Props    | Default     |
+| -------- | ----------- |
+| files \* | `undefined` |
+| when     | `true`      |
 
 Lazily loads a component defined from the callback passed to `file`.
 
@@ -224,16 +224,16 @@ Lazily loads a component defined from the callback passed to `file`.
   let show = false;
 </script>
 
-<LazyLoad file={() => import('../components/Modal.svelte')} when={show} let:loaded={Modal}>
+<LazyLoad when={show} files={[() => import('../components/Modal.svelte')]} let:loaded={[Modal]}>
   <Modal bind:show other modal props />
 </LazyLoad>
 ```
 
-- `when` - the prop with a default value of `true`, the component will load immediately when this is not used
+- `when` - the only prop with a default value of `true`, the component will load immediately when this is not used
 
 ```svelte
-<LazyLoad file={() => import('../icons/Burger.svelte')} let:loaded={BurgerIcon}>
-  <BurgerIcon />
+<LazyLoad files={[() => import('../icons/Burger.svelte')]} let:loaded={[loaded]}>
+  <svelte:component this={loaded} />
 </LazyLoad>
 ```
 
