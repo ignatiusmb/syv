@@ -237,6 +237,28 @@ Lazily loads a component defined from the callback passed to `file`.
 </LazyLoad>
 ```
 
+Multiple imports simultaneously
+
+```svelte
+<LazyLoad
+  when={show}
+  files={[
+    () => import('$lib/components/Modal.svelte'),
+    () => import('$lib/components/Video.svelte'),
+    () => import('$lib/components/Button.svelte'),
+    () => import('$lib/icons/Share.svelte'),
+  ]}
+  let:loaded={[Modal, Video, Button, ShareIcon]}
+>
+  <Modal bind:show>
+    <Video src="/assets/demo.mp4" />
+    <Button on:click={() => navigator.share()}>
+      <ShareIcon />
+    </Button>
+  </Modal>
+</LazyLoad>
+```
+
 ### Pagination
 
 | Props     | Default        |
