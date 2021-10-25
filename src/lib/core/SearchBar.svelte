@@ -6,11 +6,6 @@
 
 	export let items = [];
 	export let limit = 7;
-	/**
-	 * @param {any} item individually limited looped items
-	 * @returns {string} final text to be shown
-	 */
-	export let labeler = (item) => (typeof item !== 'string' ? JSON.stringify(item) : item);
 
 	export let icon = false;
 	export let filters = null;
@@ -92,7 +87,11 @@
 			{#if show.autocomplete && items.length}
 				<div class="autocomplete" on:pointerdown|preventDefault={noop}>
 					{#each items.slice(0, limit) as item}
-						<span on:pointerup={handle.select(item)}>{labeler(item)}</span>
+						<slot name="autocomplete" {item} utils={{ select: handle.select(item) }}>
+							<span on:pointerup={handle.select(item)}>
+								{typeof item !== 'string' ? JSON.stringify(item) : item}
+							</span>
+						</slot>
 					{/each}
 				</div>
 			{/if}
