@@ -232,8 +232,9 @@ Lazily loads a component defined from the callback passed to `file`.
 - `when` - the only prop with a default value of `true`, the component will load immediately when this is not used
 
 ```svelte
-<LazyLoad files={[() => import('../icons/Burger.svelte')]} let:loaded={[loaded]}>
-  <svelte:component this={loaded} />
+<!-- no when prop, indicating LazyLoad to load '../icons/Burger.svelte' immediately  -->
+<LazyLoad files={[() => import('../icons/Burger.svelte')]} let:loaded>
+  <svelte:component this={loaded[0]} />
 </LazyLoad>
 ```
 
