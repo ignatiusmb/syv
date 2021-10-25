@@ -20,7 +20,9 @@
 	 */
 	export let size = '24';
 
+	/** @type {Record<string, UniqueFilterValue>} */
 	export let filters = null;
+	/** @type {Record<string, UniqueFilterValue>} */
 	export let unique = null;
 
 	import { tryNumber } from 'mauss/utils';
@@ -41,6 +43,8 @@
 	let searchbox;
 
 	/**
+	 * @typedef {string | Array<string | number>} UniqueFilterValue
+	 *
 	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
 	 * @typedef {(event: ClickEvent) => void} ClickHandler
 	 */
