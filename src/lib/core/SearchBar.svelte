@@ -193,7 +193,15 @@
 		width: 100%;
 		height: 100%;
 	}
-	.sb input + div {
+	.sb label + span {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.7em;
+		border-radius: inherit;
+	}
+	/* Autocomplete */
+	.autocomplete {
 		z-index: 9;
 		width: 100%;
 		position: absolute;
@@ -205,22 +213,14 @@
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	.sb input + div span {
+	.autocomplete > :global(*) {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 
 		padding: 0.4em 0.8em;
 	}
-	.sb label + span {
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		padding: 0.7em;
-		border-radius: inherit;
-	}
-	/* Autocomplete */
-	.autocomplete > span:hover {
+	.autocomplete > :global(*:hover) {
 		cursor: pointer;
 		color: #ffffff;
 		background: #2e69e2;
