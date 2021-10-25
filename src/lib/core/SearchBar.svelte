@@ -8,10 +8,10 @@
 	export let limit = 7;
 
 	/**
-	 * - string to reference a static asset
-	 * - `true` to use built-in feather icon
+	 * - `string` to reference an image from static assets
+	 * - `boolean` (`true`) to use built-in feather icon
 	 * - callback to dynamically import and use an icon component
-	 * @type {true | string | (() => Promise<typeof import('*.svelte')>)}
+	 * @type {string | boolean | (() => Promise<typeof import('*.svelte')>)}
 	 */
 	export let icon = false;
 	/**
