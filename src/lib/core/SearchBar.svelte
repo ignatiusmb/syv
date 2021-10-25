@@ -7,7 +7,19 @@
 	export let items = [];
 	export let limit = 7;
 
+	/**
+	 * - string to reference a static asset
+	 * - `true` to use built-in feather icon
+	 * - callback to dynamically import and use an icon component
+	 * @type {true | string | (() => Promise<typeof import('*.svelte')>)}
+	 */
 	export let icon = false;
+	/**
+	 * Icon size for Search and Filter
+	 * @type {string | number}
+	 */
+	export let size = '24';
+
 	export let filters = null;
 	export let unique = null;
 
@@ -69,7 +81,7 @@
 						<img src={icon} alt="icon" />
 					{:else}
 						<LazyLoad file={typeof icon === 'function' ? icon : icons.search} let:loaded>
-							<svelte:component this={loaded} />
+							<svelte:component this={loaded} {size} />
 						</LazyLoad>
 					{/if}
 				</span>
@@ -100,7 +112,7 @@
 		{#if filters}
 			<span on:click={handle.toggle('filter', !show.filter)}>
 				<LazyLoad file={icons.filter} let:loaded>
-					<svelte:component this={loaded} />
+					<svelte:component this={loaded} {size} />
 				</LazyLoad>
 			</span>
 		{/if}
