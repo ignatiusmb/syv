@@ -290,21 +290,20 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 ### SearchBar
 
-| Props       | Default                                         |
-| ----------- | ----------------------------------------------- |
-| query \*    | `''`                                            |
-| placeholder | `'Type your queries here (Press "/" to focus)'` |
-| items       | `[]`                                            |
-| limit       | `7`                                             |
-| icon        | `false`                                         |
-| filters     | `null`                                          |
-| unique      | `null`                                          |
+| Props       | Type                              | Default                                         |
+| ----------- | --------------------------------- | ----------------------------------------------- |
+| query \*    | `string`                          | `''`                                            |
+| placeholder | `string`                          | `'Type your queries here (Press "/" to focus)'` |
+| items       | `any[]`                           | `[]`                                            |
+| icon        | `string | boolean | import(''))`  | `false`                                         |
+| size        | `string | number`                 | `'24'`                                          |
+| filters     | `undefined | Record<string, any>` | `undefined`                                     |
+| unique      | `undefined | Record<string, any>` | `undefined`                                     |
 
 SearchBar element provides a searchbox and `query` to bind the value.
 
 - `query` - prop that holds the query value from the searchbox
 - `placeholder` - string placeholder passed to input attribute
-- `items` - array of items to be searched and shown in autocompletion box
 - `limit` - items cutoff when showing autocompletion box
 - `icon` - can be `true` to use built-in icon, `string` to use as `src` in `<img>`, or a callback function that imports a svelte component
 - `filters` - object that consists of arrays or string that holds the checked value(s) by user
