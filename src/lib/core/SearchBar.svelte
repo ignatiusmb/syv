@@ -235,7 +235,7 @@
 
 		padding: 0.4em 0.8em;
 	}
-	.autocomplete > :global(*:hover) {
+	.autocomplete > :global(:hover) {
 		cursor: pointer;
 		color: #ffffff;
 		background: #2e69e2;
