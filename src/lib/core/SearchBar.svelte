@@ -20,8 +20,8 @@
 	 */
 	export let size = '24';
 
-	/** @type {undefined | Record<string, UniqueFilterValue>} */
-	export let filters = undefined;
+	/** @type {boolean | Record<string, UniqueFilterValue>} */
+	export let filters = false;
 	/** @type {undefined | Record<string, UniqueFilterValue>} */
 	export let unique = undefined;
 
@@ -51,19 +51,12 @@
 	 */
 
 	const handle = {
-		/**
-		 * @param {any} item
-		 * @returns {WildcardHandler}
-		 */
+		/** @type {(item: any) => WildcardHandler} */
 		select: (item) => () => {
 			dispatch('select', item);
 			searchbox.blur();
 		},
-		/**
-		 * @param {keyof typeof show} property
-		 * @param {boolean} value
-		 * @returns {WildcardHandler}
-		 */
+		/** @type {(property: keyof typeof show, value: boolean) => WildcardHandler} */
 		toggle: (property, value) => () => {
 			show[property] = value;
 		},
@@ -126,38 +119,40 @@
 		{/if}
 	</div>
 
-	{#if filters && unique && show.filter}
+	{#if filters && show.filter}
 		<aside transition:slide={{ duration }}>
-			{#each Object.keys(unique) as key}
-				<section>
-					<h3>{key.replace(/_/g, ' ')}</h3>
-					{#if Array.isArray(unique[key])}
-						{#each unique[key] as value}
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label>
-								{#if typeof filters[key] === 'string'}
-									<input type="radio" bind:group={filters[key]} {value} />
-								{:else}
-									<input type="checkbox" bind:group={filters[key]} {value} />
-								{/if}
-								<span>{value}</span>
-							</label>
-						{/each}
-					{:else}
-						{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label>
-								{#if typeof filters[key] === 'string'}
-									<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
-								{:else}
-									<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
-								{/if}
-								<span>{desc}</span>
-							</label>
-						{/each}
-					{/if}
-				</section>
-			{/each}
+			{#if typeof filters === 'object' && typeof unique === 'object'}
+				{#each Object.keys(unique) as key}
+					<section>
+						<h3>{key.replace(/_/g, ' ')}</h3>
+						{#if Array.isArray(unique[key])}
+							{#each unique[key] as value}
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label>
+									{#if typeof filters[key] === 'string'}
+										<input type="radio" bind:group={filters[key]} {value} />
+									{:else}
+										<input type="checkbox" bind:group={filters[key]} {value} />
+									{/if}
+									<span>{value}</span>
+								</label>
+							{/each}
+						{:else}
+							{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label>
+									{#if typeof filters[key] === 'string'}
+										<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
+									{:else}
+										<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
+									{/if}
+									<span>{desc}</span>
+								</label>
+							{/each}
+						{/if}
+					</section>
+				{/each}
+			{/if}
 
 			<slot />
 		</aside>
