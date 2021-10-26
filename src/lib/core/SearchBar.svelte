@@ -5,7 +5,6 @@
 	let className = '';
 
 	export let items = [];
-	export let limit = 7;
 
 	/**
 	 * - `string` to reference an image from static assets
@@ -102,7 +101,7 @@
 
 			{#if show.autocomplete && items.length}
 				<div class="autocomplete" on:pointerdown|preventDefault={noop}>
-					{#each items.slice(0, limit) as item}
+					{#each items as item}
 						<slot name="autocomplete" {item} utils={{ select: handle.select(item) }}>
 							<span on:pointerup={handle.select(item)}>
 								{typeof item !== 'string' ? JSON.stringify(item) : item}
