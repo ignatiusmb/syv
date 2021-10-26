@@ -4,6 +4,7 @@
 	export { className as class };
 	let className = '';
 
+	/** @type {any[]} */
 	export let items = [];
 
 	/**
@@ -19,10 +20,10 @@
 	 */
 	export let size = '24';
 
-	/** @type {Record<string, UniqueFilterValue>} */
-	export let filters = null;
-	/** @type {Record<string, UniqueFilterValue>} */
-	export let unique = null;
+	/** @type {undefined | Record<string, UniqueFilterValue>} */
+	export let filters = undefined;
+	/** @type {undefined | Record<string, UniqueFilterValue>} */
+	export let unique = undefined;
 
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
@@ -44,22 +45,26 @@
 	/**
 	 * @typedef {string | Array<string | number>} UniqueFilterValue
 	 *
-	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
-	 * @typedef {(event: ClickEvent) => void} ClickHandler
+	 * @typedef {MouseEvent | FocusEvent} Captured
+	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
+	 * @typedef {(event: WildEvent) => void} WildcardHandler
 	 */
 
 	const handle = {
-		/** @returns {ClickHandler} */
-		select: (item) => (event) => {
+		/**
+		 * @param {any} item
+		 * @returns {WildcardHandler}
+		 */
+		select: (item) => () => {
 			dispatch('select', item);
 			searchbox.blur();
 		},
 		/**
 		 * @param {keyof typeof show} property
 		 * @param {boolean} value
-		 * @returns {ClickHandler}
+		 * @returns {WildcardHandler}
 		 */
-		toggle: (property, value) => (event) => {
+		toggle: (property, value) => () => {
 			show[property] = value;
 		},
 	};
@@ -139,7 +144,7 @@
 							</label>
 						{/each}
 					{:else}
-						{#each Object.entries(unique[key]).sort((x, y) => y[0] - x[0]) as [val, desc]}
+						{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<label>
 								{#if typeof filters[key] === 'string'}
