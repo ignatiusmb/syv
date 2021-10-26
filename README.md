@@ -306,6 +306,7 @@ SearchBar element provides a searchbox and `query` to bind the value.
 - `placeholder` - string placeholder passed to input attribute
 - `items` - array of items to be searched and shown in autocompletion box
 - `icon` - can be `true` to use built-in icon, `string` to use as `src` in `<img>`, or a callback function that imports a svelte component
+- `size` - icon size to be passed to Search and Filter icons
 - `filters` - object that consists of arrays or string that holds the checked value(s) by user
 - `unique` - object that consists of arrays consisting of unique values complementing filters or objects with the key as unique values and value as the displayed text
 
