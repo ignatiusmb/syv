@@ -295,18 +295,18 @@ There's also 3 exposed slot props available to use to manually move to certain p
 | query \*    | `''`                                            |
 | placeholder | `'Type your queries here (Press "/" to focus)'` |
 | items       | `[]`                                            |
-| limit       | `7`                                             |
 | icon        | `false`                                         |
-| filters     | `null`                                          |
-| unique      | `null`                                          |
+| size        | `'24'`                                          |
+| filters     | `false`                                         |
+| unique      | `undefined`                                     |
 
 SearchBar element provides a searchbox and `query` to bind the value.
 
 - `query` - prop that holds the query value from the searchbox
 - `placeholder` - string placeholder passed to input attribute
 - `items` - array of items to be searched and shown in autocompletion box
-- `limit` - items cutoff when showing autocompletion box
 - `icon` - can be `true` to use built-in icon, `string` to use as `src` in `<img>`, or a callback function that imports a svelte component
+- `size` - icon size to be passed to Search and Filter icons
 - `filters` - object that consists of arrays or string that holds the checked value(s) by user
 - `unique` - object that consists of arrays consisting of unique values complementing filters or objects with the key as unique values and value as the displayed text
 

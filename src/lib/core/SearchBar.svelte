@@ -4,17 +4,26 @@
 	export { className as class };
 	let className = '';
 
+	/** @type {any[]} */
 	export let items = [];
-	export let limit = 7;
-	/**
-	 * @param {any} item individually limited looped items
-	 * @returns {string} final text to be shown
-	 */
-	export let labeler = (item) => (typeof item !== 'string' ? JSON.stringify(item) : item);
 
+	/**
+	 * - `string` to reference an image from static assets
+	 * - `boolean` (`true`) to use built-in feather icon
+	 * - callback to dynamically import and use an icon component
+	 * @type {string | boolean | (() => Promise<typeof import('*.svelte')>)}
+	 */
 	export let icon = false;
-	export let filters = null;
-	export let unique = null;
+	/**
+	 * Icon size for Search and Filter
+	 * @type {string | number}
+	 */
+	export let size = '24';
+
+	/** @type {boolean | Record<string, UniqueFilterValue>} */
+	export let filters = false;
+	/** @type {undefined | Record<string, UniqueFilterValue>} */
+	export let unique = undefined;
 
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
@@ -34,22 +43,21 @@
 	let searchbox;
 
 	/**
-	 * @typedef {MouseEvent & { currentTarget: EventTarget & HTMLInputElement }} ClickEvent
-	 * @typedef {(event: ClickEvent) => void} ClickHandler
+	 * @typedef {string | Array<string | number>} UniqueFilterValue
+	 *
+	 * @typedef {MouseEvent | FocusEvent} Captured
+	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
+	 * @typedef {(event: WildEvent) => void} WildcardHandler
 	 */
 
 	const handle = {
-		/** @returns {ClickHandler} */
-		select: (item) => (event) => {
+		/** @type {(item: any) => WildcardHandler} */
+		select: (item) => () => {
 			dispatch('select', item);
 			searchbox.blur();
 		},
-		/**
-		 * @param {keyof typeof show} property
-		 * @param {boolean} value
-		 * @returns {ClickHandler}
-		 */
-		toggle: (property, value) => (event) => {
+		/** @type {(property: keyof typeof show, value: boolean) => WildcardHandler} */
+		toggle: (property, value) => () => {
 			show[property] = value;
 		},
 	};
@@ -74,7 +82,7 @@
 						<img src={icon} alt="icon" />
 					{:else}
 						<LazyLoad file={typeof icon === 'function' ? icon : icons.search} let:loaded>
-							<svelte:component this={loaded} />
+							<svelte:component this={loaded} {size} />
 						</LazyLoad>
 					{/if}
 				</span>
@@ -91,8 +99,12 @@
 
 			{#if show.autocomplete && items.length}
 				<div class="autocomplete" on:pointerdown|preventDefault={noop}>
-					{#each items.slice(0, limit) as item}
-						<span on:pointerup={handle.select(item)}>{labeler(item)}</span>
+					{#each items as item}
+						<slot name="autocomplete" {item} utils={{ select: handle.select(item) }}>
+							<span on:pointerup={handle.select(item)}>
+								{typeof item !== 'string' ? JSON.stringify(item) : item}
+							</span>
+						</slot>
 					{/each}
 				</div>
 			{/if}
@@ -101,44 +113,46 @@
 		{#if filters}
 			<span on:click={handle.toggle('filter', !show.filter)}>
 				<LazyLoad file={icons.filter} let:loaded>
-					<svelte:component this={loaded} />
+					<svelte:component this={loaded} {size} />
 				</LazyLoad>
 			</span>
 		{/if}
 	</div>
 
-	{#if filters && unique && show.filter}
+	{#if filters && show.filter}
 		<aside transition:slide={{ duration }}>
-			{#each Object.keys(unique) as key}
-				<section>
-					<h3>{key.replace(/_/g, ' ')}</h3>
-					{#if Array.isArray(unique[key])}
-						{#each unique[key] as value}
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label>
-								{#if typeof filters[key] === 'string'}
-									<input type="radio" bind:group={filters[key]} {value} />
-								{:else}
-									<input type="checkbox" bind:group={filters[key]} {value} />
-								{/if}
-								<span>{value}</span>
-							</label>
-						{/each}
-					{:else}
-						{#each Object.entries(unique[key]).sort((x, y) => y[0] - x[0]) as [val, desc]}
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label>
-								{#if typeof filters[key] === 'string'}
-									<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
-								{:else}
-									<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
-								{/if}
-								<span>{desc}</span>
-							</label>
-						{/each}
-					{/if}
-				</section>
-			{/each}
+			{#if typeof filters === 'object' && typeof unique === 'object'}
+				{#each Object.keys(unique) as key}
+					<section>
+						<h3>{key.replace(/_/g, ' ')}</h3>
+						{#if Array.isArray(unique[key])}
+							{#each unique[key] as value}
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label>
+									{#if typeof filters[key] === 'string'}
+										<input type="radio" bind:group={filters[key]} {value} />
+									{:else}
+										<input type="checkbox" bind:group={filters[key]} {value} />
+									{/if}
+									<span>{value}</span>
+								</label>
+							{/each}
+						{:else}
+							{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label>
+									{#if typeof filters[key] === 'string'}
+										<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
+									{:else}
+										<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
+									{/if}
+									<span>{desc}</span>
+								</label>
+							{/each}
+						{/if}
+					</section>
+				{/each}
+			{/if}
 
 			<slot />
 		</aside>
@@ -194,7 +208,15 @@
 		width: 100%;
 		height: 100%;
 	}
-	.sb input + div {
+	.sb label + span {
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.7em;
+		border-radius: inherit;
+	}
+	/* Autocomplete */
+	.autocomplete {
 		z-index: 9;
 		width: 100%;
 		position: absolute;
@@ -206,22 +228,14 @@
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 	}
-	.sb input + div span {
+	.autocomplete > :global(*) {
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 
 		padding: 0.4em 0.8em;
 	}
-	.sb label + span {
-		cursor: pointer;
-		display: inline-flex;
-		align-items: center;
-		padding: 0.7em;
-		border-radius: inherit;
-	}
-	/* Autocomplete */
-	.autocomplete > span:hover {
+	.autocomplete > :global(:hover) {
 		cursor: pointer;
 		color: #ffffff;
 		background: #2e69e2;
@@ -249,6 +263,7 @@
 		max-height: 20em;
 		display: flex;
 		flex-direction: column;
+		background-color: var(--bg-base, #1f2023);
 	}
 	aside section h3,
 	aside :global(section h3) {
