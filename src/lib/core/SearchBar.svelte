@@ -263,6 +263,7 @@
 		max-height: 20em;
 		display: flex;
 		flex-direction: column;
+		background-color: var(--bg-base, #1f2023);
 	}
 	aside section h3,
 	aside :global(section h3) {
