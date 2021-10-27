@@ -297,7 +297,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 | items       | `[]`                                            |
 | icon        | `false`                                         |
 | size        | `'24'`                                          |
-| filters     | `undefined`                                     |
+| filters     | `false`                                         |
 | unique      | `undefined`                                     |
 
 SearchBar element provides a searchbox and `query` to bind the value.
