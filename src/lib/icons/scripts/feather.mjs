@@ -58,7 +58,6 @@ export default {
 		const { options: svelte } = overrides.find(({ files: [ext] }) => ext.endsWith('.svelte'));
 
 		delete workspace['$schema'];
-		console.log({ parser: 'svelte', ...workspace, ...svelte });
 		return { parser: 'svelte', ...workspace, ...svelte };
 	},
 };
