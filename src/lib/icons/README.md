@@ -26,9 +26,9 @@ All icons from [Feather Icons](https://feathericons.com/) are available as class
 <!-- <IconName weight="2" /> -->
 ```
 
-### About Feather Icons
+### Credits
 
-|            |                                                                     |
+| About      | Feather Icons                                                       |
 | ---------- | ------------------------------------------------------------------- |
 | Repository | GitHub <<https://github.com/feathericons/feather>>                  |
 | Author     | Cole Bemis <<https://github.com/colebemis>>                         |
