@@ -1,10 +1,9 @@
 import { icons as feather } from 'feather-icons';
 import { existsSync, readFileSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
+import { capitalize } from 'mauss/utils';
 import prettier from 'prettier';
 
-/** @param {string} w word to be transformed */
-const pascalCase = (w) => `${w[0].toUpperCase()}${w.slice(1).toLowerCase()}`;
 /** @param {string} icon feather icon name */
 const generate = (icon) => `<script>
 	export let size = 24;
@@ -39,7 +38,7 @@ export default {
 		let exp = '';
 		const promises = [];
 		for (const kebab in feather) {
-			const pascal = kebab.replace(/\w+/g, pascalCase).replace(/-/g, '');
+			const pascal = kebab.replace(/\w+/g, capitalize).replace(/-/g, '');
 			const formatted = prettier.format(generate(kebab), await config);
 			promises.push(writeFile(`../feather/${pascal}.svelte`, formatted));
 			exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
