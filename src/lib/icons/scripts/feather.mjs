@@ -45,11 +45,9 @@ export default {
 			exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 		}
 
-		await Promise.all([
-			writeFile('../feather/index.js', exp),
-			writeFile('../feather/index.d.ts', exp),
-			...promises,
-		]);
+		promises.push(writeFile('../feather/index.js', exp));
+		promises.push(writeFile('../feather/index.d.ts', exp));
+		await Promise.all(promises);
 	},
 	async config() {
 		let path = 'node_modules';
