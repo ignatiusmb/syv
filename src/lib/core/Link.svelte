@@ -19,7 +19,7 @@
 	target={newTab ? '_blank' : undefined}
 	sveltekit:noscroll={noscroll || undefined}
 	sveltekit:prefetch={!external || undefined}
-	rel={external ? `noopener${refer ? '' : ' noreferrer'}` : undefined}
+	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
 	aria-label={label || undefined}
 	class="syv-core-link {className}"
 	class:disabled={!href}
