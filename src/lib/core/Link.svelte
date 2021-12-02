@@ -1,6 +1,7 @@
 <script>
 	export let href = '';
 	export let label = '';
+	export let external = /^https?:\/\//.test(href);
 	export let download = false;
 	export let newTab = false;
 	export let inherit = false;
@@ -10,8 +11,6 @@
 	export let refer = false;
 	export { className as class };
 	let className = '';
-
-	$: external = /^https?:\/\//.test(href);
 </script>
 
 <a
