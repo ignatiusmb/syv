@@ -1,6 +1,7 @@
 <script>
 	export let href = '';
 	export let label = '';
+	export let external = /^https?:\/\//.test(href);
 	export let download = false;
 	export let newTab = false;
 	export let inherit = false;
@@ -10,24 +11,22 @@
 	export let refer = false;
 	export { className as class };
 	let className = '';
-
-	$: external = /^https?:\/\//.test(href);
 </script>
 
 <a
 	{href}
-	download={download || undefined}
-	target={newTab ? '_blank' : undefined}
 	sveltekit:noscroll={noscroll || undefined}
 	sveltekit:prefetch={!external || undefined}
-	rel={external ? `noopener${refer ? '' : ' noreferrer'}` : undefined}
+	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
 	aria-label={label || undefined}
-	class="syv-core-link {className}"
-	class:disabled={!href}
-	class:inherit
+	download={download || undefined}
+	target={newTab ? '_blank' : undefined}
 	class:invert
+	class:inherit
+	class:disabled={!href}
+	class="syv-core-link {className}"
 >
-	<slot {external} />
+	<slot />
 </a>
 
 <style>
