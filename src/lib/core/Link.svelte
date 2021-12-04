@@ -26,7 +26,7 @@
 	class:disabled={!href}
 	class="syv-core-link {className}"
 >
-	<slot {external} />
+	<slot />
 </a>
 
 <style>
