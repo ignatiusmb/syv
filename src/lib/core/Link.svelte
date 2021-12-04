@@ -15,16 +15,16 @@
 
 <a
 	{href}
-	download={download || undefined}
-	target={newTab ? '_blank' : undefined}
 	sveltekit:noscroll={noscroll || undefined}
 	sveltekit:prefetch={!external || undefined}
 	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
 	aria-label={label || undefined}
-	class="syv-core-link {className}"
-	class:disabled={!href}
-	class:inherit
+	download={download || undefined}
+	target={newTab ? '_blank' : undefined}
 	class:invert
+	class:inherit
+	class:disabled={!href}
+	class="syv-core-link {className}"
 >
 	<slot {external} />
 </a>
