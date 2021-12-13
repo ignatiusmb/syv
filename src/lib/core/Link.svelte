@@ -2,16 +2,21 @@
 	export let href = '';
 	/** passed through to aria-label */
 	export let label = '';
-	/** sets rel to external and disable prefetching */
+	/** sets rel to external and disable sveltekit:prefetch */
 	export let external = /^https?:\/\//.test(href);
 	/** sets download attribute */
 	export let download = false;
 	/** sets target as '_blank' */
 	export let newTab = false;
+
+	/** adds inherit class to element */
 	export let inherit = false;
+	/** adds invert class to element */
 	export let invert = false;
 
+	/** sets sveltekit:noscroll value */
 	export let noscroll = false;
+	/** adds noreferrer to rel, only applied when external is true */
 	export let refer = false;
 	export { className as class };
 	let className = '';
