@@ -4,6 +4,10 @@
 	export let label = '';
 	/** sets rel to external and disable sveltekit:prefetch */
 	export let external = /^https?:\/\//.test(href);
+	/** adds noreferrer to rel, only applied when external is true */
+	export let refer = false;
+	/** sets sveltekit:noscroll value */
+	export let noscroll = false;
 	/** sets download attribute */
 	export let download = false;
 	/** sets target as '_blank' */
@@ -14,20 +18,16 @@
 	/** adds invert class to element */
 	export let invert = false;
 
-	/** sets sveltekit:noscroll value */
-	export let noscroll = false;
-	/** adds noreferrer to rel, only applied when external is true */
-	export let refer = false;
 	export { className as class };
 	let className = '';
 </script>
 
 <a
 	{href}
-	sveltekit:noscroll={noscroll || undefined}
-	sveltekit:prefetch={!external || undefined}
-	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
 	aria-label={label || undefined}
+	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
+	sveltekit:prefetch={!external || undefined}
+	sveltekit:noscroll={noscroll || undefined}
 	download={download || undefined}
 	target={newTab ? '_blank' : undefined}
 	class:invert
