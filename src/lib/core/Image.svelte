@@ -11,6 +11,8 @@
 	export let overlay = false;
 	/** position wrapper div as absolute */
 	export let absolute = false;
+	/** @type {import('svelte/transition').FadeParams} fade in options */
+	export let transition = {};
 	export { className as class };
 	let className = '';
 
@@ -32,7 +34,7 @@
 	{#if lazy}
 		<Observe once let:sighted>
 			{#if sighted}
-				<img {src} {alt} in:fade class:contain />
+				<img {src} {alt} in:fade={transition} class:contain />
 				{#if overlay}
 					<Overlay {show}>
 						<slot />
@@ -41,7 +43,7 @@
 			{/if}
 		</Observe>
 	{:else}
-		<img {src} {alt} in:fade class:contain />
+		<img {src} {alt} in:fade={transition} class:contain />
 		{#if overlay}
 			<Overlay {show}>
 				<slot />
