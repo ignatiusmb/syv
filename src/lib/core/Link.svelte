@@ -1,8 +1,12 @@
 <script>
 	export let href = '';
+	/** passed through to aria-label */
 	export let label = '';
+	/** sets rel to external and disable prefetching */
 	export let external = /^https?:\/\//.test(href);
+	/** sets download attribute */
 	export let download = false;
+	/** sets target as '_blank' */
 	export let newTab = false;
 	export let inherit = false;
 	export let invert = false;
