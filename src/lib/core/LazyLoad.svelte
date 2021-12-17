@@ -1,13 +1,17 @@
 <script>
-	export let file;
+	/** @type {Array<() => Promise<typeof import('*.svelte')>>} */
+	export let files;
 	export let when = true;
 
-	let component;
-	$: if (when && !component) component = file();
+	/** @type {Promise<typeof import('*.svelte')>[] | undefined} */
+	let promises;
+	$: if (when && !promises && Array.isArray(files)) {
+		promises = files.map((file) => file());
+	}
 </script>
 
-{#if component && when}
-	{#await component then { default: loaded }}
-		<slot {loaded} />
+{#if when && promises && promises.length}
+	{#await Promise.all(promises) then components}
+		<slot loaded={components.map((c) => c.default)} />
 	{/await}
 {/if}
