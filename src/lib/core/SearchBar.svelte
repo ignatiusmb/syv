@@ -82,7 +82,7 @@
 						<img src={icon} alt="icon" />
 					{:else}
 						<LazyLoad files={[typeof icon === 'function' ? icon : icons.search]} let:loaded>
-							<svelte:component this={loaded[0]} />
+							<svelte:component this={loaded[0]} {size} />
 						</LazyLoad>
 					{/if}
 				</span>
@@ -113,7 +113,7 @@
 		{#if filters}
 			<span on:click={handle.toggle('filter', !show.filter)}>
 				<LazyLoad files={[icons.filter]} let:loaded>
-					<svelte:component this={loaded[0]} />
+					<svelte:component this={loaded[0]} {size} />
 				</LazyLoad>
 			</span>
 		{/if}
