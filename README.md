@@ -143,15 +143,16 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 ### Image
 
-| Props    | Default  |
-| -------- | -------- |
-| src \*   | `''`     |
-| alt \*   | `''`     |
-| lazy     | `false`  |
-| contain  | `false`  |
-| overlay  | `false`  |
-| absolute | `false`  |
-| ratio    | `9 / 16` |
+| Props      | Default  |
+| ---------- | -------- |
+| src \*     | `''`     |
+| alt \*     | `''`     |
+| ratio      | `9 / 16` |
+| lazy       | `false`  |
+| contain    | `false`  |
+| overlay    | `false`  |
+| absolute   | `false`  |
+| transition | `{}`     |
 
 Image element is created to have a fixed ratio, **not size**. It will be responsive by default and will follow its parent container size. To set a fixed size, just explicitly set the parent container size.
 
@@ -163,6 +164,27 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 </script>
 
 <Image {src} {alt}  />
+```
+
+- `ratio` - this receives a float to determine the ratio of your image, set to 16:9 by default
+
+```svelte
+<!-- Square Image -->
+<Image {src} {alt} ratio={1} />
+
+<!-- Vertical format -->
+<Image {src} {alt} ratio={4 / 3} />
+
+<!-- Horizontal format -->
+<Image {src} {alt} ratio={3 / 4} />
+```
+
+- `lazy` - lazy load image when it's sighted in viewport
+
+```svelte
+<Image {src} {alt} lazy>
+  <p>I will appear when this Image is hovered</p>
+</Image>
 ```
 
 - `contain` - images will have property `object-fit` with the value of `cover` by default, pass this prop to set the value to `contain`
@@ -179,14 +201,6 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 </Image>
 ```
 
-- `lazy` - lazy load image when it's sighted in viewport
-
-```svelte
-<Image {src} {alt} lazy>
-  <p>I will appear when this Image is hovered</p>
-</Image>
-```
-
 - `absolute` - set the Image container position as absolute
 
 ```svelte
@@ -194,19 +208,6 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
   <!-- Image is now absolute positioned in this div -->
   <Image {src} {alt} absolute />
 </div>
-```
-
-- `ratio` - this receives a float to determine the ratio of your image, set to 16:9 by default
-
-```svelte
-<!-- Square Image -->
-<Image {src} {alt} ratio={1} />
-
-<!-- Vertical format -->
-<Image {src} {alt} ratio={4 / 3} />
-
-<!-- Horizontal format -->
-<Image {src} {alt} ratio={3 / 4} />
 ```
 
 ### LazyLoad

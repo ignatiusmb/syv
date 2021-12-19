@@ -1,11 +1,18 @@
 <script>
 	export let src = '';
 	export let alt = '';
-	export let lazy = false;
-	export let contain = false;
-	export let overlay = false;
-	export let absolute = false;
+	/** image ratio with y/x axis as floating number */
 	export let ratio = 9 / 16;
+	/** lazily load image using intersection observer */
+	export let lazy = false;
+	/** set object-fit to contain */
+	export let contain = false;
+	/** enable overlay with default slot */
+	export let overlay = false;
+	/** position wrapper div as absolute */
+	export let absolute = false;
+	/** @type {import('svelte/transition').FadeParams} fade in options */
+	export let transition = {};
 	export { className as class };
 	let className = '';
 
@@ -27,7 +34,7 @@
 	{#if lazy}
 		<Observe once let:sighted>
 			{#if sighted}
-				<img {src} {alt} in:fade class:contain />
+				<img {src} {alt} in:fade={transition} class:contain />
 				{#if overlay}
 					<Overlay {show}>
 						<slot />
@@ -36,7 +43,7 @@
 			{/if}
 		</Observe>
 	{:else}
-		<img {src} {alt} in:fade class:contain />
+		<img {src} {alt} in:fade={transition} class:contain />
 		{#if overlay}
 			<Overlay {show}>
 				<slot />
