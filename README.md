@@ -143,15 +143,16 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 ### Image
 
-| Props    | Default  |
-| -------- | -------- |
-| src \*   | `''`     |
-| alt \*   | `''`     |
-| ratio    | `9 / 16` |
-| lazy     | `false`  |
-| contain  | `false`  |
-| overlay  | `false`  |
-| absolute | `false`  |
+| Props      | Default  |
+| ---------- | -------- |
+| src \*     | `''`     |
+| alt \*     | `''`     |
+| ratio      | `9 / 16` |
+| lazy       | `false`  |
+| contain    | `false`  |
+| overlay    | `false`  |
+| absolute   | `false`  |
+| transition | `{}`     |
 
 Image element is created to have a fixed ratio, **not size**. It will be responsive by default and will follow its parent container size. To set a fixed size, just explicitly set the parent container size.
 
