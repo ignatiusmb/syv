@@ -8,9 +8,7 @@ export interface Action<Parameters = any, Element = HTMLElement> {
 	};
 }
 
-export const autofocus: Action<boolean> = (node, when = true) => {
-	if (when) node.focus();
-	return {
-		update: (when) => when && node.focus(),
-	};
-};
+/** autofocus element when condition is true */
+export const autofocus: Action<boolean> = (node, when = true) => (
+	when && node.focus(), { update: (when) => when && node.focus() }
+);
