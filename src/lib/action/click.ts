@@ -1,4 +1,5 @@
 import type { Action } from '.';
+import { noop } from '../utils';
 
 export const outside: Action<(event: MouseEvent) => void> = (node, callback) => {
 	const clicked = (event: MouseEvent) => {
@@ -16,7 +17,7 @@ export const hold: Action<{
 	duration?: number;
 	/** executed when `duration` has been reached */
 	invoke?: () => void;
-}> = (node, { duration = 2000, invoke = () => {} } = {}) => {
+}> = (node, { duration = 2000, invoke = noop } = {}) => {
 	let timer: NodeJS.Timeout;
 
 	const press = () => {
