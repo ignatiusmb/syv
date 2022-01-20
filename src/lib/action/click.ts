@@ -11,3 +11,30 @@ export const outside: Action<(event: MouseEvent) => void> = (node, callback) => 
 		destroy: () => document.removeEventListener('click', clicked, true),
 	};
 };
+
+export const hold: Action<{
+	duration?: number;
+	/** executed when `duration` has been reached */
+	invoke?: () => void;
+}> = (node, { duration = 2000, invoke = () => {} } = {}) => {
+	let timer: NodeJS.Timeout;
+
+	const press = () => {
+		timer = setTimeout(invoke, duration);
+	};
+	const release = () => {
+		if (timer) clearTimeout(timer);
+	};
+
+	node.addEventListener('mousedown', press);
+	node.addEventListener('mouseup', release);
+	return {
+		update({ duration: updated = 2000 }) {
+			duration = updated;
+		},
+		destroy() {
+			node.removeEventListener('mousedown', press);
+			node.removeEventListener('mouseup', release);
+		},
+	};
+};
