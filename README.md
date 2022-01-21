@@ -36,7 +36,7 @@ This starts out as (and is still is) a hobby project I'm doing to help myself in
 
 ***
 
-## Namespaces
+## Modules
 
 ### `syv/icons`
 
@@ -396,4 +396,4 @@ SearchBar element provides a searchbox and `query` to bind the value.
 
 ***
 
-<h5 align="center"><pre>Copyright &copy; 2020 - 2021 <a href="https://mauss.dev">Ignatius Bagussuputra</a></pre></h5>
+<h5 align="center"><pre>Copyright &copy; 2020 - 2022 <a href="https://mauss.dev">Ignatius Bagussuputra</a></pre></h5>
