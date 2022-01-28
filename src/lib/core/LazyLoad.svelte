@@ -15,5 +15,7 @@
 		<slot name="loading" />
 	{:then components}
 		<slot loaded={components.map((c) => c.default)} />
+	{:catch error}
+		<slot name="fallback" {error} />
 	{/await}
 {/if}
