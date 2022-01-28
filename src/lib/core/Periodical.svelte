@@ -8,7 +8,8 @@
 	export let idleOnly = false;
 	export let refresh = 10 * 60 * 1000;
 	export let interval = refresh / 60;
-	export let task = () => {};
+	export let task = noop;
+	import { noop } from '../utils';
 	const binding = () => idleOnly && reset();
 
 	import { onMount } from 'svelte';
