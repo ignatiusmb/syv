@@ -6,7 +6,6 @@ const config = {
 	preprocess: preprocess(),
 	kit: {
 		adapter: adapter(),
-		target: '#svelte',
 		package: {
 			exports: (filepath) => {
 				if (filepath.startsWith('.')) return false;
