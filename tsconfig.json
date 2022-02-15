@@ -1,6 +1,8 @@
 {
 	"extends": "mauss/tsconfig.json",
 	"compilerOptions": {
+		"allowJs": false, // TODO temporary
+		"checkJs": false, // TODO temporary
 		"resolveJsonModule": true,
 		"target": "ES2020",
 		"baseUrl": ".",
