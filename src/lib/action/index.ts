@@ -5,16 +5,17 @@ interface ActionReturn<Parameters = any> {
 	update?: (parameters: Parameters) => void;
 	destroy?: () => void;
 }
-export interface Action<Parameters = any, Element = HTMLElement> {
+export interface Action<Element = HTMLElement, Parameters = any> {
 	<Node extends Element>(node: Node, parameters?: Parameters): void | ActionReturn<Parameters>;
 }
 
 /** autofocus element when condition is true */
-export const autofocus: Action<boolean> = (node, when = true) => (
+export const autofocus: Action<HTMLElement, boolean> = (node, when = true) => (
 	when && node.focus(), { update: (when) => when && node.focus() }
 );
 
-export const autoresize: Action = (node) => {
+/** automatically expand/shrink `textarea` height according to content  */
+export const autoresize: Action<HTMLTextAreaElement> = (node) => {
 	const { paddingBlock } = getComputedStyle(node);
 	const computed = +paddingBlock.slice(0, -2);
 	let memory = node.scrollHeight + computed;
