@@ -17,8 +17,9 @@
 	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
 
 	let page = 0;
+
 	/** @type {(index: number) => void} */
-	function moveTo(index) {
+	function jump(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
 			/** @type {NodeJS.Timeout} */
@@ -31,6 +32,9 @@
 			timeout = setTimeout(repeat, 50);
 		} else page = index;
 	}
+
+	/** @param {number} i */
+	const click = (i) => () => jump(i);
 
 	$: total = items.length;
 	$: ceil = Math.ceil((total - bound) / increment);
@@ -48,27 +52,27 @@
 <section class="syv-core-pagination {className}">
 	<slot name="left">
 		<div class="navigator">
-			<span class:disabled={page === 0} on:click={() => moveTo(0)}>
+			<span class:disabled={page === 0} on:click={click(0)}>
 				<ChevronsLeft />
 			</span>
-			<span class:disabled={page === 0} on:click={() => moveTo(page - 1)}>
+			<span class:disabled={page === 0} on:click={click(page - 1)}>
 				<ChevronLeft />
 			</span>
 		</div>
 	</slot>
 
 	<div class="slot-holder">
-		<slot {limit} {page} {moveTo}>
+		<slot {limit} {page} {jump}>
 			<div>{curr} - {next} / {total}</div>
 		</slot>
 	</div>
 
 	<slot name="right">
 		<div class="navigator">
-			<span class:disabled={page === limit} on:click={() => moveTo(page + 1)}>
+			<span class:disabled={page === limit} on:click={click(page + 1)}>
 				<ChevronRight />
 			</span>
-			<span class:disabled={page === limit} on:click={() => moveTo(limit)}>
+			<span class:disabled={page === limit} on:click={click(limit)}>
 				<ChevronsRight />
 			</span>
 		</div>
