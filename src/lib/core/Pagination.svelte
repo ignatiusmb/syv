@@ -1,5 +1,7 @@
 <script>
+	/** @type {import('svelte/store').Writable<any[]>} */
 	export let store = writable([]);
+	/** @type {any[]} */
 	export let items = [];
 	export let bound = 3;
 	export let increment = bound;
@@ -15,9 +17,11 @@
 	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
 
 	let page = 0;
+	/** @type {(index: number) => void} */
 	function moveTo(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
+			/** @type {NodeJS.Timeout} */
 			let timeout;
 			const repeat = () => {
 				page = index === 0 ? page - 1 : page + 1;
