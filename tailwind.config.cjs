@@ -1,6 +1,5 @@
 module.exports = {
-	mode: 'jit',
-	purge: ['./src/**/*.{html,svelte}'],
+	content: ['./src/**/*.{html,svelte}'],
 	theme: {},
 	plugins: [],
 };

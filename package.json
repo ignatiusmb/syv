@@ -15,7 +15,7 @@
     "check:format": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "node": "node --experimental-specifier-resolution=node",
-    "build": "run-p build:**",
+    "build": "npm run build:icons",
     "build:icons": "cd src/lib/icons && npm run node -- build.mjs",
     "package": "npm run build && svelte-kit package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
@@ -54,7 +54,6 @@
     "feather-icons": "^4.28.0",
     "markdown-it": "^12.0.6",
     "marqua": "^0.3.0",
-    "npm-run-all": "^4.1.5",
     "postcss": "^8.3.6",
     "postcss-load-config": "^3.1.0",
     "prettier": "^2.2.1",
