@@ -14,9 +14,8 @@
     "check:types": "tsc --noEmit",
     "check:format": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
-    "node": "node --experimental-specifier-resolution=node",
     "build": "npm run build:icons",
-    "build:icons": "cd src/lib/icons && npm run node -- build.mjs",
+    "build:icons": "cd src/lib/icons && node --experimental-specifier-resolution=node build.mjs",
     "package": "npm run build && svelte-kit package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
