@@ -283,7 +283,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 - `let:limit` - the maximum number of page with the current items
 - `let:page` - a number to indicate the current page it is on
-- `let:moveTo` - function that takes in a number between `0` and `limit`
+- `let:jump` - function that takes in a number between `0` and `limit`
 
 ```svelte
 <script>
@@ -294,9 +294,9 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 <Pagination {store} {items} />
 <!-- or with custom buttons -->
-<Pagination {store} {items} let:limit let:page let:moveTo>
+<Pagination {store} {items} let:limit let:page let:jump>
   {#each { length: limit + 1 } as _, i}
-    <button on:click={() => moveTo(i)} class:active={i === page}>
+    <button on:click={() => jump(i)} class:active={i === page}>
       {i + 1}
     </button>
   {/each}
