@@ -1,13 +1,6 @@
-export * as click from './click';
+import type { Action } from 'svelte/action';
 
-// TODO replace with https://github.com/sveltejs/svelte/pull/7121
-interface ActionReturn<Parameter = any> {
-	update?: (parameter: Parameter) => void;
-	destroy?: () => void;
-}
-export interface Action<Element = HTMLElement, Parameter = any> {
-	<Node extends Element>(node: Node, parameter?: Parameter): void | ActionReturn<Parameter>;
-}
+export * as click from './click';
 
 /** autofocus element when condition is true */
 export const autofocus: Action<HTMLElement, boolean> = (node, when = true) => (
