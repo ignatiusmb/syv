@@ -1,7 +1,5 @@
-import type { Action } from 'svelte/action';
+import type { HTMLAction } from './types';
 import { noop } from '../utils';
-
-type HTMLAction<T> = Action<HTMLElement, T>;
 
 /** determine if there is click event outside */
 export const outside: HTMLAction<(event: MouseEvent) => void> = (node, callback) => {
