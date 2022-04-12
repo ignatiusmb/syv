@@ -15,11 +15,11 @@ export const autoresize: Action<HTMLTextAreaElement> = (node) => {
 	const receiver = () => {
 		if (node.scrollHeight <= memory) return;
 		memory = node.scrollHeight + computed;
-		node.style.height = `${memory}px`;
+		node.style.setProperty('height', `${memory}px`);
 	};
 
 	node.style.setProperty('overflow-y', 'hidden');
-	node.style.height = `${memory}px`;
+	node.style.setProperty('height', `${memory}px`);
 	node.addEventListener('input', receiver);
 	return {
 		destroy: () => node.removeEventListener('input', receiver),
