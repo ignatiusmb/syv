@@ -1,8 +1,8 @@
-import type { Action } from '.';
+import type { HTMLAction } from './types';
 import { noop } from '../utils';
 
 /** determine if there is click event outside */
-export const outside: Action<(event: MouseEvent) => void> = (node, callback) => {
+export const outside: HTMLAction<(event: MouseEvent) => void> = (node, callback) => {
 	const clicked = (event: MouseEvent) => {
 		if (!node || !callback || event.defaultPrevented) return;
 		if (!node.contains(event.target as Node)) callback(event);
@@ -15,7 +15,7 @@ export const outside: Action<(event: MouseEvent) => void> = (node, callback) => 
 };
 
 /** determine if click is maintained for `duration` */
-export const hold: Action<{
+export const hold: HTMLAction<{
 	/** defaults to `2000` in ms */
 	duration?: number;
 	/** executed when `duration` has been reached */

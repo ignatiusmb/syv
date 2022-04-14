@@ -41,7 +41,7 @@
     "mauss": "^0.2.1"
   },
   "peerDependencies": {
-    "svelte": "^3.31.0"
+    "svelte": "^3.46.6"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "next",
@@ -57,7 +57,7 @@
     "postcss-load-config": "^3.1.0",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.1.0",
-    "svelte": "^3.31.2",
+    "svelte": "^3.46.6",
     "svelte-preprocess": "^4.7.3",
     "svelte2tsx": "^0.5.3",
     "tailwindcss": "^3.0.19",
