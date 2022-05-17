@@ -1,4 +1,7 @@
 <script>
+	export let z = 3;
+	/** height in px */
+	export let height = 4;
 	export { className as class };
 	let className = '';
 
@@ -14,16 +17,21 @@
 </script>
 
 <svelte:window bind:scrollY={y} bind:innerHeight />
-<div class="syv-core-progress-bar {className}" style="transform:translateX({progress}%)" />
+<div
+	class="syv-core-progress-bar {className}"
+	style="
+		z-index: {z};
+		height: {height / 4}rem;
+		transform: translateX({progress}%);
+	"
+/>
 
 <style>
 	div {
-		z-index: 3;
+		width: 100%;
 		position: fixed;
 		top: 0;
 		left: -100%;
-		width: 100%;
-		height: 0.25em;
 		background-color: #990000;
 	}
 </style>
