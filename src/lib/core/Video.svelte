@@ -44,7 +44,7 @@
 >
 	{#if typeof src === 'string'}
 		<source {src} type="video/{src.slice(src.lastIndexOf('.') + 1)}" />
-	{:else if src instanceof Array}
+	{:else if src.length}
 		{#each src as vid}
 			<source src={vid} type="video/{vid.slice(vid.lastIndexOf('.') + 1)}" />
 		{/each}
