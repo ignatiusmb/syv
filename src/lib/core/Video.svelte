@@ -22,6 +22,14 @@
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
+
+	/**
+	 * @typedef {'contact' | 'leave'} DispatchedKind
+	 * @typedef {MouseEvent | TouchEvent} PossibleEvents
+	 */
+
+	/** @type {(k: DispatchedKind) => (ev: PossibleEvents) => void} */
+	const handler = (k) => (event) => dispatch(k, { self: video, event });
 </script>
 
 <video
@@ -30,17 +38,17 @@
 	{autoplay}
 	{controls}
 	{loop}
+	class="syv-core-video {className}"
 	bind:this={video}
 	bind:buffered
 	bind:currentTime
 	bind:duration
 	bind:muted
-	on:mouseenter={(event) => dispatch('contact', { self: video, event })}
-	on:mouseleave={(event) => dispatch('leave', { self: video, event })}
-	on:touchstart={(event) => dispatch('contact', { self: video, event })}
-	on:touchend={(event) => dispatch('leave', { self: video, event })}
-	on:touchcancel={(event) => dispatch('leave', { self: video, event })}
-	class="syv-core-video {className}"
+	on:mouseenter={handler('contact')}
+	on:mouseleave={handler('leave')}
+	on:touchstart={handler('contact')}
+	on:touchend={handler('leave')}
+	on:touchcancel={handler('leave')}
 >
 	{#if typeof src === 'string'}
 		<source {src} type="video/{src.slice(src.lastIndexOf('.') + 1)}" />
