@@ -1,11 +1,14 @@
 <script>
+	/** @type {string | string[]} */
 	export let src = '';
 	/* Passed Values */
 	export let autoplay = false;
 	export let controls = false;
 	export let loop = false;
 	// export let poster = '';
+	/** @type {null | number} */
 	export let width = null;
+	/** @type {null | number} */
 	export let height = null;
 	/* Binding Values */
 	export let buffered = undefined;
@@ -14,6 +17,7 @@
 	export let muted = false;
 	export { className as class };
 	let className = '';
+	/** @type {HTMLVideoElement} */
 	let video; // Bind Video Element
 
 	import { createEventDispatcher } from 'svelte';
