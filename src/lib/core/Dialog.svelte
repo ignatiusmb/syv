@@ -14,7 +14,7 @@
 {#if show}
 	<div class="syv-core-dialog-backdrop" on:click|self={close}>
 		<section class="syv-core-dialog {className}" transition:fly={{ duration }}>
-			<slot />
+			<slot {close} />
 		</section>
 	</div>
 {/if}
