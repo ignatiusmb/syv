@@ -6,7 +6,6 @@
   "license": "MIT",
   "type": "module",
   "svelte": "index.js",
-  "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
