@@ -5,18 +5,17 @@
 	export { className as class };
 	let className = '';
 
-	/** @type {number} */
-	let y,
-		mounted = typeof window !== 'undefined',
-		/** @type {undefined | number} */
-		innerHeight = mounted ? document.body.scrollHeight : undefined;
-	import { onMount } from 'svelte';
-	onMount(() => (mounted = true));
-	$: scrolled = mounted ? document.body.scrollHeight : y;
-	$: progress = (y / (scrolled - (innerHeight || 0))) * 100;
+	import { mounted } from '../store';
+
+	let scrollY = $mounted ? document.body.scrollTop : 0;
+	let innerHeight = $mounted ? document.body.scrollHeight : 1;
+
+	$: scrolled = $mounted ? document.body.scrollHeight : scrollY;
+	$: progress = (scrollY / (scrolled - innerHeight)) * 100;
 </script>
 
-<svelte:window bind:scrollY={y} bind:innerHeight />
+<svelte:window bind:scrollY bind:innerHeight />
+
 <div
 	class="syv-core-progress-bar {className}"
 	style="
