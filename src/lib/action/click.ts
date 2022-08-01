@@ -1,5 +1,5 @@
-import type { HTMLAction } from './types';
-import { noop } from '../utils';
+import type { HTMLAction } from './types.js';
+import { noop } from '../utils.js';
 
 /** determine if there is click event outside */
 export const outside: HTMLAction<(event: MouseEvent) => void> = (node, callback) => {
