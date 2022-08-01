@@ -7,7 +7,7 @@
 		"noImplicitReturns": true,
 		"forceConsistentCasingInFileNames": true,
 
-		"checkJs": false, // TODO temporary
+		"checkJs": true,
 		"sourceMap": true,
 		"resolveJsonModule": true
 	}
