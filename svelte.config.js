@@ -13,15 +13,6 @@ const config = {
 			},
 			files: (filepath) => !filepath.endsWith('build.mjs'),
 		},
-		vite: {
-			optimizeDeps: {
-				exclude: ['marqua'],
-				include: ['markdown-it'],
-			},
-			ssr: {
-				noExternal: ['mauss', 'marqua'],
-			},
-		},
 	},
 };
 

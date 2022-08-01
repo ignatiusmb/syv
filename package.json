@@ -9,7 +9,7 @@
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "dev": "npm run build && svelte-kit dev",
+    "dev": "npm run build && vite dev",
     "check:types": "tsc --noEmit",
     "check:format": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
