@@ -1,6 +1,6 @@
-import type { Action, HTMLAction } from './types';
+import type { Action, HTMLAction } from './types.js';
 
-export * as click from './click';
+export * as click from './click.js';
 
 /** autofocus element when condition is true */
 export const autofocus: HTMLAction<boolean> = (node, when = true) => (

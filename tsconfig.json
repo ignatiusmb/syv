@@ -1,14 +1,14 @@
 {
-	"extends": "mauss/tsconfig.json",
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"allowJs": false, // TODO temporary
-		"checkJs": false, // TODO temporary
-		"target": "ES2020",
-		"baseUrl": ".",
-		"paths": {
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"]
-		}
-	},
-	"include": ["src/**/*"]
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"forceConsistentCasingInFileNames": true,
+
+		"checkJs": true,
+		"sourceMap": true,
+		"resolveJsonModule": true
+	}
 }

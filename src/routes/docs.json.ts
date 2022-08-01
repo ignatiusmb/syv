@@ -1,11 +1,11 @@
-import type { RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from './__types/docs.json';
 import { version } from '../../package.json';
 import { forge, traverse } from 'marqua';
 
 type Metadata = Record<'title', string>;
 type Section = Record<'index' | 'slug' | 'content' | 'path', string>;
 
-export const get: RequestHandler = () => ({
+export const GET: RequestHandler = () => ({
 	body: traverse(
 		'docs',
 		({ frontMatter: { title, toc }, content, breadcrumb: [filename] }) => {

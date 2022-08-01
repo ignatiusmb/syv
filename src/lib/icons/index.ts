@@ -1,4 +1,4 @@
-import * as Feather from './feather';
+import * as Feather from './feather/index.js';
 
 export { Feather };
 
