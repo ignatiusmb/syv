@@ -11,6 +11,5 @@
 		"checkJs": true,
 		"sourceMap": true,
 		"resolveJsonModule": true
-	},
-	"exclude": ["node_modules", "src/lib/**/*"]
+	}
 }
