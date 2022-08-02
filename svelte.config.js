@@ -11,7 +11,10 @@ const config = {
 				if (filepath.startsWith('.')) return false;
 				return !filepath.startsWith('internal/lib');
 			},
-			files: (filepath) => !filepath.endsWith('build.mjs'),
+			files: (filepath) =>
+				!filepath.endsWith('build.mjs') &&
+				!filepath.startsWith('.svelte-kit') &&
+				filepath !== 'tsconfig.json',
 		},
 	},
 };
