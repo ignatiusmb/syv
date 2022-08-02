@@ -2,6 +2,7 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"strict": true,
+		"skipLibCheck": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
@@ -10,5 +11,6 @@
 		"checkJs": true,
 		"sourceMap": true,
 		"resolveJsonModule": true
-	}
+	},
+	"exclude": ["node_modules", "src/lib/**/*"]
 }
