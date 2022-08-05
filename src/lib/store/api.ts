@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { noop } from '../utils';
+import { noop } from '../utils.js';
 
 const cache = new Map();
 

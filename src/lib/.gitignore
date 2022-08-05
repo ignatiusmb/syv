@@ -1,3 +1,5 @@
+.svelte-kit/
+
 # Workaround for Prettier
 .gitignore
 

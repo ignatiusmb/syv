@@ -11,16 +11,10 @@ const config = {
 				if (filepath.startsWith('.')) return false;
 				return !filepath.startsWith('internal/lib');
 			},
-			files: (filepath) => !filepath.endsWith('build.mjs'),
-		},
-		vite: {
-			optimizeDeps: {
-				exclude: ['marqua'],
-				include: ['markdown-it'],
-			},
-			ssr: {
-				noExternal: ['mauss', 'marqua'],
-			},
+			files: (filepath) =>
+				!filepath.endsWith('build.mjs') &&
+				!filepath.startsWith('.svelte-kit') &&
+				filepath !== 'tsconfig.json',
 		},
 	},
 };

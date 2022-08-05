@@ -1,6 +1,6 @@
 import { onMount } from 'svelte';
-import * as api from './api';
-import * as browser from './browser';
+import * as api from './api.js';
+import * as browser from './browser.js';
 
 export { api, browser };
 

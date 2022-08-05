@@ -3,14 +3,18 @@
 	export { className as class };
 	let className = '';
 
+	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { duration } from '../options';
+	const dispatch = createEventDispatcher();
+
+	const close = () => dispatch('close');
 </script>
 
 {#if show}
-	<div class="syv-core-dialog-backdrop" on:click|self={() => (show = false)}>
+	<div class="syv-core-dialog-backdrop" on:click|self={close}>
 		<section class="syv-core-dialog {className}" transition:fly={{ duration }}>
-			<slot />
+			<slot {close} />
 		</section>
 	</div>
 {/if}

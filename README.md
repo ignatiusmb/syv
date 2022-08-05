@@ -24,7 +24,6 @@ Notes:
 
 - All components are written in `PascalCase` and can be accessed as such, including icons.
 - Prop attributes with `*` means it's required to pass a value that's not nullish or empty
-- You might need to add `vite: { ssr: { noExternal: ['mauss'] } }` to `svelte.config.js` when working with SvelteKit
 
 ### Disclaimer
 

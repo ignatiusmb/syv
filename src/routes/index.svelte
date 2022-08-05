@@ -1,21 +1,12 @@
-<script context="module">
-	// import type { Load } from '@sveltejs/kit';
-	// export const load: Load = async ({ fetch }) => {
-	// 	const sections = await fetch('/docs.json').then((r) => r.json());
-	// 	return { props: { sections } };
-	// };
+<script lang="ts">
+	import { autoresize } from '$lib/action';
+	import { outside, hold } from '$lib/action/click';
 </script>
 
-<script>
-	// export let sections;
-	// import Docs from '$lib/internal/Docs.svelte';
+<main use:outside={() => {}}>
+	<a href="/" use:hold>Home</a>
 
-	import SearchBar from '$lib/core/SearchBar.svelte';
-</script>
-
-<!-- <Docs {sections} repo="ignatiusmb/aqua" /> -->
-<main>
-	<SearchBar icon filters />
+	<textarea use:autoresize />
 </main>
 
 <style>
