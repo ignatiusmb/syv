@@ -1,6 +1,13 @@
+import { onMount } from 'svelte';
 import * as api from './api.js';
 import * as browser from './browser.js';
 
-const store = { api, browser };
 export { api, browser };
-export default store;
+
+export const mounted = {
+	subscribe(fn: (state: boolean) => void) {
+		fn(false);
+		onMount(() => fn(true));
+		return () => {};
+	},
+};
