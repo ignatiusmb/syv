@@ -1,7 +1,7 @@
 <script>
 	export let z = 3;
-	/** height in px */
-	export let height = 4;
+	/** height in css unit */
+	export let height = '1rem';
 	export { className as class };
 	let className = '';
 
@@ -20,7 +20,7 @@
 	class="syv-core-progress-bar {className}"
 	style="
 		z-index: {z};
-		height: {height / 4}rem;
+		height: {height};
 		transform: translateX({progress}%);
 	"
 />
