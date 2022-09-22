@@ -18,11 +18,9 @@
 
 <div
 	class="syv-core-progress-bar {className}"
-	style="
-		z-index: {z};
-		height: {height};
-		transform: translateX({progress}%);
-	"
+	style:height
+	style:z-index={z}
+	style:transform="translateX({progress}%)"
 />
 
 <style>
