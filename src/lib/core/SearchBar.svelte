@@ -20,9 +20,9 @@
 	 */
 	export let size = '24';
 
-	/** @type {boolean | Record<string, UniqueFilterValue>} */
+	/** @type {boolean | Iterable} */
 	export let filters = false;
-	/** @type {undefined | Record<string, UniqueFilterValue>} */
+	/** @type {undefined | Iterable} */
 	export let unique = undefined;
 
 	import { tryNumber } from 'mauss/utils';
@@ -43,7 +43,9 @@
 	let searchbox;
 
 	/**
-	 * @typedef {string | Array<string | number>} UniqueFilterValue
+	 * @typedef {{
+	 * 	[key: string]: string | Array<string | number> | Record<string, string>
+	 * }} Iterable
 	 *
 	 * @typedef {MouseEvent | FocusEvent} Captured
 	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
