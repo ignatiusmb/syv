@@ -20,9 +20,9 @@
 	 */
 	export let size = '24';
 
-	/** @type {boolean | Iterable} */
+	/** @type {boolean | IterableValues} */
 	export let filters = false;
-	/** @type {undefined | Iterable} */
+	/** @type {undefined | IterableValues} */
 	export let unique = undefined;
 
 	import { tryNumber } from 'mauss/utils';
@@ -45,7 +45,7 @@
 	/**
 	 * @typedef {{
 	 * 	[key: string]: string | Array<string | number> | Record<string, string>
-	 * }} Iterable
+	 * }} IterableValues
 	 *
 	 * @typedef {MouseEvent | FocusEvent} Captured
 	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
@@ -124,11 +124,11 @@
 	{#if filters && show.filter}
 		<aside transition:slide={{ duration }}>
 			{#if typeof filters === 'object' && typeof unique === 'object'}
-				{#each Object.keys(unique) as key}
+				{#each Object.entries(unique) as [key, iterable]}
 					<section>
 						<h3>{key.replace(/_/g, ' ')}</h3>
-						{#if Array.isArray(unique[key])}
-							{#each unique[key] as value}
+						{#if Array.isArray(iterable)}
+							{#each iterable as value}
 								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label>
 									{#if typeof filters[key] === 'string'}
@@ -140,7 +140,7 @@
 								</label>
 							{/each}
 						{:else}
-							{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
+							{#each Object.entries(iterable).sort(([x], [y]) => x.localeCompare(y)) as [val, desc]}
 								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label>
 									{#if typeof filters[key] === 'string'}
