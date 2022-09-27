@@ -45,6 +45,7 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "next",
     "@sveltejs/kit": "next",
+    "@sveltejs/package": "latest",
     "@types/feather-icons": "^4.7.0",
     "@types/prettier": "^2.4.4",
     "autoprefixer": "^10.3.4",
