@@ -9,13 +9,13 @@
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "dev": "npm run build && vite dev",
+    "dev": "pnpm build && vite dev",
     "check:types": "tsc --noEmit",
     "check:format": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
-    "build": "npm run build:icons",
+    "build": "pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
-    "package": "npm run build && svelte-kit package",
+    "package": "pnpm build && svelte-kit package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "prettier": "mauss/prettier.json",
