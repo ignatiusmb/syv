@@ -8,10 +8,7 @@ const config = {
 		adapter: adapter(),
 	},
 	package: {
-		exports: (filepath) => {
-			if (filepath.startsWith('.')) return false;
-			return !filepath.startsWith('internal/lib');
-		},
+		exports: (filepath) => !filepath.startsWith('.') && !filepath.startsWith('internal/lib'),
 		files: (filepath) =>
 			!filepath.endsWith('build.mjs') &&
 			!filepath.startsWith('.svelte-kit') &&
