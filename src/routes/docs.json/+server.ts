@@ -1,12 +1,12 @@
-import type { RequestHandler } from './__types/docs.json';
-import { version } from '../../package.json';
+import { json } from '@sveltejs/kit';
 import { forge, traverse } from 'marqua';
+import { version } from '../../../package.json';
 
 type Metadata = Record<'title', string>;
 type Section = Record<'index' | 'slug' | 'content' | 'path', string>;
 
-export const GET: RequestHandler = () => ({
-	body: traverse(
+export const GET: import('./$types').RequestHandler = () => {
+	const docs = traverse(
 		'docs',
 		({ frontMatter: { title, toc }, content, breadcrumb: [filename] }) => {
 			if (filename.startsWith('draft')) return;
@@ -16,5 +16,7 @@ export const GET: RequestHandler = () => ({
 			return { index, slug, title, toc, content, path: `docs/${filename}.md` };
 		},
 		forge.types<Metadata, Section & Metadata>()
-	),
-});
+	);
+
+	return json(docs);
+};
