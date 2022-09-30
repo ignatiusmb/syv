@@ -19,13 +19,8 @@
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "prettier": "mauss/prettier.json",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ignatiusmb/syv.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ignatiusmb/syv/issues"
-  },
+  "repository": "github:ignatiusmb/syv",
+  "bugs": "https://github.com/ignatiusmb/syv/issues",
   "keywords": [
     "svelte",
     "complementary",
