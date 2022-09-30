@@ -1,7 +1,7 @@
 <script>
 	import '../app.postcss';
-	import '@ignatiusmb/aqua/lib/aqua.cbs.js';
-	import '@ignatiusmb/aqua/lib/aqua.min.css';
+	// import '@ignatiusmb/aqua/lib/aqua.cbs.js';
+	// import '@ignatiusmb/aqua/lib/aqua.min.css';
 
 	import { ScrollTop } from '$lib';
 </script>

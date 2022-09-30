@@ -15,7 +15,7 @@
     "format": "prettier -w \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
     "build": "npm run build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
-    "package": "npm run build && svelte-kit package",
+    "package": "npm run build && svelte-package",
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "prettier": "mauss/prettier.json",
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@sveltejs/adapter-static": "next",
     "@sveltejs/kit": "next",
+    "@sveltejs/package": "latest",
     "@types/feather-icons": "^4.7.0",
     "@types/prettier": "^2.4.4",
     "autoprefixer": "^10.3.4",
