@@ -19,13 +19,8 @@
     "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "prettier": "mauss/prettier.json",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ignatiusmb/syv.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ignatiusmb/syv/issues"
-  },
+  "repository": "github:ignatiusmb/syv",
+  "bugs": "https://github.com/ignatiusmb/syv/issues",
   "keywords": [
     "svelte",
     "complementary",
@@ -48,19 +43,13 @@
     "@sveltejs/package": "latest",
     "@types/feather-icons": "^4.7.0",
     "@types/prettier": "^2.7.1",
-    "autoprefixer": "^10.4.12",
-    "cssnano": "^5.1.13",
     "feather-icons": "^4.29.0",
-    "markdown-it": "^13.0.1",
     "marqua": "^0.3.1",
-    "postcss": "^8.4.16",
-    "postcss-load-config": "^4.0.1",
     "prettier": "^2.7.1",
     "prettier-plugin-svelte": "^2.7.1",
     "svelte": "^3.50.1",
     "svelte-preprocess": "^4.10.7",
     "svelte2tsx": "^0.5.19",
-    "tailwindcss": "^3.1.8",
     "typescript": "^4.8.4",
     "vite": "^3.1.4"
   }
