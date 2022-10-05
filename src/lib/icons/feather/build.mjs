@@ -1,7 +1,9 @@
-import { icons as feather } from 'feather-icons';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
+
+import { icons as feather } from 'feather-icons';
 import { capitalize } from 'mauss/utils';
+import commands from 'mauss/prettier.json' assert { type: 'json' };
 import prettier from 'prettier';
 
 /** @param {string} icon */
@@ -37,7 +39,7 @@ export default {
 		let exp = '';
 		for (const kebab in feather) {
 			const pascal = kebab.replace(/\w+/g, capitalize).replace(/-/g, '');
-			const formatted = prettier.format(generate(kebab), await config);
+			const formatted = prettier.format(generate(kebab), config);
 			writeFile(`./feather/${pascal}.svelte`, formatted);
 			exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 		}
@@ -47,12 +49,10 @@ export default {
 			writeFile('./feather/index.d.ts', exp),
 		]);
 	},
-	async config() {
+	config() {
 		let path = 'node_modules';
 		while (!existsSync(path)) path = `../${path}`;
-		const { overrides, ...workspace } = JSON.parse(
-			readFileSync(`${path}/mauss/prettier.json`, 'utf-8')
-		);
+		const { overrides, ...workspace } = commands;
 		const { options: svelte } = /** @type {{ options: any }} */ (
 			overrides.find((/** @type {{ files: string[] }} */ options) =>
 				options.files[0].endsWith('.svelte')
@@ -60,6 +60,8 @@ export default {
 		);
 
 		delete workspace['$schema'];
-		return { parser: 'svelte', ...workspace, ...svelte };
+		svelte['parser'] = 'svelte';
+		svelte['plugins'] = ['prettier-plugin-svelte'];
+		return { ...workspace, ...svelte };
 	},
 };
