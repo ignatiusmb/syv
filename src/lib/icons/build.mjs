@@ -1,4 +1,8 @@
-import { existsSync } from 'fs';
-import feather from './feather/build.mjs';
+import * as fs from 'fs';
 
-if (!existsSync('./feather/index.js')) feather.build();
+fs.readdirSync('.').forEach(async (path) => {
+	if (!fs.statSync(path).isDirectory()) return;
+	if (fs.existsSync(`./${path}/index.js`)) return;
+	const { build } = await import(`./${path}/build.mjs`);
+	build();
+});
