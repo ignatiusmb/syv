@@ -1,0 +1,16 @@
+name: Package
+
+on:
+  pull_request:
+
+jobs:
+  dry-run:
+    name: Dry Run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2
+      - run: pnpm install && pnpm package
