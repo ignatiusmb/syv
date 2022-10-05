@@ -1,6 +1,4 @@
-import { existsSync } from 'fs';
 import { writeFile } from 'fs/promises';
-
 import { icons as feather } from 'feather-icons';
 import { capitalize } from 'mauss/utils';
 import commands from 'mauss/prettier.json' assert { type: 'json' };
@@ -50,8 +48,6 @@ export default {
 		]);
 	},
 	config() {
-		let path = 'node_modules';
-		while (!existsSync(path)) path = `../${path}`;
 		const { overrides, ...workspace } = commands;
 		const { options: svelte } = /** @type {{ options: any }} */ (
 			overrides.find((/** @type {{ files: string[] }} */ options) =>
