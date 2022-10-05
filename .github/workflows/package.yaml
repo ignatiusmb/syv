@@ -14,6 +14,7 @@ jobs:
           node-version: 16
       - uses: pnpm/action-setup@v2
       - run: pnpm install && pnpm package
+      - run: pnpm publish ./package --dry-run
       - uses: actions/upload-artifact@v3
         with:
           path: ./package
