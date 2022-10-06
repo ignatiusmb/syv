@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
+      - uses: pnpm/action-setup@v2
       - id: pnpm
         run: echo "::set-output name=cache::$(pnpm store path)"
       - uses: actions/cache@v3
