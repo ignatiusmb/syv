@@ -8,18 +8,18 @@
 	let className = '';
 
 	let sighted = false;
+	/** @type {HTMLElement} */
 	let container;
 
 	import { onMount } from 'svelte';
 	onMount(() => {
 		if (typeof IntersectionObserver !== 'undefined') {
-			const rootMargin = `${bottom}px ${left}px ${top}px ${right}px`;
 			const observer = new IntersectionObserver(
 				(entries) => {
 					sighted = entries[0].isIntersecting;
 					if (sighted && once) observer.unobserve(container);
 				},
-				{ rootMargin }
+				{ rootMargin: `${bottom}px ${left}px ${top}px ${right}px` }
 			);
 			observer.observe(container);
 			return () => observer.unobserve(container);
