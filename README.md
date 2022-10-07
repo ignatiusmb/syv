@@ -71,7 +71,7 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 
 ```svelte
 <script>
-  import Loader from 'syv/loader';
+  import * as Loader from 'syv/loader';
   // or import each loader individually
   // import { Ellipsis } from 'syv/loader';
 </script>
