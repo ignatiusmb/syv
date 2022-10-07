@@ -9,16 +9,16 @@
   "module": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "reset": "git reset --hard && git clean -dfx -e node_modules",
     "dev": "pnpm build && vite dev",
-    "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
-    "check:style": "prettier -c \"src/{lib,routes}/**/*\" --ignore-path src/lib/.gitignore",
-    "check:types": "tsc --noEmit",
-    "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
-    "format": "pnpm check:style -- --write",
     "build": "pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
     "package": "pnpm build && svelte-package",
-    "reset": "git reset --hard && git clean -dfx -e node_modules"
+    "format": "pnpm check:style -- --write",
+    "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
+    "check:style": "prettier --check .",
+    "check:types": "tsc --noEmit",
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
   },
   "prettier": "mauss/prettier.json",
   "repository": "github:ignatiusmb/syv",
