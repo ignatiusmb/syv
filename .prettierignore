@@ -3,6 +3,7 @@
 /package
 pnpm-lock.yaml
 app.html
+*.md
 
 # Generated Icons
 src/lib/icons/**/*.svelte

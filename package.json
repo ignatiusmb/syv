@@ -14,9 +14,9 @@
     "build": "pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
     "package": "pnpm build && svelte-package",
-    "format": "pnpm check:style -- --write",
+    "format": "prettier . --write",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
-    "check:style": "prettier --check .",
+    "check:style": "prettier . --check",
     "check:types": "tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
   },
