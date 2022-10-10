@@ -11,7 +11,8 @@
   "scripts": {
     "reset": "git reset --hard && git clean -dfx -e node_modules",
     "dev": "pnpm build && vite dev",
-    "build": "pnpm build:icons",
+    "sync": "svelte-kit sync",
+    "build": "pnpm sync && pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
     "package": "pnpm build && svelte-package",
     "format": "prettier --write .",
