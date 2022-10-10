@@ -17,11 +17,11 @@
 	/** @type {NodeJS.Timeout} */
 	let timeout;
 
-	const worker = async () => {
+	async function worker() {
 		const diff = Date.now() - $time;
 		if (diff >= refresh) task(), reset();
 		timeout = setTimeout(worker, interval);
-	};
+	}
 
 	onMount(() => {
 		timeout = setTimeout(worker, interval);
