@@ -66,7 +66,7 @@
 </script>
 
 <svelte:window
-	on:keydown={(event) => {
+	on:keydown={(/** @type {KeyboardEvent} */ event) => {
 		if (document.activeElement === searchbox) {
 			if (event.key === 'Escape') searchbox.blur();
 		} else if (event.key === '/') {
