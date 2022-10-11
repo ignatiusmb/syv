@@ -3,7 +3,7 @@
 	export let files;
 	export let when = true;
 
-	/** @type {Promise<typeof import('*.svelte')>[] | undefined} */
+	/** @type {ReturnType<typeof files[number]>[] | undefined} */
 	let promises;
 	$: if (when && !promises && Array.isArray(files)) {
 		promises = files.map((file) => file());

@@ -6,7 +6,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
-		"forceConsistentCasingInFileNames": true,
 
 		"checkJs": true,
 		"sourceMap": true,

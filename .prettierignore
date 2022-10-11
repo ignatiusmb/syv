@@ -1,0 +1,11 @@
+/.svelte-kit
+/node_modules
+/package
+pnpm-lock.yaml
+app.html
+*.md
+
+# Generated Icons
+src/lib/icons/**/*.svelte
+src/lib/icons/**/index.*
+!src/lib/icons/index.ts
