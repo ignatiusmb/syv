@@ -3,7 +3,6 @@
 	export let label = '';
 	export let download = false;
 	export let newTab = false;
-	export let invert = false;
 	export let disabled = false;
 	export { className as class };
 	let className = '';
@@ -12,7 +11,7 @@
 </script>
 
 <span class="syv-core-button-link {className}" class:disabled>
-	<Link href={!disabled ? href : ''} inherit {newTab} {label} {download} {invert}>
+	<Link href={!disabled ? href : ''} {newTab} {label} {download}>
 		<slot />
 	</Link>
 </span>
