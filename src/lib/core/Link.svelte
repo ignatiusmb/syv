@@ -20,11 +20,11 @@
 	let className = '';
 
 	/** @param {typeof prefetch} option */
-	const assign = (option) => () => {
+	function assign(option) {
 		if (option === false) return undefined;
 		if (option === true) return '';
 		return option;
-	};
+	}
 </script>
 
 <a
