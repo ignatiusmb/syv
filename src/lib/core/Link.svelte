@@ -18,14 +18,21 @@
 
 	export { className as class };
 	let className = '';
+
+	/** @param {typeof prefetch} option */
+	const assign = (option) => () => {
+		if (option === false) return undefined;
+		if (option === 'off') return option;
+		return '';
+	};
 </script>
 
 <a
 	{href}
 	aria-label={label || undefined}
 	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
-	data-sveltekit-prefetch={prefetch || undefined}
-	data-sveltekit-noscroll={noscroll || undefined}
+	data-sveltekit-prefetch={assign(prefetch)}
+	data-sveltekit-noscroll={assign(noscroll)}
 	download={download || undefined}
 	target={newTab ? '_blank' : undefined}
 	class:disabled={!href}
