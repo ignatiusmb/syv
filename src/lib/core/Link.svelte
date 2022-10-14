@@ -22,8 +22,8 @@
 	/** @param {typeof prefetch} option */
 	const assign = (option) => () => {
 		if (option === false) return undefined;
-		if (option === 'off') return option;
-		return '';
+		if (option === true) return '';
+		return option;
 	};
 </script>
 
