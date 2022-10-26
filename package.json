@@ -21,6 +21,7 @@
     "check:types": "pnpm build && tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
   },
+  "packageManager": "pnpm@7.14.0",
   "prettier": "mauss/prettier.json",
   "repository": "github:ignatiusmb/syv",
   "bugs": "https://github.com/ignatiusmb/syv/issues",
@@ -34,7 +35,6 @@
     "library",
     "kit"
   ],
-  "packageManager": "pnpm@7.13.1",
   "dependencies": {
     "mauss": "^0.3.3"
   },
