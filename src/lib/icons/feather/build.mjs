@@ -26,7 +26,7 @@ const generate = (icon) => `<script>
 	stroke-linejoin="round"
 	class="syv-icons-feather-${icon} {className}"
 	on:click={() => dispatch('press')}
-	on:keyup={(ev) => ev.key === 'Enter' && dispatch('press')}
+	on:keyup={(ev) => (ev.key === ' ' || ev.key === 'Enter') && dispatch('press')}
 >
 	${feather[icon].contents}
 </svg>
