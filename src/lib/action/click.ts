@@ -1,16 +1,18 @@
 import type { HTMLAction } from './types.js';
 import { noop } from '../utils.js';
 
-export const copy: HTMLAction<{ text?: string }> = (node, opts = {}) => {
+export const copy: HTMLAction<{
+	data?: string;
+}> = (node, { data } = {}) => {
 	function write() {
-		if (!opts.text) return;
-		navigator.clipboard.writeText(opts.text);
+		if (!data) return;
+		navigator.clipboard.writeText(data);
 	}
 
 	node.addEventListener('click', write, true);
 	return {
-		update({ text: updated = '' }) {
-			opts.text = updated;
+		update({ data: updated = '' }) {
+			data = updated;
 		},
 		destroy() {
 			node.removeEventListener('click', write, true);
@@ -27,7 +29,9 @@ export const outside: HTMLAction<(event: MouseEvent) => void> = (node, callback)
 
 	document.addEventListener('click', clicked, true);
 	return {
-		destroy: () => document.removeEventListener('click', clicked, true),
+		destroy() {
+			document.removeEventListener('click', clicked, true);
+		},
 	};
 };
 
