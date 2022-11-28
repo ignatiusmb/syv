@@ -9,6 +9,9 @@ const generate = (icon) => `<script>
 	export let color = 'currentColor';
 	export { className as class };
 	let className = '';
+
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 </script>
 
 <svg
@@ -22,7 +25,8 @@ const generate = (icon) => `<script>
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	class="syv-icons-feather-${icon} {className}"
-	on:click
+	on:click={() => dispatch('press')}
+	on:keyup={(ev) => (ev.key === ' ' || ev.key === 'Enter') && dispatch('press')}
 >
 	${feather[icon].contents}
 </svg>
@@ -30,11 +34,15 @@ const generate = (icon) => `<script>
 
 export async function build() {
 	let exp = '';
+
+	const promises = [];
 	for (const kebab in feather) {
 		const pascal = kebab.replace(/\w+/g, capitalize).replace(/-/g, '');
-		writeFile(`./feather/${pascal}.svelte`, generate(kebab));
+		promises.push(writeFile(`./feather/${pascal}.svelte`, generate(kebab)));
 		exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
 	}
 
-	await Promise.all([writeFile('./feather/index.js', exp), writeFile('./feather/index.d.ts', exp)]);
+	promises.push(writeFile('./feather/index.js', exp));
+	promises.push(writeFile('./feather/index.d.ts', exp));
+	await Promise.all(promises);
 }
