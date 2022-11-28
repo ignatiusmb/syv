@@ -26,7 +26,7 @@
 	});
 </script>
 
-<span
+<button
 	class="syv-theme-switcher {className}"
 	aria-label="Toggle Theme"
 	class:nice
@@ -50,17 +50,17 @@
 			{/if}
 		</svg>
 	</slot>
-</span>
+</button>
 
 <style>
-	span {
+	button {
 		cursor: pointer;
 		height: 1.5em;
 	}
-	span path {
+	button path {
 		transition: var(--t-duration, 300ms);
 	}
-	span > :global(svg) {
+	button > :global(svg) {
 		height: 100%;
 	}
 	.nice {

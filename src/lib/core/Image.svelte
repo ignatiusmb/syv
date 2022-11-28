@@ -23,11 +23,9 @@
 </script>
 
 <div
-	style="padding-top: {ratio * 100}%"
-	class="syv-core-image {className}"
+	style:padding-top="{ratio * 100}%"
 	class:absolute
-	on:click
-	on:dblclick
+	class="syv-core-image {className}"
 	on:mouseenter={() => (show = true)}
 	on:mouseleave={() => (show = false)}
 >

@@ -113,11 +113,11 @@
 		</label>
 
 		{#if filters}
-			<span on:click={handle.toggle('filter', !show.filter)}>
+			<button on:click={handle.toggle('filter', !show.filter)}>
 				<LazyLoad files={[icons.filter]} let:loaded>
 					<svelte:component this={loaded[0]} {size} />
 				</LazyLoad>
-			</span>
+			</button>
 		{/if}
 	</div>
 
@@ -197,7 +197,7 @@
 
 	.sb label,
 	.sb input,
-	.sb label + span {
+	.sb label + button {
 		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
@@ -210,7 +210,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	.sb label + span {
+	.sb label + button {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;
