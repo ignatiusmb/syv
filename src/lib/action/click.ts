@@ -1,12 +1,15 @@
 import type { HTMLAction } from './types.js';
+import { clipboard } from 'mauss/web';
 import { noop } from '../utils.js';
 
 export const copy: HTMLAction<{
-	data?: string;
-}> = (node, { data } = {}) => {
+	data?: string | Blob;
+	handler?: Parameters<typeof clipboard.copy>[1];
+}> = (node, { data, handler } = {}) => {
 	function write() {
 		if (!data) return;
-		navigator.clipboard.writeText(data);
+		if (typeof data === 'string') clipboard.copy(data, handler);
+		else clipboard.copy(clipboard.item(data.type, data), handler);
 	}
 
 	node.addEventListener('click', write, true);
