@@ -52,12 +52,12 @@
 <section class="syv-core-pagination {className}">
 	<slot name="left">
 		<div class="navigator">
-			<span class:disabled={page === 0} on:click={click(0)}>
+			<button class:disabled={page === 0} on:click={click(0)}>
 				<ChevronsLeft />
-			</span>
-			<span class:disabled={page === 0} on:click={click(page - 1)}>
+			</button>
+			<button class:disabled={page === 0} on:click={click(page - 1)}>
 				<ChevronLeft />
-			</span>
+			</button>
 		</div>
 	</slot>
 
@@ -69,12 +69,12 @@
 
 	<slot name="right">
 		<div class="navigator">
-			<span class:disabled={page === limit} on:click={click(page + 1)}>
+			<button class:disabled={page === limit} on:click={click(page + 1)}>
 				<ChevronRight />
-			</span>
-			<span class:disabled={page === limit} on:click={click(limit)}>
+			</button>
+			<button class:disabled={page === limit} on:click={click(limit)}>
 				<ChevronsRight />
-			</span>
+			</button>
 		</div>
 	</slot>
 </section>
@@ -99,12 +99,12 @@
 		gap: 0.5em;
 		grid-auto-flow: column;
 	}
-	span {
+	button {
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
 	}
-	span.disabled {
+	button.disabled {
 		cursor: not-allowed;
 		opacity: 0.4;
 	}

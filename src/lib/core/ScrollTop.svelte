@@ -2,25 +2,22 @@
 	export { className as class };
 	let className = '';
 
-	import { onMount } from 'svelte';
+	import { mounted } from '../store';
 	import ChevronsUp from '../icons/feather/ChevronsUp.svelte';
-	let y = 0,
-		mounted = typeof window !== 'undefined';
-	onMount(() => (mounted = typeof window !== 'undefined'));
-	$: show = y > (mounted ? document.body.scrollHeight / 3 : y);
+	let y = 0;
 </script>
 
 <svelte:window bind:scrollY={y} />
-<span
+<button
+	class:show={y > ($mounted ? document.body.scrollHeight / 3 : y)}
 	class="syv-core-scroll-top {className}"
-	class:show
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
 >
 	<ChevronsUp />
-</span>
+</button>
 
 <style>
-	span {
+	button {
 		cursor: pointer;
 		position: fixed;
 		z-index: 1;
@@ -38,15 +35,15 @@
 		transform: translate(-50%, 100%);
 		transition: transform var(--t-duration, 300ms);
 	}
-	span.show {
+	button.show {
 		transform: translate(-50%, -200%);
 	}
-	span:hover {
+	button:hover {
 		background-color: rgba(0, 0, 0, 0.5);
 	}
 
 	@media only screen and (min-width: 600px) {
-		span.show {
+		button.show {
 			transform: translate(-50%, -50%);
 		}
 	}
