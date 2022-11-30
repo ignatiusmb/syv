@@ -15,10 +15,10 @@ const config = {
 			if (filepath.startsWith('icons/')) return !filepath.endsWith('.svelte');
 			return true;
 		},
-		files: (filepath) =>
-			!filepath.endsWith('build.mjs') &&
-			!filepath.startsWith('.svelte-kit') &&
-			filepath !== 'tsconfig.json',
+		files(filepath) {
+			if (filepath.endsWith('build.mjs')) return false; // build script
+			return filepath !== 'tsconfig.json';
+		},
 	},
 };
 
