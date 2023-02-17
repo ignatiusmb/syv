@@ -15,9 +15,9 @@ jobs:
           cache: pnpm
 
       - run: pnpm install && pnpm package
-      - run: pnpm publish ./package --dry-run --no-git-checks
+      - run: pnpm publish ./dist --dry-run --no-git-checks
 
       - uses: actions/upload-artifact@v3
         with:
-          path: ./package
+          path: ./dist
           retention-days: 5

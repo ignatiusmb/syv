@@ -5,16 +5,16 @@
   "version": "0.0.16",
   "license": "MIT",
   "type": "module",
-  "svelte": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "svelte": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "reset": "git reset --hard && git clean -dfx -e node_modules",
     "dev": "pnpm build && vite dev",
     "sync": "svelte-kit sync",
     "build": "pnpm sync && pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
-    "package": "pnpm build && svelte-package",
+    "package": "pnpm build && svelte-package && cp package.json dist/",
     "format": "prettier --write .",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
     "check:style": "prettier --check .",
@@ -56,5 +56,19 @@
     "svelte2tsx": "^0.6.1",
     "typescript": "^4.9.5",
     "vite": "^4.1.1"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./*.svelte": "./core/*.svelte",
+    "./action": "./action/index.js",
+    "./action/click": "./action/click.js",
+    "./icons/feather/*.svelte": "./icons/feather/*.svelte",
+    "./internal/*.svelte": "./internal/*.svelte",
+    "./loader/*.svelte": "./loader/*.svelte",
+    "./options": "./options.js",
+    "./store": "./store/index.js",
+    "./store/api": "./store/api.js",
+    "./store/browser": "./store/browser.js",
+    "./utils": "./utils.js"
   }
 }
