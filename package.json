@@ -42,6 +42,7 @@
     "svelte": "^3.49.0"
   },
   "devDependencies": {
+    "@ignatiusmb/styles": "^0.1.1",
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "^1.7.1",
     "@sveltejs/package": "^2.0.1",

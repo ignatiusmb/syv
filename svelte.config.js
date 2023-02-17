@@ -7,6 +7,13 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
+
+		typescript: {
+			config(settings) {
+				settings.extends = 'mauss/tsconfig.json';
+				return settings;
+			},
+		},
 	},
 };
 

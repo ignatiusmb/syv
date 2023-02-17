@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ignatiusmb/styles': ^0.1.1
   '@sveltejs/adapter-static': ^2.0.1
   '@sveltejs/kit': ^1.7.1
   '@sveltejs/package': ^2.0.1
@@ -21,6 +22,7 @@ dependencies:
   mauss: 0.4.9
 
 devDependencies:
+  '@ignatiusmb/styles': 0.1.1
   '@sveltejs/adapter-static': 2.0.1_@sveltejs+kit@1.7.1
   '@sveltejs/kit': 1.7.1_svelte@3.55.1+vite@4.1.1
   '@sveltejs/package': 2.0.1_4x7phaipmicbaooxtnresslofa
@@ -235,6 +237,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@ignatiusmb/styles/0.1.1:
+    resolution: {integrity: sha512-2Py7LWaRCtsd2HKTAjNft598+wFkVplV9+QYzdgSkv7QkTE/D5soIqNQNLxzK1MB3Uu4Gr0krMNHIfCNY5CEeA==}
+    dev: true
 
   /@jridgewell/resolve-uri/3.1.0:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
