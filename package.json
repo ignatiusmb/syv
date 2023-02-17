@@ -15,9 +15,9 @@
     "build": "pnpm sync && pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
     "package": "pnpm build && svelte-package && cp package.json dist/",
-    "format": "prettier --write .",
+    "format": "prettier --write . --plugin-search-dir=.",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
-    "check:style": "prettier --check .",
+    "check:style": "prettier --check . --plugin-search-dir=.",
     "check:types": "pnpm build && tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
   },
