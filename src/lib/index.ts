@@ -1,3 +1,4 @@
+export * from './core/index.js';
 export { default as ButtonLink } from './core/ButtonLink.svelte';
 export { default as Dialog } from './core/Dialog.svelte';
 export { default as GradientBorder } from './core/GradientBorder.svelte';

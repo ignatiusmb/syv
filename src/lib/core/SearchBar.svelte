@@ -1,4 +1,12 @@
 <script>
+	import LazyLoad from './LazyLoad.svelte';
+
+	import { tryNumber } from 'mauss/utils';
+	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
+	import { TIME } from '../options';
+	import { noop } from '../utils';
+
 	export let query = '';
 	export let placeholder = 'Type your queries here (Press "/" to focus)';
 	export { className as class };
@@ -25,14 +33,8 @@
 	/** @type {undefined | IterableValues} */
 	export let unique = undefined;
 
-	import { tryNumber } from 'mauss/utils';
-	import { createEventDispatcher } from 'svelte';
-	import { slide } from 'svelte/transition';
-	import { duration } from '../options';
-	import { noop } from '../utils';
 	const dispatch = createEventDispatcher();
 
-	import LazyLoad from './LazyLoad.svelte';
 	const icons = {
 		search: () => import('../icons/feather/Search.svelte'),
 		filter: () => import('../icons/feather/Filter.svelte'),
@@ -122,14 +124,13 @@
 	</div>
 
 	{#if filters && show.filter}
-		<aside transition:slide={{ duration }}>
+		<aside transition:slide={{ duration: TIME.SLIDE }}>
 			{#if typeof filters === 'object' && typeof unique === 'object'}
 				{#each Object.entries(unique) as [key, iterable]}
 					<section>
 						<h3>{key.replace(/_/g, ' ')}</h3>
 						{#if Array.isArray(iterable)}
 							{#each iterable as value}
-								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label>
 									{#if typeof filters[key] === 'string'}
 										<input type="radio" bind:group={filters[key]} {value} />
@@ -141,7 +142,6 @@
 							{/each}
 						{:else}
 							{#each Object.entries(iterable).sort(([x], [y]) => x.localeCompare(y)) as [val, desc]}
-								<!-- svelte-ignore a11y-label-has-associated-control -->
 								<label>
 									{#if typeof filters[key] === 'string'}
 										<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />

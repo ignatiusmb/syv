@@ -1,8 +1,9 @@
 <script lang="ts">
+	import { dialog } from '$lib/core';
+	import ExampleDialog from './ExampleDialog.svelte';
+
 	import { autoresize } from '$lib/action';
 	import { outside, copy } from '$lib/action/click';
-
-	import { LazyLoad } from '$lib';
 
 	let value = '';
 </script>
@@ -12,9 +13,13 @@
 
 	<button use:copy={{ data: value }}>Copy to Clipboard</button>
 
-	<LazyLoad files={[() => import('$lib/core/Dialog.svelte')]} let:loaded>
-		<svelte:component this={loaded[0]} />
-	</LazyLoad>
+	<button
+		on:click={() => {
+			dialog.mount(ExampleDialog);
+		}}
+	>
+		Open Dialog
+	</button>
 </main>
 
 <style>

@@ -1,15 +1,15 @@
 <script>
+	import { fly } from 'svelte/transition';
+	import { TIME } from '../options';
+
 	export let show = false;
 	export { className as class };
 	let className = '';
-
-	import { fly } from 'svelte/transition';
-	import { duration } from '../options';
 </script>
 
 {#if show}
 	<div class="syv-core-modal-backdrop">
-		<section class="syv-core-modal {className}" transition:fly={{ duration }}>
+		<section class="syv-core-modal {className}" transition:fly={{ duration: TIME.FLY }}>
 			<slot />
 		</section>
 	</div>
