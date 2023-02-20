@@ -1,4 +1,6 @@
 <script>
+	// import '@ignatiusmb/styles/core.css';
+
 	import { ScrollTop } from '$lib';
 </script>
 

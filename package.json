@@ -5,23 +5,23 @@
   "version": "0.0.16",
   "license": "MIT",
   "type": "module",
-  "svelte": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "svelte": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "reset": "git reset --hard && git clean -dfx -e node_modules",
     "dev": "pnpm build && vite dev",
     "sync": "svelte-kit sync",
     "build": "pnpm sync && pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
-    "package": "pnpm build && svelte-package",
-    "format": "prettier --write .",
+    "package": "pnpm build && svelte-package && cp package.json dist/",
+    "format": "prettier --write . --plugin-search-dir=.",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
-    "check:style": "prettier --check .",
+    "check:style": "prettier --check . --plugin-search-dir=.",
     "check:types": "pnpm build && tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
   },
-  "packageManager": "pnpm@7.14.0",
+  "packageManager": "pnpm@7.27.0",
   "prettier": "mauss/prettier.json",
   "repository": "github:ignatiusmb/syv",
   "bugs": "https://github.com/ignatiusmb/syv/issues",
@@ -36,26 +36,40 @@
     "kit"
   ],
   "dependencies": {
-    "mauss": "^0.4.3"
+    "mauss": "^0.4.9"
   },
   "peerDependencies": {
     "svelte": "^3.49.0"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "next",
-    "@sveltejs/kit": "next",
-    "@sveltejs/package": "latest",
-    "@types/feather-icons": "^4.29.0",
-    "@types/prettier": "^2.7.1",
+    "@ignatiusmb/styles": "^0.1.1",
+    "@sveltejs/adapter-static": "^2.0.1",
+    "@sveltejs/kit": "^1.7.1",
+    "@sveltejs/package": "^2.0.1",
+    "@types/feather-icons": "^4.29.1",
+    "@types/prettier": "^2.7.2",
     "feather-icons": "^4.29.0",
-    "marqua": "^0.3.1",
-    "prettier": "^2.8.0",
-    "prettier-plugin-svelte": "^2.8.1",
-    "svelte": "^3.53.1",
-    "svelte-check": "^2.9.2",
-    "svelte-preprocess": "^4.10.7",
-    "svelte2tsx": "^0.5.20",
-    "typescript": "^4.9.3",
-    "vite": "^3.2.4"
+    "marqua": "^0.4.1",
+    "prettier": "^2.8.4",
+    "prettier-plugin-svelte": "^2.9.0",
+    "svelte": "^3.55.1",
+    "svelte-check": "^3.0.3",
+    "svelte2tsx": "^0.6.1",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./*.svelte": "./core/*.svelte",
+    "./action": "./action/index.js",
+    "./action/click": "./action/click.js",
+    "./icons/feather/*.svelte": "./icons/feather/*.svelte",
+    "./internal/*.svelte": "./internal/*.svelte",
+    "./loader/*.svelte": "./loader/*.svelte",
+    "./options": "./options.js",
+    "./store": "./store/index.js",
+    "./store/api": "./store/api.js",
+    "./store/browser": "./store/browser.js",
+    "./utils": "./utils.js"
   }
 }
