@@ -1,21 +1,10 @@
-<script context="module">
-	// https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-	const FOCUSABLE = [
-		'embed iframe object',
-		'a[href] area[href]',
-		'button:not(:disabled):not([aria-hidden])',
-		'select:not(:disabled):not([aria-hidden])',
-		'textarea:not(:disabled):not([aria-hidden])',
-		'input:not(:disabled):not([aria-hidden]):not([type="hidden"])',
-		'[contenteditable] [tabindex]:not([tabindex^="-"])',
-	].join(' ');
-</script>
-
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { TIME } from '../options';
+	import { FOCUSABLE, TIME } from '../options';
 
+	/** change UI mode to `Modal` */
+	export let required = false;
 	export let show = true;
 	export { className as class };
 	let className = '';
@@ -76,7 +65,7 @@
 />
 
 {#if show}
-	<div class="backdrop" on:pointerdown|self={close}>
+	<div on:pointerdown|self={(event) => !required && close(event)}>
 		<main
 			role="dialog"
 			aria-modal="true"
@@ -91,7 +80,7 @@
 {/if}
 
 <style>
-	.backdrop {
+	div /** backdrop */ {
 		inset: 0;
 		position: fixed;
 		display: grid;
