@@ -53,13 +53,15 @@
 	on:keydown={(event) => {
 		if (event.key === 'Escape') return close(event);
 		if (nodes && event.key === 'Tab') {
-			if (nodes.length === 0) return event.preventDefault();
-			if (dialog?.contains(document.activeElement)) return nodes[0].focus();
+			if (nodes.length === 0) return;
+			if (!dialog?.contains(document.activeElement)) {
+				return nodes[0].focus(), event.preventDefault();
+			}
 
 			const index = nodes.findIndex((i) => i === document.activeElement);
 			const back = (index === 0 ? nodes.length : index) - 1;
 			const next = index === nodes.length - 1 ? 0 : index + 1;
-			nodes[event.shiftKey ? back : next].focus();
+			nodes[event.shiftKey ? back : next].focus(), event.preventDefault();
 		}
 	}}
 />
