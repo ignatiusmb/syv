@@ -1,17 +1,18 @@
-import type { ComponentEvents, ComponentProps, ComponentType, SvelteComponent } from 'svelte';
+import type { ComponentType, SvelteComponent } from 'svelte';
+import type { Exposed, LazyComponent } from '../../types';
 import { ntv } from 'mauss/std';
 
-// TODO array of dialog
 let component: SvelteComponent;
 
 function purge() {
 	component && component.$destroy();
 }
 
-export function mount<T extends SvelteComponent, Events = ComponentEvents<T>>(
-	Dialog: ComponentType<T>,
-	exposed?: ComponentProps<T> & { [K in keyof Events as `on:${string & K}`]: Events[K] }
-) {
+export function load<T extends SvelteComponent>(loader: LazyComponent<T>, exposed?: Exposed<T>) {
+	loader().then(({ default: Dialog }) => mount(Dialog, exposed));
+}
+
+export function mount<T extends SvelteComponent>(Dialog: ComponentType<T>, exposed?: Exposed<T>) {
 	purge(); // destroy here so it keeps the out transition
 
 	const props = Object.keys(exposed || {}).filter((k) => !k.startsWith('on:'));

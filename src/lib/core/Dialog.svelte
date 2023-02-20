@@ -5,7 +5,6 @@
 
 	/** change UI mode to `Modal` */
 	export let required = false;
-	export let show = true;
 	export { className as class };
 	let className = '';
 
@@ -20,6 +19,7 @@
 		};
 	}
 
+	let show = true;
 	let dialog: undefined | HTMLElement;
 	let observer: undefined | ResizeObserver;
 	onMount(() => {
@@ -45,7 +45,7 @@
 	});
 
 	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(FOCUSABLE) || []).filter(
-		(i) => i.offsetParent != null && i.offsetParent !== document.body
+		(node) => node.offsetParent != null && node.offsetParent !== document.body
 	);
 </script>
 
