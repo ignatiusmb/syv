@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LazyLoad from './LazyLoad.svelte';
 
-	import type { LazyComponent } from '$lib/types';
+	import type { LazyComponent } from '../types';
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';

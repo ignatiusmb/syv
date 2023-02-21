@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LazyComponent } from '$lib/types';
+	import type { LazyComponent } from '../types';
 
 	export let files: LazyComponent<any>[];
 	export let when = true;
