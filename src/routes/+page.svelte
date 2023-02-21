@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { dialog } from '$lib/core';
+	import { syv } from '$lib';
 	import ExampleDialog from './ExampleDialog.svelte';
 
 	import { autoresize } from '$lib/action';
@@ -15,7 +15,7 @@
 
 	<button
 		on:click={() => {
-			dialog.mount(ExampleDialog);
+			syv.mount(ExampleDialog);
 		}}
 	>
 		Open Dialog
