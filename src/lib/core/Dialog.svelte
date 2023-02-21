@@ -9,9 +9,12 @@
 	export { className as class };
 	let className = '';
 
-	const dispatch = createEventDispatcher<{ 'syv:close': string }>();
+	const dispatch = createEventDispatcher<{
+		'syv:close': 'keydown' | 'pointerdown';
+	}>();
 	async function forward<T extends Event>(event: T) {
-		if (!dispatch('syv:close', event.type, { cancelable: true })) return;
+		const type = event.type as Parameters<typeof dispatch>[1];
+		if (!dispatch('syv:close', type, { cancelable: true })) return;
 		show = !!void setTimeout(() => {
 			document.body.style.removeProperty('padding-right');
 			document.body.style.removeProperty('overflow');
@@ -86,8 +89,9 @@
 
 <style>
 	div /** backdrop */ {
-		inset: 0;
+		z-index: var(--z-index, 9);
 		position: fixed;
+		inset: 0;
 		display: grid;
 		justify-items: center;
 		align-items: flex-start;
@@ -100,7 +104,7 @@
 		grid-column: 2;
 		padding: var(--padding, 2rem);
 		margin-top: 8rem;
-		border-radius: var(--b-radius, 0.5rem);
-		background: var(--bg-overlay, #ffffff);
+		border-radius: var(--border-radius, 0.5rem);
+		background: var(--background, #ffffff);
 	}
 </style>

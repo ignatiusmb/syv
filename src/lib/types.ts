@@ -11,7 +11,7 @@ export type Exposed<
 	Props = ST.ComponentProps<T>,
 	Events = ST.ComponentEvents<T>
 > = (Props extends { [key: string]: never } ? {} : Props) & {
-	[K in keyof Events as `on:${string & K}`]?: Events[K];
+	[K in keyof Events as `on:${string & K}`]?: (ev: Events[K]) => void;
 };
 
 export interface LazyComponent<T extends ST.SvelteComponent> {

@@ -1,37 +1,35 @@
-<script>
+<script lang="ts">
 	import LazyLoad from './LazyLoad.svelte';
 
+	import type { LazyComponent } from '$lib/types';
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { TIME } from '../options';
 	import { noop } from '../utils';
 
+	interface IterableValues {
+		[key: string]: string | Array<string | number> | Record<string, string>;
+	}
+	interface WildcardHandler {
+		(event: (MouseEvent | FocusEvent) & { currentTarget: EventTarget & HTMLElement }): void;
+	}
+
 	export let query = '';
 	export let placeholder = 'Type your queries here (Press "/" to focus)';
-	export { className as class };
-	let className = '';
-
-	/** @type {any[]} */
-	export let items = [];
-
+	export let items: any[] = [];
 	/**
 	 * - `string` to reference an image from static assets
 	 * - `boolean` (`true`) to use built-in feather icon
 	 * - callback to dynamically import and use an icon component
-	 * @type {string | boolean | (() => Promise<typeof import('*.svelte')>)}
 	 */
-	export let icon = false;
-	/**
-	 * Icon size for Search and Filter
-	 * @type {string | number}
-	 */
-	export let size = '24';
-
-	/** @type {boolean | IterableValues} */
-	export let filters = false;
-	/** @type {undefined | IterableValues} */
-	export let unique = undefined;
+	export let icon: string | boolean | LazyComponent<any> = false;
+	/** icon size for Search and Filter */
+	export let size: string | number = '24';
+	export let filters: boolean | IterableValues = false;
+	export let unique: boolean | IterableValues = false;
+	export { className as class };
+	let className = '';
 
 	const dispatch = createEventDispatcher();
 
@@ -41,34 +39,25 @@
 	};
 
 	const show = { autocomplete: false, filter: false };
-	/** @type {HTMLInputElement} */
-	let searchbox;
-
-	/**
-	 * @typedef {{
-	 * 	[key: string]: string | Array<string | number> | Record<string, string>
-	 * }} IterableValues
-	 *
-	 * @typedef {MouseEvent | FocusEvent} Captured
-	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
-	 * @typedef {(event: WildEvent) => void} WildcardHandler
-	 */
+	let searchbox: HTMLInputElement;
 
 	const handle = {
-		/** @type {(item: any) => WildcardHandler} */
-		select: (item) => () => {
-			dispatch('select', item);
-			searchbox.blur();
+		select(item: any): WildcardHandler {
+			return () => {
+				dispatch('select', item);
+				searchbox.blur();
+			};
 		},
-		/** @type {(property: keyof typeof show, value: boolean) => WildcardHandler} */
-		toggle: (property, value) => () => {
-			show[property] = value;
+		toggle(property: keyof typeof show, value: boolean): WildcardHandler {
+			return () => {
+				show[property] = value;
+			};
 		},
 	};
 </script>
 
 <svelte:window
-	on:keydown={(/** @type {KeyboardEvent} */ event) => {
+	on:keydown={(event) => {
 		if (document.activeElement === searchbox) {
 			if (event.key === 'Escape') searchbox.blur();
 		} else if (event.key === '/') {
