@@ -1,42 +1,110 @@
-<script>
-	export let show = false;
+<script lang="ts">
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { FOCUSABLE, TIME } from '../options';
+
+	/** change UI mode to `Modal` */
+	export let required = false;
+	export let styles: Record<`--${string}`, string | number> = {};
 	export { className as class };
 	let className = '';
 
-	import { createEventDispatcher } from 'svelte';
-	import { fly } from 'svelte/transition';
-	import { duration } from '../options';
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{
+		'syv:close': 'keydown' | 'pointerdown';
+	}>();
+	async function forward<T extends Event>(event: T) {
+		const type = event.type as Parameters<typeof dispatch>[1];
+		if (!dispatch('syv:close', type, { cancelable: true })) return;
+		show = !!void setTimeout(() => {
+			document.body.style.removeProperty('padding-right');
+			document.body.style.removeProperty('overflow');
+		}, TIME.FLY);
+	}
 
-	const close = () => dispatch('close');
+	let show = true;
+	let dialog: undefined | HTMLElement;
+	// let observer: undefined | ResizeObserver;
+	onMount(() => {
+		// accounting 128px top and 16px bottom padding
+		const height = window.innerHeight - (128 + 16);
+		const observer = new ResizeObserver(([observed]) => {
+			const target = observed.target as HTMLElement;
+			target.style.removeProperty('overflow');
+			if (target.clientHeight < height) return;
+			target.style.setProperty('overflow', 'auto');
+		});
+
+		if (dialog) {
+			observer.observe(dialog);
+			dialog.style.setProperty('max-height', `${height}px`);
+		}
+
+		const bar = window.innerWidth - document.documentElement.clientWidth;
+		document.body.style.setProperty('padding-right', `${bar}px`);
+		document.body.style.setProperty('overflow', 'hidden');
+
+		return () => observer.disconnect();
+	});
+
+	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(FOCUSABLE) || []).filter(
+		(node) => node.offsetParent != null && node.offsetParent !== document.body
+	);
 </script>
 
+<svelte:window
+	on:keydown={(event) => {
+		if (!show || !dialog) return; // closed but not destroyed
+		if (event.key === 'Escape') return forward(event);
+		if (nodes && event.key === 'Tab') {
+			if (nodes.length === 0) return;
+			if (!dialog.contains(document.activeElement)) {
+				return nodes[0].focus(), event.preventDefault();
+			}
+
+			const index = nodes.findIndex((i) => i === document.activeElement);
+			const back = (index === 0 ? nodes.length : index) - 1;
+			const next = index === nodes.length - 1 ? 0 : index + 1;
+			nodes[event.shiftKey ? back : next].focus(), event.preventDefault();
+		}
+	}}
+/>
+
 {#if show}
-	<div class="syv-core-dialog-backdrop" on:click|self={close}>
-		<section class="syv-core-dialog {className}" transition:fly={{ duration }}>
-			<slot {close} />
-		</section>
+	<div
+		style={Object.entries(styles).reduce((s, [p, v]) => `${s}${p}:${v};`, '')}
+		on:pointerdown|self={(event) => !required && forward(event)}
+	>
+		<main
+			role="dialog"
+			aria-modal="true"
+			class="syv-core-dialog {className}"
+			in:fly={{ duration: TIME.FLY, y: 64 }}
+			out:fly={{ duration: TIME.FLY, y: -64 }}
+			bind:this={dialog}
+		>
+			<slot {forward} />
+		</main>
 	</div>
 {/if}
 
 <style>
-	div {
-		z-index: 6;
-		width: 100%;
-		height: 100%;
-
+	div /** backdrop */ {
+		z-index: var(--z-index, 9);
 		position: fixed;
-		top: 0;
-		left: 0;
-
+		inset: 0;
 		display: grid;
-		align-items: center;
-		justify-content: center;
-		background: rgba(0, 0, 0, 0.8);
+		justify-items: center;
+		align-items: flex-start;
+		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
+		background: rgba(0, 0, 0, 0.4);
+		backdrop-filter: blur(0.1rem);
 	}
-	section {
-		padding: 2em;
-		border-radius: var(--b-radius, 0.5em);
-		background: var(--bg-overlay, #ffffff);
+	main {
+		width: 100%;
+		grid-column: 2;
+		padding: var(--padding, 2rem);
+		margin-top: 8rem;
+		border-radius: var(--border-radius, 0.5rem);
+		background: var(--background, #ffffff);
 	}
 </style>

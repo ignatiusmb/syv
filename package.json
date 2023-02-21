@@ -9,7 +9,6 @@
   "module": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "reset": "git reset --hard && git clean -dfx -e node_modules",
     "dev": "pnpm build && vite dev",
     "sync": "svelte-kit sync",
     "build": "pnpm sync && pnpm build:icons",
@@ -19,7 +18,8 @@
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
     "check:style": "prettier --check . --plugin-search-dir=.",
     "check:types": "pnpm build && tsc --noEmit",
-    "check:svelte": "svelte-check --tsconfig ./tsconfig.json"
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
+    "reset": "git reset --hard && git clean -dfx -e node_modules"
   },
   "packageManager": "pnpm@7.27.0",
   "prettier": "mauss/prettier.json",

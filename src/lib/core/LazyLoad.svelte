@@ -1,10 +1,10 @@
-<script>
-	/** @type {Array<() => Promise<typeof import('*.svelte')>>} */
-	export let files;
+<script lang="ts">
+	import type { LazyComponent } from '../types';
+
+	export let files: LazyComponent<any>[];
 	export let when = true;
 
-	/** @type {ReturnType<typeof files[number]>[] | undefined} */
-	let promises;
+	let promises: undefined | ReturnType<(typeof files)[number]>[];
 	$: if (when && !promises && Array.isArray(files)) {
 		promises = files.map((file) => file());
 	}
