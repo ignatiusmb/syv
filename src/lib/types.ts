@@ -1,13 +1,26 @@
-import type { ComponentEvents, ComponentProps, ComponentType, SvelteComponent } from 'svelte';
+import type * as ST from 'svelte';
+
+export type Demand<T> = {
+	[K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;
+}[keyof T] extends [never]
+	? [T?]
+	: [T];
 
 export type Exposed<
-	T extends SvelteComponent,
-	Props = ComponentProps<T>,
-	Events = ComponentEvents<T>
+	T extends ST.SvelteComponent,
+	Props = ST.ComponentProps<T>,
+	Events = ST.ComponentEvents<T>
 > = (Props extends { [key: string]: never } ? {} : Props) & {
-	[K in keyof Events as `on:${string & K}`]: Events[K];
+	[K in keyof Events as `on:${string & K}`]?: Events[K];
 };
 
-export interface LazyComponent<T extends SvelteComponent> {
-	(): Promise<{ default: ComponentType<T> }>;
+export interface LazyComponent<T extends ST.SvelteComponent> {
+	(): Promise<{ default: ST.ComponentType<T> }>;
 }
+
+// ---- Syv ----
+
+export type SyvOptions<T extends ST.SvelteComponent> = Exposed<T> & {
+	'syv:anchor'?: ST.ComponentConstructorOptions['target'];
+	'syv:intro'?: ST.ComponentConstructorOptions['intro'];
+};

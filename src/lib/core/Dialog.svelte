@@ -1,31 +1,30 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { FOCUSABLE, TIME } from '../options';
 
 	/** change UI mode to `Modal` */
 	export let required = false;
+	export let styles: Record<`--${string}`, string | number> = {};
 	export { className as class };
 	let className = '';
 
-	const close = handler();
-	function handler<T extends Event>(fn: (event: T) => void = () => {}) {
-		return (event: T) => {
-			show = !!void (fn(event), observer?.disconnect());
-			setTimeout(() => {
-				document.body.style.removeProperty('padding-right');
-				document.body.style.removeProperty('overflow');
-			}, TIME.FLY);
-		};
+	const dispatch = createEventDispatcher<{ 'syv:close': string }>();
+	async function forward<T extends Event>(event: T) {
+		if (!dispatch('syv:close', event.type, { cancelable: true })) return;
+		show = !!void setTimeout(() => {
+			document.body.style.removeProperty('padding-right');
+			document.body.style.removeProperty('overflow');
+		}, TIME.FLY);
 	}
 
 	let show = true;
 	let dialog: undefined | HTMLElement;
-	let observer: undefined | ResizeObserver;
+	// let observer: undefined | ResizeObserver;
 	onMount(() => {
 		// accounting 128px top and 16px bottom padding
 		const height = window.innerHeight - (128 + 16);
-		observer = new ResizeObserver(([observed]) => {
+		const observer = new ResizeObserver(([observed]) => {
 			const target = observed.target as HTMLElement;
 			target.style.removeProperty('overflow');
 			if (target.clientHeight < height) return;
@@ -41,7 +40,7 @@
 		document.body.style.setProperty('padding-right', `${bar}px`);
 		document.body.style.setProperty('overflow', 'hidden');
 
-		return () => observer?.disconnect();
+		return () => observer.disconnect();
 	});
 
 	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(FOCUSABLE) || []).filter(
@@ -51,10 +50,11 @@
 
 <svelte:window
 	on:keydown={(event) => {
-		if (event.key === 'Escape') return close(event);
+		if (!show || !dialog) return; // closed but not destroyed
+		if (event.key === 'Escape') return forward(event);
 		if (nodes && event.key === 'Tab') {
 			if (nodes.length === 0) return;
-			if (!dialog?.contains(document.activeElement)) {
+			if (!dialog.contains(document.activeElement)) {
 				return nodes[0].focus(), event.preventDefault();
 			}
 
@@ -67,7 +67,10 @@
 />
 
 {#if show}
-	<div on:pointerdown|self={(event) => !required && close(event)}>
+	<div
+		style={Object.entries(styles).reduce((s, [p, v]) => `${s}${p}:${v};`, '')}
+		on:pointerdown|self={(event) => !required && forward(event)}
+	>
 		<main
 			role="dialog"
 			aria-modal="true"
@@ -76,7 +79,7 @@
 			out:fly={{ duration: TIME.FLY, y: -64 }}
 			bind:this={dialog}
 		>
-			<slot close={handler} />
+			<slot {forward} />
 		</main>
 	</div>
 {/if}
@@ -86,14 +89,16 @@
 		inset: 0;
 		position: fixed;
 		display: grid;
+		justify-items: center;
 		align-items: flex-start;
-		grid-template-columns: 1fr min(80ch, 100%) 1fr;
+		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
 		background: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(0.1rem);
 	}
 	main {
+		width: 100%;
 		grid-column: 2;
-		padding: 2rem;
+		padding: var(--padding, 2rem);
 		margin-top: 8rem;
 		border-radius: var(--b-radius, 0.5rem);
 		background: var(--bg-overlay, #ffffff);

@@ -16,6 +16,7 @@
 	<button
 		on:click={() => {
 			syv.mount(ExampleDialog);
+			syv.load(() => import('./ExampleDialog.svelte'));
 		}}
 	>
 		Open Dialog
