@@ -6,8 +6,8 @@ let component: SvelteComponent;
 let events: Array<() => void> = [];
 
 type SyvOptions<T extends SvelteComponent> = Exposed<T> & {
-	'syv:anchor': ComponentConstructorOptions['target'];
-	'syv:intro': ComponentConstructorOptions['intro'];
+	'syv:anchor'?: ComponentConstructorOptions['target'];
+	'syv:intro'?: ComponentConstructorOptions['intro'];
 };
 
 export function load<T extends SvelteComponent>(loader: LazyComponent<T>, options?: SyvOptions<T>) {
