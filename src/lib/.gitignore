@@ -2,3 +2,4 @@
 icons/**/*.svelte
 icons/**/index.*
 !icons/index.ts
+!icons/Shell.svelte

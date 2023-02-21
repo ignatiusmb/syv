@@ -9,3 +9,4 @@ app.html
 src/lib/icons/**/*.svelte
 src/lib/icons/**/index.*
 !src/lib/icons/index.ts
+!src/lib/icons/Shell.svelte
