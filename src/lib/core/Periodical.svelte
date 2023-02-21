@@ -8,16 +8,21 @@
 	export let idleOnly = false;
 	export let refresh = 10 * 60 * 1000;
 	export let interval = refresh / 60;
-	export let task = () => {};
-	const binding = () => idleOnly && reset();
+	export let task = noop;
 
 	import { onMount } from 'svelte';
+	import { noop } from '../utils';
+	const binding = () => idleOnly && reset();
+
+	/** @type {NodeJS.Timeout} */
 	let timeout;
-	const worker = async () => {
+
+	async function worker() {
 		const diff = Date.now() - $time;
 		if (diff >= refresh) task(), reset();
 		timeout = setTimeout(worker, interval);
-	};
+	}
+
 	onMount(() => {
 		timeout = setTimeout(worker, interval);
 		return () => clearTimeout(timeout);

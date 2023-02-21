@@ -24,7 +24,6 @@ Notes:
 
 - All components are written in `PascalCase` and can be accessed as such, including icons.
 - Prop attributes with `*` means it's required to pass a value that's not nullish or empty
-- You might need to add `vite: { ssr: { noExternal: ['mauss'] } }` to `svelte.config.js` when working with SvelteKit
 
 ### Disclaimer
 
@@ -36,7 +35,7 @@ This starts out as (and is still is) a hobby project I'm doing to help myself in
 
 ***
 
-## Namespaces
+## Modules
 
 ### `syv/icons`
 
@@ -52,7 +51,7 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 
 ```svelte
 <script>
-  import Loader from 'syv/loader';
+  import * as Loader from 'syv/loader';
   // or import each loader individually
   // import { Ellipsis } from 'syv/loader';
 </script>
@@ -123,15 +122,16 @@ Dialog element backdrop can be clicked by the user to close the interface, its a
 
 ### Image
 
-| Props    | Default  |
-| -------- | -------- |
-| src \*   | `''`     |
-| alt \*   | `''`     |
-| lazy     | `false`  |
-| contain  | `false`  |
-| overlay  | `false`  |
-| absolute | `false`  |
-| ratio    | `9 / 16` |
+| Props      | Default  |
+| ---------- | -------- |
+| src \*     | `''`     |
+| alt \*     | `''`     |
+| ratio      | `9 / 16` |
+| lazy       | `false`  |
+| contain    | `false`  |
+| overlay    | `false`  |
+| absolute   | `false`  |
+| transition | `{}`     |
 
 Image element is created to have a fixed ratio, **not size**. It will be responsive by default and will follow its parent container size. To set a fixed size, just explicitly set the parent container size.
 
@@ -143,6 +143,27 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 </script>
 
 <Image {src} {alt}  />
+```
+
+- `ratio` - this receives a float to determine the ratio of your image, set to 16:9 by default
+
+```svelte
+<!-- Square Image -->
+<Image {src} {alt} ratio={1} />
+
+<!-- Vertical format -->
+<Image {src} {alt} ratio={4 / 3} />
+
+<!-- Horizontal format -->
+<Image {src} {alt} ratio={3 / 4} />
+```
+
+- `lazy` - lazy load image when it's sighted in viewport
+
+```svelte
+<Image {src} {alt} lazy>
+  <p>I will appear when this Image is hovered</p>
+</Image>
 ```
 
 - `contain` - images will have property `object-fit` with the value of `cover` by default, pass this prop to set the value to `contain`
@@ -159,14 +180,6 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 </Image>
 ```
 
-- `lazy` - lazy load image when it's sighted in viewport
-
-```svelte
-<Image {src} {alt} lazy>
-  <p>I will appear when this Image is hovered</p>
-</Image>
-```
-
 - `absolute` - set the Image container position as absolute
 
 ```svelte
@@ -176,25 +189,12 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 </div>
 ```
 
-- `ratio` - this receives a float to determine the ratio of your image, set to 16:9 by default
-
-```svelte
-<!-- Square Image -->
-<Image {src} {alt} ratio={1} />
-
-<!-- Vertical format -->
-<Image {src} {alt} ratio={4 / 3} />
-
-<!-- Horizontal format -->
-<Image {src} {alt} ratio={3 / 4} />
-```
-
 ### LazyLoad
 
-| Props   | Default     |
-| ------- | ----------- |
-| file \* | `undefined` |
-| when    | `true`      |
+| Props    | Default     |
+| -------- | ----------- |
+| files \* | `undefined` |
+| when     | `true`      |
 
 Lazily loads a component defined from the callback passed to `file`.
 
@@ -204,16 +204,39 @@ Lazily loads a component defined from the callback passed to `file`.
   let show = false;
 </script>
 
-<LazyLoad file={() => import('../components/Modal.svelte')} when={show} let:loaded={Modal}>
+<LazyLoad when={show} files={[() => import('../components/Modal.svelte')]} let:loaded={[Modal]}>
   <Modal bind:show other modal props />
 </LazyLoad>
 ```
 
-- `when` - the prop with a default value of `true`, the component will load immediately when this is not used
+- `when` - the only prop with a default value of `true`, the component will load immediately when this is not used
 
 ```svelte
-<LazyLoad file={() => import('../icons/Burger.svelte')} let:loaded={BurgerIcon}>
-  <BurgerIcon />
+<!-- no when prop, indicating LazyLoad to load '../icons/Burger.svelte' immediately  -->
+<LazyLoad files={[() => import('../icons/Burger.svelte')]} let:loaded>
+  <svelte:component this={loaded[0]} />
+</LazyLoad>
+```
+
+Multiple imports simultaneously
+
+```svelte
+<LazyLoad
+  when={show}
+  files={[
+    () => import('$lib/components/Modal.svelte'),
+    () => import('$lib/components/Video.svelte'),
+    () => import('$lib/components/Button.svelte'),
+    () => import('$lib/icons/Share.svelte'),
+  ]}
+  let:loaded={[Modal, Video, Button, ShareIcon]}
+>
+  <Modal bind:show>
+    <Video src="/assets/demo.mp4" />
+    <Button on:click={() => navigator.share()}>
+      <ShareIcon />
+    </Button>
+  </Modal>
 </LazyLoad>
 ```
 
@@ -239,7 +262,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 - `let:limit` - the maximum number of page with the current items
 - `let:page` - a number to indicate the current page it is on
-- `let:moveTo` - function that takes in a number between `0` and `limit`
+- `let:jump` - function that takes in a number between `0` and `limit`
 
 ```svelte
 <script>
@@ -250,9 +273,9 @@ There's also 3 exposed slot props available to use to manually move to certain p
 
 <Pagination {store} {items} />
 <!-- or with custom buttons -->
-<Pagination {store} {items} let:limit let:page let:moveTo>
+<Pagination {store} {items} let:limit let:page let:jump>
   {#each { length: limit + 1 } as _, i}
-    <button on:click={() => moveTo(i)} class:active={i === page}>
+    <button on:click={() => jump(i)} class:active={i === page}>
       {i + 1}
     </button>
   {/each}
@@ -352,4 +375,4 @@ SearchBar element provides a searchbox and `query` to bind the value.
 
 ***
 
-<h5 align="center"><pre>Copyright &copy; 2020 - 2021 <a href="https://mauss.dev">Ignatius Bagussuputra</a></pre></h5>
+<h5 align="center"><pre>Copyright &copy; 2020 - 2022 <a href="https://mauss.dev">Ignatius Bagussuputra</a></pre></h5>

@@ -1,9 +1,8 @@
-import { existsSync } from 'fs';
-import feather from './scripts/feather.mjs';
+import * as fs from 'fs';
 
-const icons = { feather };
-
-for (const pack of Object.keys(icons)) {
-	if (existsSync(`./${pack}/index.js`)) continue;
-	icons[pack].build();
-}
+fs.readdirSync('.').forEach(async (path) => {
+	if (!fs.statSync(path).isDirectory()) return;
+	if (fs.existsSync(`./${path}/index.js`)) return;
+	const { build } = await import(`./${path}/build.mjs`);
+	build();
+});

@@ -1,33 +1,44 @@
 <script>
 	export let href = '';
+	/** passed through to aria-label */
 	export let label = '';
-	export let download = false;
-	export let newTab = false;
-	export let inherit = false;
-	export let invert = false;
-
-	export let noscroll = false;
+	/** adds noreferrer to rel, only applied when external is true */
 	export let refer = false;
+	/** sets download attribute */
+	export let download = false;
+	/** sets target as '_blank' */
+	export let newTab = false;
+
+	/** sets rel to external and enable data-sveltekit-reload */
+	export let external = /^https?:\/\//.test(href);
+	/**
+	 * sets data-sveltekit-preload-[code,data] value
+	 * @type {
+	 * 	| { code?: 'eager' | 'viewport'; data?: 'hover' | 'tap' }
+	 * }
+	 */
+	export let preload = { code: 'hover' };
+	/** @type {undefined | true | 'off'} - sets data-sveltekit-noscroll value */
+	export let noscroll = undefined;
+
 	export { className as class };
 	let className = '';
-
-	$: external = /^https?:\/\//.test(href);
 </script>
 
 <a
 	{href}
+	aria-label={label || undefined}
+	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
+	data-sveltekit-reload={external || 'off'}
+	data-sveltekit-preload-code={preload.code}
+	data-sveltekit-preload-data={preload.data}
+	data-sveltekit-noscroll={noscroll}
 	download={download || undefined}
 	target={newTab ? '_blank' : undefined}
-	sveltekit:noscroll={noscroll || undefined}
-	sveltekit:prefetch={!external || undefined}
-	rel={external ? `noopener${refer ? '' : ' noreferrer'}` : undefined}
-	aria-label={label || undefined}
-	class="syv-core-link {className}"
 	class:disabled={!href}
-	class:inherit
-	class:invert
+	class="syv-core-link {className}"
 >
-	<slot {external} />
+	<slot />
 </a>
 
 <style>
@@ -36,11 +47,5 @@
 	}
 	a.disabled {
 		cursor: not-allowed;
-	}
-	a.inherit {
-		color: inherit !important;
-	}
-	a.invert:hover {
-		filter: invert() hue-rotate(180deg);
 	}
 </style>

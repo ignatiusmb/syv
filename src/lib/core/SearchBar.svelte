@@ -1,64 +1,57 @@
-<script>
+<script lang="ts">
+	import LazyLoad from './LazyLoad.svelte';
+
+	import type { LazyComponent } from '../types';
+	import { tryNumber } from 'mauss/utils';
+	import { createEventDispatcher } from 'svelte';
+	import { slide } from 'svelte/transition';
+	import { TIME } from '../options';
+	import { noop } from '../utils';
+
+	interface IterableValues {
+		[key: string]: string | Array<string | number> | Record<string, string>;
+	}
+	interface WildcardHandler {
+		(event: (MouseEvent | FocusEvent) & { currentTarget: EventTarget & HTMLElement }): void;
+	}
+
 	export let query = '';
 	export let placeholder = 'Type your queries here (Press "/" to focus)';
-	export { className as class };
-	let className = '';
-
-	/** @type {any[]} */
-	export let items = [];
-
+	export let items: any[] = [];
 	/**
 	 * - `string` to reference an image from static assets
 	 * - `boolean` (`true`) to use built-in feather icon
 	 * - callback to dynamically import and use an icon component
-	 * @type {string | boolean | (() => Promise<typeof import('*.svelte')>)}
 	 */
-	export let icon = false;
-	/**
-	 * Icon size for Search and Filter
-	 * @type {string | number}
-	 */
-	export let size = '24';
+	export let icon: string | boolean | LazyComponent<any> = false;
+	/** icon size for Search and Filter */
+	export let size: string | number = '24';
+	export let filters: boolean | IterableValues = false;
+	export let unique: boolean | IterableValues = false;
+	export { className as class };
+	let className = '';
 
-	/** @type {boolean | Record<string, UniqueFilterValue>} */
-	export let filters = false;
-	/** @type {undefined | Record<string, UniqueFilterValue>} */
-	export let unique = undefined;
-
-	import { tryNumber } from 'mauss/utils';
-	import { createEventDispatcher } from 'svelte';
-	import { slide } from 'svelte/transition';
-	import { duration } from '../options';
-	import { noop } from '../utils';
 	const dispatch = createEventDispatcher();
 
-	import LazyLoad from './LazyLoad.svelte';
 	const icons = {
 		search: () => import('../icons/feather/Search.svelte'),
 		filter: () => import('../icons/feather/Filter.svelte'),
 	};
 
 	const show = { autocomplete: false, filter: false };
-	/** @type {HTMLInputElement} */
-	let searchbox;
-
-	/**
-	 * @typedef {string | Array<string | number>} UniqueFilterValue
-	 *
-	 * @typedef {MouseEvent | FocusEvent} Captured
-	 * @typedef {Captured & { currentTarget: EventTarget & HTMLElement }} WildEvent
-	 * @typedef {(event: WildEvent) => void} WildcardHandler
-	 */
+	let searchbox: HTMLInputElement;
 
 	const handle = {
-		/** @type {(item: any) => WildcardHandler} */
-		select: (item) => () => {
-			dispatch('select', item);
-			searchbox.blur();
+		select(item: any): WildcardHandler {
+			return () => {
+				dispatch('select', item);
+				searchbox.blur();
+			};
 		},
-		/** @type {(property: keyof typeof show, value: boolean) => WildcardHandler} */
-		toggle: (property, value) => () => {
-			show[property] = value;
+		toggle(property: keyof typeof show, value: boolean): WildcardHandler {
+			return () => {
+				show[property] = value;
+			};
 		},
 	};
 </script>
@@ -81,8 +74,8 @@
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<LazyLoad file={typeof icon === 'function' ? icon : icons.search} let:loaded>
-							<svelte:component this={loaded} {size} />
+						<LazyLoad files={[typeof icon === 'function' ? icon : icons.search]} let:loaded>
+							<svelte:component this={loaded[0]} {size} />
 						</LazyLoad>
 					{/if}
 				</span>
@@ -111,23 +104,22 @@
 		</label>
 
 		{#if filters}
-			<span on:click={handle.toggle('filter', !show.filter)}>
-				<LazyLoad file={icons.filter} let:loaded>
-					<svelte:component this={loaded} {size} />
+			<button on:click={handle.toggle('filter', !show.filter)}>
+				<LazyLoad files={[icons.filter]} let:loaded>
+					<svelte:component this={loaded[0]} {size} />
 				</LazyLoad>
-			</span>
+			</button>
 		{/if}
 	</div>
 
 	{#if filters && show.filter}
-		<aside transition:slide={{ duration }}>
+		<aside transition:slide={{ duration: TIME.SLIDE }}>
 			{#if typeof filters === 'object' && typeof unique === 'object'}
-				{#each Object.keys(unique) as key}
+				{#each Object.entries(unique) as [key, iterable]}
 					<section>
 						<h3>{key.replace(/_/g, ' ')}</h3>
-						{#if Array.isArray(unique[key])}
-							{#each unique[key] as value}
-								<!-- svelte-ignore a11y-label-has-associated-control -->
+						{#if Array.isArray(iterable)}
+							{#each iterable as value}
 								<label>
 									{#if typeof filters[key] === 'string'}
 										<input type="radio" bind:group={filters[key]} {value} />
@@ -138,8 +130,7 @@
 								</label>
 							{/each}
 						{:else}
-							{#each Object.entries(unique[key]).sort( ([x], [y]) => x.localeCompare(y) ) as [val, desc]}
-								<!-- svelte-ignore a11y-label-has-associated-control -->
+							{#each Object.entries(iterable).sort(([x], [y]) => x.localeCompare(y)) as [val, desc]}
 								<label>
 									{#if typeof filters[key] === 'string'}
 										<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
@@ -195,7 +186,7 @@
 
 	.sb label,
 	.sb input,
-	.sb label + span {
+	.sb label + button {
 		border-radius: inherit;
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
@@ -208,7 +199,7 @@
 		width: 100%;
 		height: 100%;
 	}
-	.sb label + span {
+	.sb label + button {
 		cursor: pointer;
 		display: inline-flex;
 		align-items: center;

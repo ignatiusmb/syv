@@ -1,7 +1,5 @@
 <script>
-	import '../app.postcss';
-	import '@ignatiusmb/aqua/lib/aqua.cbs.js';
-	import '@ignatiusmb/aqua/lib/aqua.min.css';
+	// import '@ignatiusmb/styles/core.css';
 
 	import { ScrollTop } from '$lib';
 </script>
@@ -11,7 +9,7 @@
 <slot />
 
 <style>
-	:global(body) {
+	:global(body, #svelte) {
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;

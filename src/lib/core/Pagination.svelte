@@ -1,5 +1,7 @@
 <script>
+	/** @type {import('svelte/store').Writable<any[]>} */
 	export let store = writable([]);
+	/** @type {any[]} */
 	export let items = [];
 	export let bound = 3;
 	export let increment = bound;
@@ -15,9 +17,12 @@
 	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
 
 	let page = 0;
-	function moveTo(index) {
+
+	/** @type {(index: number) => void} */
+	function jump(index) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
+			/** @type {NodeJS.Timeout} */
 			let timeout;
 			const repeat = () => {
 				page = index === 0 ? page - 1 : page + 1;
@@ -27,6 +32,9 @@
 			timeout = setTimeout(repeat, 50);
 		} else page = index;
 	}
+
+	/** @param {number} i */
+	const click = (i) => () => jump(i);
 
 	$: total = items.length;
 	$: ceil = Math.ceil((total - bound) / increment);
@@ -44,29 +52,29 @@
 <section class="syv-core-pagination {className}">
 	<slot name="left">
 		<div class="navigator">
-			<span class:disabled={page === 0} on:click={() => moveTo(0)}>
+			<button class:disabled={page === 0} on:click={click(0)}>
 				<ChevronsLeft />
-			</span>
-			<span class:disabled={page === 0} on:click={() => moveTo(page - 1)}>
+			</button>
+			<button class:disabled={page === 0} on:click={click(page - 1)}>
 				<ChevronLeft />
-			</span>
+			</button>
 		</div>
 	</slot>
 
 	<div class="slot-holder">
-		<slot {limit} {page} {moveTo}>
+		<slot {limit} {page} {jump}>
 			<div>{curr} - {next} / {total}</div>
 		</slot>
 	</div>
 
 	<slot name="right">
 		<div class="navigator">
-			<span class:disabled={page === limit} on:click={() => moveTo(page + 1)}>
+			<button class:disabled={page === limit} on:click={click(page + 1)}>
 				<ChevronRight />
-			</span>
-			<span class:disabled={page === limit} on:click={() => moveTo(limit)}>
+			</button>
+			<button class:disabled={page === limit} on:click={click(limit)}>
 				<ChevronsRight />
-			</span>
+			</button>
 		</div>
 	</slot>
 </section>
@@ -91,12 +99,12 @@
 		gap: 0.5em;
 		grid-auto-flow: column;
 	}
-	span {
+	button {
 		cursor: pointer;
 		display: inline-flex;
 		justify-content: center;
 	}
-	span.disabled {
+	button.disabled {
 		cursor: not-allowed;
 		opacity: 0.4;
 	}

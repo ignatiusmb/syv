@@ -1,16 +1,17 @@
+import { writeFile } from 'fs/promises';
 import { icons as feather } from 'feather-icons';
-import { existsSync, readFileSync } from 'fs';
-import { mkdir, writeFile } from 'fs/promises';
 import { capitalize } from 'mauss/utils';
-import prettier from 'prettier';
 
-/** @param {string} icon feather icon name */
+/** @param {string} icon */
 const generate = (icon) => `<script>
 	export let size = 24;
 	export let weight = 1.5;
 	export let color = 'currentColor';
 	export { className as class };
 	let className = '';
+
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
 </script>
 
 <svg
@@ -24,37 +25,24 @@ const generate = (icon) => `<script>
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	class="syv-icons-feather-${icon} {className}"
-	on:click
+	on:click={() => dispatch('press')}
+	on:keyup={(ev) => (ev.key === ' ' || ev.key === 'Enter') && dispatch('press')}
 >
 	${feather[icon].contents}
 </svg>
 `;
 
-export default {
-	async build() {
-		const config = this.config();
-		await mkdir('../feather');
+export async function build() {
+	let exp = '';
 
-		let exp = '';
-		const promises = [];
-		for (const kebab in feather) {
-			const pascal = kebab.replace(/\w+/g, capitalize).replace(/-/g, '');
-			const formatted = prettier.format(generate(kebab), await config);
-			promises.push(writeFile(`../feather/${pascal}.svelte`, formatted));
-			exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
-		}
+	const promises = [];
+	for (const kebab in feather) {
+		const pascal = kebab.replace(/\w+/g, capitalize).replace(/-/g, '');
+		promises.push(writeFile(`./feather/${pascal}.svelte`, generate(kebab)));
+		exp += `export { default as ${pascal} } from './${pascal}.svelte';\n`;
+	}
 
-		promises.push(writeFile('../feather/index.js', exp));
-		promises.push(writeFile('../feather/index.d.ts', exp));
-		await Promise.all(promises);
-	},
-	async config() {
-		let path = 'node_modules';
-		while (!existsSync(path)) path = `../${path}`;
-		const { overrides, ...workspace } = JSON.parse(readFileSync(`${path}/mauss/prettier.json`));
-		const { options: svelte } = overrides.find(({ files: [ext] }) => ext.endsWith('.svelte'));
-
-		delete workspace['$schema'];
-		return { parser: 'svelte', ...workspace, ...svelte };
-	},
-};
+	promises.push(writeFile('./feather/index.js', exp));
+	promises.push(writeFile('./feather/index.d.ts', exp));
+	await Promise.all(promises);
+}

@@ -4,7 +4,7 @@
 
 	import Link from '../core/Link.svelte';
 	import LinkIcon from '../icons/feather/Link.svelte';
-	import Edit from './components/Edit.svelte';
+	import Edit from './lib/Edit.svelte';
 
 	const indexer = (num: number) => `0${num}`.slice(-2);
 	let anchor = false;
