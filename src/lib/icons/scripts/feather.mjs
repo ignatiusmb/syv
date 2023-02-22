@@ -6,7 +6,7 @@ export async function build() {
 	await mkdir('./feather');
 	const promises = [];
 	for (const kebab in feather) {
-		let data = '';
+		let data = '// @ts-nocheck\n';
 		for (const [k, v] of Object.entries(feather[kebab])) {
 			data += `export const ${k} = ${JSON.stringify(v)};\n`;
 		}

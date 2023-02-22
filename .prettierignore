@@ -7,4 +7,4 @@ app.html
 
 # Generated Icons
 **/icons/*/**
-!**/icons/scripts/
+!**/icons/scripts/**
