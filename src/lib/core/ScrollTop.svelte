@@ -14,11 +14,7 @@
 	class="syv-core-scroll-top {className}"
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
 >
-	<Feather
-		scale="1.5"
-		style="stroke-width: 1.5;"
-		icon={() => import('../icons/feather/chevrons-up')}
-	/>
+	<Feather scale="1.5" icon={import('../icons/feather/chevrons-up')} />
 </button>
 
 <style>

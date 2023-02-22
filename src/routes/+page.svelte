@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { syv } from '$lib';
+	import SearchBar from '$lib/core/SearchBar.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
 
@@ -10,6 +11,8 @@
 </script>
 
 <main use:outside={() => {}}>
+	<SearchBar icon filters />
+
 	<textarea bind:value use:autoresize />
 
 	<button use:copy={{ data: value }}>Copy to Clipboard</button>

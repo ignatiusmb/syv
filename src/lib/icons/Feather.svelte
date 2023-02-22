@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let icon: () => Promise<{
+	interface IconData {
 		name?: string;
 		contents?: string;
 		attrs?: {
@@ -13,7 +13,9 @@
 			'stroke-linecap': string;
 			'stroke-linejoin': string;
 		};
-	}>;
+	}
+
+	export let icon: IconData | Promise<IconData> | (() => Promise<IconData>);
 
 	export let label = '';
 	export let style = '';
@@ -27,11 +29,9 @@
 	function scope<T>(fn: () => T) {
 		return fn();
 	}
-
-	$: promise = icon();
 </script>
 
-{#await promise}
+{#await typeof icon === 'function' ? icon() : icon}
 	<slot name="loading" />
 {:then { attrs, contents }}
 	{@const { width, height } = scope(() => {

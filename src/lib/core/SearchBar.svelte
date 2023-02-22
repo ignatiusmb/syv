@@ -69,11 +69,7 @@
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<Feather
-							{scale}
-							style="stroke-width: 1.5;"
-							icon={() => import('../icons/feather/search')}
-						/>
+						<Feather {scale} icon={import('../icons/feather/search')} />
 					{/if}
 				</span>
 			{/if}
@@ -102,11 +98,7 @@
 
 		{#if filters}
 			<button on:click={handle.toggle('filter', !show.filter)}>
-				<Feather
-					{scale}
-					style="stroke-width: 1.5;"
-					icon={() => import('../icons/feather/filter')}
-				/>
+				<Feather {scale} icon={import('../icons/feather/filter')} />
 			</button>
 		{/if}
 	</div>

@@ -49,18 +49,10 @@
 	<slot name="left">
 		<div class="navigator">
 			<button class:disabled={page === 0} on:click={click(0)}>
-				<Feather
-					scale="1.5"
-					style="stroke-width: 1.5;"
-					icon={() => import('../icons/feather/chevrons-left')}
-				/>
+				<Feather scale="1.5" icon={import('../icons/feather/chevrons-left')} />
 			</button>
 			<button class:disabled={page === 0} on:click={click(page - 1)}>
-				<Feather
-					scale="1.5"
-					style="stroke-width: 1.5;"
-					icon={() => import('../icons/feather/chevron-left')}
-				/>
+				<Feather scale="1.5" icon={import('../icons/feather/chevron-left')} />
 			</button>
 		</div>
 	</slot>
@@ -74,18 +66,10 @@
 	<slot name="right">
 		<div class="navigator">
 			<button class:disabled={page === limit} on:click={click(page + 1)}>
-				<Feather
-					scale="1.5"
-					style="stroke-width: 1.5;"
-					icon={() => import('../icons/feather/chevron-right')}
-				/>
+				<Feather scale="1.5" icon={import('../icons/feather/chevron-right')} />
 			</button>
 			<button class:disabled={page === limit} on:click={click(limit)}>
-				<Feather
-					scale="1.5"
-					style="stroke-width: 1.5;"
-					icon={() => import('../icons/feather/chevrons-right')}
-				/>
+				<Feather scale="1.5" icon={import('../icons/feather/chevrons-right')} />
 			</button>
 		</div>
 	</slot>

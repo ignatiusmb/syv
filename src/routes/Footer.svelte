@@ -9,75 +9,35 @@
 
 	<section class="social-links">
 		<a href="https://www.github.com/ignatiusmb" aria-label="github profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/github')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/github')} />
 		</a>
 
 		<a href="https://www.facebook.com/ignatiusmb" aria-label="facebook profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/facebook')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/facebook')} />
 		</a>
 		<a href="https://www.instagram.com/ignatiusmb" aria-label="instagram profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/instagram')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/instagram')} />
 		</a>
 		<a href="https://www.linkedin.com/in/ignatiusmb" aria-label="linkedin profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/linkedin')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/linkedin')} />
 		</a>
 		<a href="https://twitter.com/alchemauss" aria-label="twitter profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/twitter')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/twitter')} />
 		</a>
 		<a href="https://keybase.io/mauss" aria-label="keybase profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/key')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/key')} />
 		</a>
 		<a href="https://github.com/ignatiusmb" aria-label="github profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/github')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/github')} />
 		</a>
 		<a href="https://gitlab.com/ignatiusmb" aria-label="gitlab profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/gitlab')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/gitlab')} />
 		</a>
 		<a href="https://twitch.tv/alchemauss" aria-label="twitch profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/twitch')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/twitch')} />
 		</a>
 		<a href="https://www.youtube.com/user/Ignapure/playlists" aria-label="youtube playlist profile">
-			<Feather
-				scale="1.5"
-				style="stroke-width: 1.5;"
-				icon={() => import('../lib/icons/feather/youtube')}
-			/>
+			<Feather scale="1.5" icon={import('../lib/icons/feather/youtube')} />
 		</a>
 	</section>
 
