@@ -1,19 +1,18 @@
 <script lang="ts">
+	import Feather from '../icons/Feather.svelte';
+	import Edit from './lib/Edit.svelte';
+
 	export let sections: Record<'slug' | 'title' | 'content' | 'path', string>[];
 	export let repo: string;
 
-	import Link from '../core/Link.svelte';
-	import LinkIcon from '../icons/feather/Link.svelte';
-	import Edit from './lib/Edit.svelte';
-
-	const indexer = (num: number) => `0${num}`.slice(-2);
 	let anchor = false;
 </script>
 
 <main>
 	<aside>
 		{#each sections as { slug, title }, i}
-			<a href="#{slug}" data-index={indexer(i + 1)}>{title}</a>
+			{@const index = `0${i + 1}`.slice(-2)}
+			<a href="#{slug}" data-index={index}>{title}</a>
 		{/each}
 	</aside>
 
@@ -26,9 +25,9 @@
 					on:mouseenter={() => (anchor = true)}
 					on:mouseleave={() => (anchor = false)}
 				>
-					<Link href="#{slug}">
-						<LinkIcon />
-					</Link>
+					<a href="#{slug}">
+						<Feather icon={import('../icons/feather/link')} />
+					</a>
 					<span>{title}</span>
 					<Edit {repo} {path} />
 				</h2>
