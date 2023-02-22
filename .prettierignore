@@ -6,5 +6,5 @@ app.html
 *.md
 
 # Generated Icons
-icons/*/**
-!icons/scripts/
+**/icons/*/**
+!**/icons/scripts/
