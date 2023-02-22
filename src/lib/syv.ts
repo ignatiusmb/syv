@@ -39,6 +39,7 @@ export function preload<T extends SvelteComponent>(
 	loaded: ReturnType<LazyComponent<T>>,
 	...[options]: Demand<SyvOptions<T>>
 ) {
+	// @ts-expect-error - only passing `options` to `mount`
 	loaded.then(({ default: Comp }) => mount(Comp, options));
 }
 
@@ -46,5 +47,6 @@ export function load<T extends SvelteComponent>(
 	loader: LazyComponent<T>,
 	...[options]: Demand<SyvOptions<T>>
 ) {
+	// @ts-expect-error - only passing `options` to `mount`
 	preload(loader(), options);
 }
