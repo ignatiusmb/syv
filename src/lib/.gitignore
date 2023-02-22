@@ -1,5 +1,3 @@
 # Generated Icons
-icons/**/*.svelte
-icons/**/index.*
-!icons/index.ts
-!icons/Shell.svelte
+icons/*/**
+!icons/scripts/
