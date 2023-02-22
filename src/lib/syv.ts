@@ -5,13 +5,14 @@ import { ntv } from 'mauss/std';
 let component: SvelteComponent;
 let events: Array<() => void> = [];
 
-export function load<T extends SvelteComponent>(
-	loader: LazyComponent<T>,
-	...[options]: Demand<SyvOptions<T>>
-) {
-	// @ts-expect-error - only passing `options` to `mount`
-	loader().then(({ default: Comp }) => mount(Comp, options));
+function purge() {
+	events.forEach((destroy) => destroy());
+	component && component.$destroy();
+
+	events = [];
 }
+
+// ---- exposed ----
 
 export function mount<T extends SvelteComponent>(
 	Comp: ComponentType<T>,
@@ -34,9 +35,18 @@ export function mount<T extends SvelteComponent>(
 	}
 }
 
-export function purge() {
-	events.forEach((destroy) => destroy());
-	component && component.$destroy();
+export function preload<T extends SvelteComponent>(
+	loaded: ReturnType<LazyComponent<T>>,
+	...[options]: Demand<SyvOptions<T>>
+) {
+	// @ts-expect-error - only passing `options` to `mount`
+	loaded.then(({ default: Comp }) => mount(Comp, options));
+}
 
-	events = [];
+export function load<T extends SvelteComponent>(
+	loader: LazyComponent<T>,
+	...[options]: Demand<SyvOptions<T>>
+) {
+	// @ts-expect-error - only passing `options` to `mount`
+	preload(loader(), options);
 }
