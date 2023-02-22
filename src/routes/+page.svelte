@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { syv } from '$lib';
 	import ExampleDialog from './ExampleDialog.svelte';
+	import Footer from './Footer.svelte';
 
 	import { autoresize } from '$lib/action';
 	import { outside, copy } from '$lib/action/click';
@@ -21,6 +22,8 @@
 	>
 		Open Dialog
 	</button>
+
+	<Footer />
 </main>
 
 <style>
