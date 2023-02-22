@@ -15,9 +15,10 @@
 		};
 	}>;
 
-	export let scale: string | number = 1;
 	export let label = '';
 	export let style = '';
+	export let girth: string | number = 1.5;
+	export let scale: string | number = 1;
 	export let flip: undefined | 'x' | 'y' = undefined;
 	export let variant: undefined | 'invert' = undefined;
 	export { className as class };
@@ -41,17 +42,21 @@
 			height: +scale * (h / ratio),
 		};
 	})}
-	{@const data = Object.assign(attrs || {}, { width, height })}
+	{@const data = Object.assign(attrs || {}, {
+		style,
+		width,
+		height,
+		'aria-label': label || null,
+		'stroke-width': girth,
+		role: label ? 'img' : 'presentation',
+		class: className || null,
+	})}
 
 	<svg
 		{...data}
-		{style}
 		version="1.1"
-		aria-label={label || null}
-		role={label ? 'img' : 'presentation'}
 		style:filter={variant === 'invert' ? 'invert(1)' : ''}
 		style:transform={flip ? `scale${{ x: 'Y', y: 'X' }[flip]}(-1)` : ''}
-		class={className || null}
 	>
 		<slot {attrs} {contents}>
 			{#if contents}<g>{@html contents}</g>{/if}
