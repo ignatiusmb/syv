@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LazyLoad from './LazyLoad.svelte';
 
-	import type { LazyComponent } from '../types';
+	import type { AnyLazyComponent } from '../types';
 	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
@@ -23,7 +23,7 @@
 	 * - `boolean` (`true`) to use built-in feather icon
 	 * - callback to dynamically import and use an icon component
 	 */
-	export let icon: string | boolean | LazyComponent<any> = false;
+	export let icon: string | boolean | AnyLazyComponent = false;
 	/** icon size for Search and Filter */
 	export let size: string | number = '24';
 	export let filters: boolean | IterableValues = false;

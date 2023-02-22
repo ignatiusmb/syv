@@ -1,5 +1,13 @@
 import type * as ST from 'svelte';
 
+export interface AnyComponent {
+	new (...args: any): ST.SvelteComponentTyped;
+}
+
+export interface AnyLazyComponent {
+	(): Promise<{ default: AnyComponent }>;
+}
+
 export type Demand<T> = {
 	[K in keyof T]-?: {} extends { [P in K]: T[K] } ? never : K;
 }[keyof T] extends [never]

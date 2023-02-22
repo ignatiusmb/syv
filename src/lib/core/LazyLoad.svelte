@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { LazyComponent } from '../types';
+	import type { AnyLazyComponent } from '../types';
 
-	export let files: LazyComponent<any>[];
+	export let files: AnyLazyComponent[];
 	export let when = true;
 
 	let promises: undefined | ReturnType<(typeof files)[number]>[];
