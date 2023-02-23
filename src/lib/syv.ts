@@ -20,7 +20,7 @@ export function mount<T extends SvelteComponent>(
 ) {
 	purge(); // destroy here so it keeps the out transition
 
-	options = (options || { 'syv:intro': true }) as SyvOptions<T>;
+	options = Object.assign({ 'syv:intro': true }, options);
 	const props = Object.keys(options).filter((k) => !k.includes(':'));
 	component = new Comp({
 		intro: options['syv:intro'],
@@ -35,18 +35,11 @@ export function mount<T extends SvelteComponent>(
 	}
 }
 
-export function preload<T extends SvelteComponent>(
-	loaded: ReturnType<LazyComponent<T>>,
+export function load<T extends SvelteComponent>(
+	loader: LazyComponent<T> | ReturnType<LazyComponent<T>>,
 	...[options]: Demand<SyvOptions<T>>
 ) {
+	const loaded = typeof loader !== 'function' ? loader : loader();
 	// @ts-expect-error - only passing `options` to `mount`
 	loaded.then(({ default: Comp }) => mount(Comp, options));
-}
-
-export function load<T extends SvelteComponent>(
-	loader: LazyComponent<T>,
-	...[options]: Demand<SyvOptions<T>>
-) {
-	// @ts-expect-error - only passing `options` to `mount`
-	preload(loader(), options);
 }
