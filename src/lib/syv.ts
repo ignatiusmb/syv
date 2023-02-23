@@ -15,14 +15,14 @@ function purge() {
 // ---- exposed ----
 
 export function mount<T extends SvelteComponent>(
-	Comp: ComponentType<T>,
+	Component: ComponentType<T>,
 	...[options]: Demand<SyvOptions<T>>
 ) {
 	purge(); // destroy here so it keeps the out transition
 
 	options = Object.assign({ 'syv:intro': true }, options);
 	const props = Object.keys(options).filter((k) => !k.includes(':'));
-	component = new Comp({
+	component = new Component({
 		intro: options['syv:intro'],
 		target: options['syv:anchor'] || document.body,
 		// @ts-expect-error - valid after T exists
@@ -41,5 +41,5 @@ export function load<T extends SvelteComponent>(
 ) {
 	const loaded = typeof loader !== 'function' ? loader : loader();
 	// @ts-expect-error - only passing `options` to `mount`
-	loaded.then(({ default: Comp }) => mount(Comp, options));
+	loaded.then(({ default: Component }) => mount(Component, options));
 }
