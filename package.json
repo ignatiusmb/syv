@@ -64,18 +64,19 @@
     "vite": "^4.1.1"
   },
   "exports": {
-    ".": "./index.js",
-    "./*.svelte": "./core/*.svelte",
+    "./core/*.svelte": "./core/*.svelte",
     "./action": "./action/index.js",
     "./action/click": "./action/click.js",
     "./icons/*.svelte": "./icons/*.svelte",
     "./icons/feather/*": "./icons/feather/*.js",
     "./internal/*.svelte": "./internal/*.svelte",
     "./loader/*.svelte": "./loader/*.svelte",
-    "./options": "./options.js",
     "./store": "./store/index.js",
     "./store/api": "./store/api.js",
     "./store/browser": "./store/browser.js",
+    ".": "./index.js",
+    "./options": "./options.js",
+    "./types": "./types.js",
     "./utils": "./utils.js"
   }
 }
