@@ -31,7 +31,6 @@
     "./action/click": "./action/click.js",
     "./icons/*.svelte": "./icons/*.svelte",
     "./icons/feather/*": "./icons/feather/*.js",
-    "./icons/fluent/*": "./icons/fluent/*.js",
     "./internal/*.svelte": "./internal/*.svelte",
     "./loader/*.svelte": "./loader/*.svelte",
     "./store": "./store/index.js",

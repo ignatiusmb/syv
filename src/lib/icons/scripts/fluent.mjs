@@ -28,5 +28,5 @@ export async function build() {
 		}
 	}
 
-	console.log(`Generated (${counter} / ${total}) Fluent Icons`);
+	console.log(`[Syv] Generated (${counter} / ${total}) Fluent Icons`);
 }

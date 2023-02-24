@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { syv } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
-	import Fluent from '$lib/icons/Fluent.svelte';
-	import FluentSVG from '$lib/icons/FluentSVG.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
 
@@ -27,11 +25,6 @@
 	>
 		Open Dialog
 	</button>
-
-	<Fluent variant="R24" icon={import('../lib/icons/fluent/add-circle')} />
-	{#await import('../lib/icons/fluent/add-circle') then { R24 }}
-		<FluentSVG {...R24} />
-	{/await}
 
 	<Footer />
 </main>

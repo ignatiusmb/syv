@@ -1,19 +1,19 @@
-import * as fsp from 'fs/promises';
+import * as fs from 'fs';
 import { icons as feather } from 'feather-icons';
 
 export async function build() {
-	await fsp.rm('./feather', { force: true, recursive: true });
-	await fsp.mkdir('./feather');
+	fs.rmSync('./feather', { force: true, recursive: true });
+	fs.mkdirSync('./feather');
 
-	const promises = [];
+	let [total, counter] = [0, 0];
 	for (const kebab in feather) {
+		total += 1;
 		let data = '// @ts-nocheck\n';
 		for (const [k, v] of Object.entries(feather[kebab])) {
 			data += `export const ${k} = ${JSON.stringify(v)} as const;\n`;
 		}
-		promises.push(fsp.writeFile(`./feather/${kebab}.ts`, data));
+		counter += +!fs.writeFileSync(`./feather/${kebab}.ts`, data);
 	}
 
-	await Promise.all(promises);
-	console.log(`Generated (${promises.length} / ${Object.keys(feather).length}) Feather Icons`);
+	console.log(`[Syv] Generated (${counter} / ${total}) Feather Icons`);
 }
