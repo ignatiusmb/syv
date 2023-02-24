@@ -10,7 +10,6 @@
   "types": "./index.d.ts",
   "scripts": {
     "dev": "pnpm build && vite dev",
-    "sync": "svelte-kit sync",
     "format": "prettier --write . --plugin-search-dir=.",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
     "check:style": "prettier --check . --plugin-search-dir=.",
@@ -18,7 +17,7 @@
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
     "reset": "git reset --hard && git clean -dfx -e node_modules",
     "package": "pnpm build && svelte-package && pnpm copy",
-    "build": "pnpm sync && pnpm build:icons",
+    "build": "svelte-kit sync && pnpm build:icons",
     "build:icons": "cd src/lib/icons && node build.mjs",
     "copy": "pnpm copy:pkg && pnpm copy:rdm && pnpm copy:cgl && pnpm copy:lcs",
     "copy:pkg": "cp package.json dist/",
