@@ -46,6 +46,7 @@
     "svelte": "^3.49.0"
   },
   "devDependencies": {
+    "@fluentui/svg-icons": "^1.1.194",
     "@ignatiusmb/styles": "^0.1.1",
     "@sveltejs/adapter-static": "^2.0.1",
     "@sveltejs/kit": "^1.7.1",

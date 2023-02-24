@@ -15,4 +15,5 @@ export async function build() {
 	}
 
 	await Promise.all(promises);
+	console.log(`Generated (${promises.length} / ${Object.keys(feather).length}) Feather Icons`);
 }

@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 
-fs.readdirSync('./scripts').forEach(async (path) => {
-	const script = `./scripts/${path}`;
-	if (fs.existsSync(`./${path.split('.')[0]}`)) return;
-	(await import(script)).build();
-});
+for (const filename of fs.readdirSync('./scripts')) {
+	// if (fs.existsSync(`./${filename.split('.')[0]}`)) continue;
+	(await import(`./scripts/${filename}`)).build();
+}
