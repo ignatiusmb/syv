@@ -8,10 +8,6 @@
 	</section>
 
 	<section class="social-links">
-		<a href="https://www.github.com/ignatiusmb" aria-label="github profile">
-			<Feather icon={import('../lib/icons/feather/github')} />
-		</a>
-
 		<a href="https://www.facebook.com/ignatiusmb" aria-label="facebook profile">
 			<Feather icon={import('../lib/icons/feather/facebook')} />
 		</a>

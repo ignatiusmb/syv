@@ -1,29 +1,32 @@
 # Syv Icons
 
-```js
-import { ... } from 'syv/icons';
+```svelte
+<script>
+  import System from '@syv/icons/{System}.svelte';
+</script>
+
+<System icon={import('@syv/icons/{system}/...')}>
 ```
 
 ## Feather
 
-| Props  | Default          |
-| ------ | ---------------- |
-| size   | `24`             |
-| weight | `1.5`            |
-| color  | `'currentColor'` |
-| class  | `''`             |
+| Props   | Default       |
+| ------- | ------------- |
+| icon \* | `import(...)` |
+| label   | `''`          |
+| scale   | `1.5`         |
+| girth   | `1.5`         |
+| flip    | `undefined`   |
+| style   | `''`          |
 
-All icons from [Feather Icons](https://feathericons.com/) are available as classes to use in this namespace. Declaration `.d.ts` files are included as well, but if you don't get the autocompletion, you can just refer to Feather's website and convert the `kebab-name` to `PascalName`.
+All icons from [Feather Icons](https://feathericons.com/) are available under the `@syv/icons/feather` module.
 
 ```svelte
 <script>
-  import { Feather } from 'syv/icons';
-  // or import each icons individually
-  // import { IconName } from 'syv/icons/feather';
+  import Feather from '@syv/icons/Feather.svelte';
 </script>
 
-<Feather.IconName />
-<!-- <IconName weight="2" /> -->
+<Feather icon={import('@syv/icons/feather/...')}>
 ```
 
 ### Credits
