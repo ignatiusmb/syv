@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { ComponentProps } from 'svelte';
-	import FluentSVG from './FluentSVG.svelte';
+	import FluentSync from './FluentSync.svelte';
 
 	type IconModule = $$Generic<{
-		[i: string]: Pick<ComponentProps<FluentSVG>, 'size' | 'contents'>;
+		[i: string]: Pick<ComponentProps<FluentSync>, 'size' | 'contents'>;
 	}>;
 	type Variant = $$Generic<keyof IconModule>;
 	export let icon: Promise<IconModule>;
@@ -15,16 +15,12 @@
 	let className = '';
 </script>
 
-{#if 'then' in icon}
-	{#await icon}
-		<slot name="loading" />
-	{:then loaded}
-		<FluentSVG {...loaded[variant]} {label} {flip} class={className} />
-	{:catch error}
-		<slot name="error">
-			<pre>{JSON.stringify(error)}</pre>
-		</slot>
-	{/await}
-{:else}
-	<FluentSVG {...icon} {label} {flip} class={className} />
-{/if}
+{#await icon}
+	<slot name="loading" />
+{:then loaded}
+	<FluentSync {...loaded[variant]} {label} {flip} class={className} />
+{:catch error}
+	<slot name="error">
+		<pre>{JSON.stringify(error)}</pre>
+	</slot>
+{/await}

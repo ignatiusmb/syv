@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@fluentui/svg-icons': ^1.1.194
   '@ignatiusmb/styles': ^0.1.1
   '@sveltejs/adapter-static': ^2.0.1
   '@sveltejs/kit': ^1.7.1
@@ -23,7 +22,6 @@ dependencies:
   mauss: 0.4.9
 
 devDependencies:
-  '@fluentui/svg-icons': 1.1.194
   '@ignatiusmb/styles': 0.1.1
   '@sveltejs/adapter-static': 2.0.1_@sveltejs+kit@1.7.1
   '@sveltejs/kit': 1.7.1_svelte@3.55.1+vite@4.1.1
@@ -239,10 +237,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /@fluentui/svg-icons/1.1.194:
-    resolution: {integrity: sha512-xgYavxj+gO4B5vmUfX0hNLT40J747/1DEjjFcLyqnPiaFnnA7mIOmyWg/i0DlCT3IHbEOdZutWkO50aSdzW6+w==}
-    dev: true
 
   /@ignatiusmb/styles/0.1.1:
     resolution: {integrity: sha512-2Py7LWaRCtsd2HKTAjNft598+wFkVplV9+QYzdgSkv7QkTE/D5soIqNQNLxzK1MB3Uu4Gr0krMNHIfCNY5CEeA==}
