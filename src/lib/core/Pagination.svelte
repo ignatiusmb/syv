@@ -1,4 +1,7 @@
 <script>
+	import Feather from '../icons/Feather.svelte';
+	import { writable } from 'svelte/store';
+
 	/** @type {import('svelte/store').Writable<any[]>} */
 	export let store = writable([]);
 	/** @type {any[]} */
@@ -8,13 +11,6 @@
 	export let tween = false;
 	export { className as class };
 	let className = '';
-
-	import { writable } from 'svelte/store';
-
-	import ChevronsLeft from '../icons/feather/ChevronsLeft.svelte';
-	import ChevronLeft from '../icons/feather/ChevronLeft.svelte';
-	import ChevronRight from '../icons/feather/ChevronRight.svelte';
-	import ChevronsRight from '../icons/feather/ChevronsRight.svelte';
 
 	let page = 0;
 
@@ -53,10 +49,10 @@
 	<slot name="left">
 		<div class="navigator">
 			<button class:disabled={page === 0} on:click={click(0)}>
-				<ChevronsLeft />
+				<Feather icon={import('../icons/feather/chevrons-left')} />
 			</button>
 			<button class:disabled={page === 0} on:click={click(page - 1)}>
-				<ChevronLeft />
+				<Feather icon={import('../icons/feather/chevron-left')} />
 			</button>
 		</div>
 	</slot>
@@ -70,10 +66,10 @@
 	<slot name="right">
 		<div class="navigator">
 			<button class:disabled={page === limit} on:click={click(page + 1)}>
-				<ChevronRight />
+				<Feather icon={import('../icons/feather/chevron-right')} />
 			</button>
 			<button class:disabled={page === limit} on:click={click(limit)}>
-				<ChevronsRight />
+				<Feather icon={import('../icons/feather/chevrons-right')} />
 			</button>
 		</div>
 	</slot>

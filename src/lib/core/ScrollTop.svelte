@@ -1,9 +1,10 @@
 <script>
+	import Feather from '../icons/Feather.svelte';
+	import { mounted } from '../store';
+
 	export { className as class };
 	let className = '';
 
-	import { mounted } from '../store';
-	import ChevronsUp from '../icons/feather/ChevronsUp.svelte';
 	let y = 0;
 </script>
 
@@ -13,7 +14,7 @@
 	class="syv-core-scroll-top {className}"
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
 >
-	<ChevronsUp />
+	<Feather icon={import('../icons/feather/chevrons-up')} />
 </button>
 
 <style>

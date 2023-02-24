@@ -1,4 +1,0 @@
-# Generated Icons
-icons/**/*.svelte
-icons/**/index.*
-!icons/index.ts

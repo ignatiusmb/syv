@@ -10,16 +10,36 @@
   "types": "./index.d.ts",
   "scripts": {
     "dev": "pnpm build && vite dev",
-    "sync": "svelte-kit sync",
-    "build": "pnpm sync && pnpm build:icons",
-    "build:icons": "cd src/lib/icons && node build.mjs",
-    "package": "pnpm build && svelte-package && cp package.json dist/",
     "format": "prettier --write . --plugin-search-dir=.",
     "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
     "check:style": "prettier --check . --plugin-search-dir=.",
     "check:types": "pnpm build && tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
-    "reset": "git reset --hard && git clean -dfx -e node_modules"
+    "reset": "git reset --hard && git clean -dfx -e node_modules",
+    "package": "pnpm build && svelte-package && pnpm copy",
+    "build": "svelte-kit sync && pnpm build:icons",
+    "build:icons": "cd src/lib/icons && node build.mjs",
+    "copy": "pnpm copy:pkg && pnpm copy:rdm && pnpm copy:cgl && pnpm copy:lcs",
+    "copy:pkg": "cp package.json dist/",
+    "copy:rdm": "cp README.md dist/",
+    "copy:cgl": "cp CHANGELOG.md dist/",
+    "copy:lcs": "cp LICENSE dist/"
+  },
+  "exports": {
+    "./core/*.svelte": "./core/*.svelte",
+    "./action": "./action/index.js",
+    "./action/click": "./action/click.js",
+    "./icons/*.svelte": "./icons/*.svelte",
+    "./icons/feather/*": "./icons/feather/*.js",
+    "./internal/*.svelte": "./internal/*.svelte",
+    "./loader/*.svelte": "./loader/*.svelte",
+    "./store": "./store/index.js",
+    "./store/api": "./store/api.js",
+    "./store/browser": "./store/browser.js",
+    ".": "./index.js",
+    "./options": "./options.js",
+    "./types": "./types.js",
+    "./utils": "./utils.js"
   },
   "packageManager": "pnpm@7.27.0",
   "prettier": "mauss/prettier.json",
@@ -57,19 +77,5 @@
     "svelte2tsx": "^0.6.1",
     "typescript": "^4.9.5",
     "vite": "^4.1.1"
-  },
-  "exports": {
-    ".": "./index.js",
-    "./*.svelte": "./core/*.svelte",
-    "./action": "./action/index.js",
-    "./action/click": "./action/click.js",
-    "./icons/feather/*.svelte": "./icons/feather/*.svelte",
-    "./internal/*.svelte": "./internal/*.svelte",
-    "./loader/*.svelte": "./loader/*.svelte",
-    "./options": "./options.js",
-    "./store": "./store/index.js",
-    "./store/api": "./store/api.js",
-    "./store/browser": "./store/browser.js",
-    "./utils": "./utils.js"
   }
 }

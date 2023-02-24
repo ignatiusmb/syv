@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LazyLoad from './LazyLoad.svelte';
+	import Feather from '../icons/Feather.svelte';
 
 	import type { AnyLazyComponent } from '../types';
 	import { tryNumber } from 'mauss/utils';
@@ -24,19 +24,14 @@
 	 * - callback to dynamically import and use an icon component
 	 */
 	export let icon: string | boolean | AnyLazyComponent = false;
-	/** icon size for Search and Filter */
-	export let size: string | number = '24';
+	/** icon scale, base 16 */
+	export let scale: string | number = '1.5';
 	export let filters: boolean | IterableValues = false;
 	export let unique: boolean | IterableValues = false;
 	export { className as class };
 	let className = '';
 
 	const dispatch = createEventDispatcher();
-
-	const icons = {
-		search: () => import('../icons/feather/Search.svelte'),
-		filter: () => import('../icons/feather/Filter.svelte'),
-	};
 
 	const show = { autocomplete: false, filter: false };
 	let searchbox: HTMLInputElement;
@@ -74,9 +69,7 @@
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<LazyLoad files={[typeof icon === 'function' ? icon : icons.search]} let:loaded>
-							<svelte:component this={loaded[0]} {size} />
-						</LazyLoad>
+						<Feather {scale} icon={import('../icons/feather/search')} />
 					{/if}
 				</span>
 			{/if}
@@ -105,9 +98,7 @@
 
 		{#if filters}
 			<button on:click={handle.toggle('filter', !show.filter)}>
-				<LazyLoad files={[icons.filter]} let:loaded>
-					<svelte:component this={loaded[0]} {size} />
-				</LazyLoad>
+				<Feather {scale} icon={import('../icons/feather/filter')} />
 			</button>
 		{/if}
 	</div>

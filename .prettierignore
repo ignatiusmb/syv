@@ -5,7 +5,6 @@ pnpm-lock.yaml
 app.html
 *.md
 
-# Generated Icons
-src/lib/icons/**/*.svelte
-src/lib/icons/**/index.*
-!src/lib/icons/index.ts
+# generated files
+**/icons/*/**
+!**/icons/scripts/**

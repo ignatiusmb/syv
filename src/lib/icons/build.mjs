@@ -1,8 +1,7 @@
 import * as fs from 'fs';
 
-fs.readdirSync('.').forEach(async (path) => {
-	if (!fs.statSync(path).isDirectory()) return;
-	if (fs.existsSync(`./${path}/index.js`)) return;
-	const { build } = await import(`./${path}/build.mjs`);
-	build();
-});
+for (const filename of fs.readdirSync('./scripts')) {
+	// if (fs.existsSync(`./${filename.split('.')[0]}`)) continue;
+	if (filename === 'fluent.mjs') continue;
+	(await import(`./scripts/${filename}`)).build();
+}
