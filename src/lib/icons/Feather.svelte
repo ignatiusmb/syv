@@ -50,7 +50,7 @@
 		class: className || null,
 	})}
 
-	<svg {...data} version="1.1" style:transform={flip ? `scale${{ x: 'Y', y: 'X' }[flip]}(-1)` : ''}>
+	<svg {...data} style:transform={flip ? `scale${{ x: 'Y', y: 'X' }[flip]}(-1)` : ''}>
 		{@html contents}
 	</svg>
 {:catch error}

@@ -7,7 +7,6 @@ export async function build() {
 	const node_modules = '../../../node_modules';
 	const source = `${node_modules}/@fluentui/svg-icons/icons`;
 	let [total, counter] = [0, 0];
-	console.log(fs.readdirSync(source));
 	for (const pathname of fs.readdirSync(source)) {
 		const filepath = `${source}/${pathname}`;
 		if (fs.statSync(filepath).isDirectory()) return;

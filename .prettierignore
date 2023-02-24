@@ -5,6 +5,6 @@ pnpm-lock.yaml
 app.html
 *.md
 
-# Generated Icons
+# generated files
 **/icons/*/**
 !**/icons/scripts/**
