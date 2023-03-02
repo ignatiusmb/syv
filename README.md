@@ -5,29 +5,23 @@
 Relieve the initial heavy-lifting and focus on your ideation. These are some of the advantages of using Syv
 
 - Provides most of the essential components that are usually rewritten in a new project
-  - Need to lazy-load a component? `import { LazyLoad } from 'syv';`
-  - Need to see if an element is in view? `import { Observe } from 'syv';`
+  - Need to lazy-load a component? `import { LazyLoad } from 'syv/core';`
+  - Need to see if an element is in view? `import { Observe } from 'syv/core';`
 - Prepackaged customizable set of icons from various sources, import from `syv/icons`
 - Built-in loaders that are ready-to-use anywhere transitions are needed, import from `syv/loader`
 - Imports are modularized into their own namespaces and provides intuitive API for a nice usage with Svelte
 - All modules works for both client-side and server-side, no need to short-circuit or guard your code with `if (browser)`
 
---- **Previously `svelement`**, last published [v0.0.13](https://github.com/ignatiusmb/syv/tree/9c0f59cb811bdbeb9d5eee5544142119307bb4bd) (click to browse files in tree) ---
-
 ## Usage
 
 ```bash
-npm install -D syv
+pnpm install -D syv
 ```
 
 Notes:
 
 - All components are written in `PascalCase` and can be accessed as such, including icons.
 - Prop attributes with `*` means it's required to pass a value that's not nullish or empty
-
-### Disclaimer
-
-This starts out as (and is still is) a hobby project I'm doing to help myself in other projects. Syv does not adhere to any existing design language, any resemblance to certain design language is either inspired by or purely coincidental. The focus is mostly on functionality, so go with an actual component library implementation of a certain design if you need pre-made styled components.
 
 ***
 
@@ -51,13 +45,12 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 
 ```svelte
 <script>
-  import * as Loader from 'syv/loader';
+  import { Ellipsis } from 'syv/loader';
   // or import each loader individually
-  // import { Ellipsis } from 'syv/loader';
+  // import Ellipsis from 'syv/loader/Ellipsis.svelte';
 </script>
 
-<Loader.Ellipsis />
-<!-- <Ellipsis /> -->
+<Ellipsis />
 ```
 
 ### `syv/store`
@@ -81,43 +74,31 @@ There's currently only one loader available to use, which is `Ellipsis`. More is
 
 ## Components
 
-| Type       | Components                                                                     |
-| ---------- | ------------------------------------------------------------------------------ |
-| Essentials | `Dialog`, `Image`, `LazyLoad`, `Link`, `Modal`, `Observer`, `Overlay`, `Video` |
-| Functional | `Pagination`, `SearchBar`, `ThemeSwitcher`                                     |
-| Styled     | `ButtonLink`, `GradientBorder`, `ProgressBar`, `ScrollTop`, `WeavedImage`      |
-
 ### Dialog
 
 | Props | Default |
 | ----- | ------- |
 | show  | `false` |
 
-Dialog element backdrop can be clicked by the user to close the interface, its almost exactly the same as [`Modal`](#modal) with some minor difference in functionality, see [this question on Quora](https://www.quora.com/Whats-the-difference-between-a-modal-and-dialog) for more details on why.
+Dialog element backdrop can be clicked by the user to close the interface, to achieve the [same behaviour as a Modal](https://www.quora.com/Whats-the-difference-between-a-modal-and-dialog), enable the `required` prop.
 
 ```svelte
 <script>
-  import { Dialog } from 'syv';
+  // filename: MyDialog.svelte
+  import { Dialog } from 'syv/core';
 </script>
 
-<Dialog show>
-  <!-- Immediately shows the Dialog -->
+<Dialog>
+  <!-- content here -->
 </Dialog>
 ```
 
 ```svelte
 <script>
-  import { Dialog } from 'syv';
-  let show = false;
+  import { syv } from 'syv';
 </script>
 
-<button on:click={() => (show = true)}>Show</button>
-
-<!-- Use "bind:" so "show" variable here will be updated too -->
-<Dialog bind:show>
-  <!-- Optional: Explicitly have button to close "Dialog" inside -->
-  <button on:click={() => (show = false)}>Close</button>
-</Dialog>
+<button on:click={() => syv.load(import('../path/to/MyDialog.svelte'))}>Show</button>
 ```
 
 ### Image
@@ -137,7 +118,7 @@ Image element is created to have a fixed ratio, **not size**. It will be respons
 
 ```svelte
 <script>
-  import { Image } from 'syv';
+  import { Image } from 'syv/core';
   const src = '//example.com/image.png';
   const alt = 'An example text for this element';
 </script>
@@ -200,12 +181,12 @@ Lazily loads a component defined from the callback passed to `file`.
 
 ```svelte
 <script>
-  import { LazyLoad } from 'syv';
+  import { LazyLoad } from 'syv/core';
   let show = false;
 </script>
 
-<LazyLoad when={show} files={[() => import('../components/Modal.svelte')]} let:loaded={[Modal]}>
-  <Modal bind:show other modal props />
+<LazyLoad when={show} files={[() => import('../components/Dialog.svelte')]} let:loaded={[Dialog]}>
+  <Dialog other props />
 </LazyLoad>
 ```
 
@@ -224,19 +205,19 @@ Multiple imports simultaneously
 <LazyLoad
   when={show}
   files={[
-    () => import('$lib/components/Modal.svelte'),
+    () => import('$lib/components/Dialog.svelte'),
     () => import('$lib/components/Video.svelte'),
     () => import('$lib/components/Button.svelte'),
     () => import('$lib/icons/Share.svelte'),
   ]}
-  let:loaded={[Modal, Video, Button, ShareIcon]}
+  let:loaded={[Dialog, Video, Button, ShareIcon]}
 >
-  <Modal bind:show>
+  <Dialog>
     <Video src="/assets/demo.mp4" />
     <Button on:click={() => navigator.share()}>
       <ShareIcon />
     </Button>
-  </Modal>
+  </Dialog>
 </LazyLoad>
 ```
 
@@ -267,7 +248,7 @@ There's also 3 exposed slot props available to use to manually move to certain p
 ```svelte
 <script>
   export let items = []; // Your data array
-  import { Pagination } from 'syv';
+  import { Pagination } from 'syv/core';
   import { posts as store } from './stores.js';
 </script>
 
@@ -315,7 +296,7 @@ SearchBar element provides a searchbox and `query` to bind the value.
 
 ```svelte
 <script>
-  import { SearchBar } from 'syv';
+  import { SearchBar } from 'syv/core';
 
   // Filtered object of arrays with unique values
   let unique = {
