@@ -1,4 +1,5 @@
 export * as syv from './syv.js';
+export * as tooltip from './core/tooltip.js';
 
 export { default as ButtonLink } from './core/ButtonLink.svelte';
 export { default as Dialog } from './core/Dialog.svelte';
