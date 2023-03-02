@@ -2,6 +2,7 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { FOCUSABLE, TIME } from '../options';
+	import { weave } from '../utils';
 
 	/** change UI mode to `Modal` */
 	export let required = false;
@@ -23,7 +24,6 @@
 
 	let show = true;
 	let dialog: undefined | HTMLElement;
-	// let observer: undefined | ResizeObserver;
 	onMount(() => {
 		// accounting 128px top and 16px bottom padding
 		const height = window.innerHeight - (128 + 16);
@@ -70,10 +70,7 @@
 />
 
 {#if show}
-	<div
-		style={Object.entries(styles).reduce((s, [p, v]) => `${s}${p}:${v};`, '')}
-		on:pointerdown|self={(event) => !required && forward(event)}
-	>
+	<div style={weave(styles)} on:pointerdown|self={(event) => !required && forward(event)}>
 		<main
 			role="dialog"
 			aria-modal="true"

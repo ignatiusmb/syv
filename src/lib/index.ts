@@ -1,4 +1,5 @@
 export * as syv from './syv.js';
+
 export { default as ButtonLink } from './core/ButtonLink.svelte';
 export { default as Dialog } from './core/Dialog.svelte';
 export { default as GradientBorder } from './core/GradientBorder.svelte';
@@ -13,5 +14,6 @@ export { default as ProgressBar } from './core/ProgressBar.svelte';
 export { default as ScrollTop } from './core/ScrollTop.svelte';
 export { default as SearchBar } from './core/SearchBar.svelte';
 export { default as ThemeSwitcher } from './core/ThemeSwitcher.svelte';
+export { default as Tooltip } from './core/Tooltip.svelte';
 export { default as Video } from './core/Video.svelte';
 export { default as WeavedImage } from './core/WeavedImage.svelte';
