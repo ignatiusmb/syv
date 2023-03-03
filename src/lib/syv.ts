@@ -1,5 +1,5 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
-import type { Demand, LazyComponent, SyvOptions } from './types';
+import type { Demand, LazyComponent, SyvOptions } from './types.js';
 import { ntv } from 'mauss/std';
 
 let component: SvelteComponent;

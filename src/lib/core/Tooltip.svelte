@@ -47,7 +47,7 @@
 		background: var(--background, #3f3f46);
 	}
 
-	div.fade {
+	.fade {
 		opacity: 0;
 		transition-delay: 1600ms;
 		transition-duration: 240ms;
