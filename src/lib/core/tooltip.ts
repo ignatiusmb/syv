@@ -73,6 +73,8 @@ export function mount(anchor: HTMLElement, html?: ComponentProps<Tooltip>['html'
 
 export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 	Object.assign(OPTIONS, options);
+	const escaped = ATTR.replace(':', '\\:');
+	const elements = FOCUSABLE.map((el) => `${el}[${escaped}]`);
 
 	function enter(event: MouseEvent) {
 		const alive = target === document.activeElement;
@@ -85,13 +87,6 @@ export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 		target = void (timeout = setTimeout(dismount, TIMEOUT));
 	}
 
-	function listen(parent: HTMLElement) {
-		const elements = FOCUSABLE.map((el) => `${el}[${ATTR.replace(':', '\\:')}]`);
-		for (const node of parent.querySelectorAll(elements.join(', '))) {
-			listeners.attach(node as HTMLElement);
-		}
-	}
-
 	onMount(() => {
 		window.addEventListener('mouseover', enter);
 		window.addEventListener('mouseout', leave);
@@ -102,6 +97,11 @@ export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 	});
 
 	return (node) => (listen(node), { update: () => listen(node) });
+	function listen(parent: HTMLElement) {
+		for (const node of parent.querySelectorAll(elements.join(', '))) {
+			listeners.attach(node as HTMLElement);
+		}
+	}
 }
 
 export function shift(props: ComponentProps<Tooltip>) {

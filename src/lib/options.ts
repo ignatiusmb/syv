@@ -11,7 +11,7 @@ export const FOCUSABLE = [
 	'input:not(:disabled):not([aria-hidden]):not([type="hidden"])',
 	'[contenteditable]',
 	'[tabindex]:not([tabindex^="-"])',
-];
+] as const;
 
 export const TIME = {
 	FADE: 100,
