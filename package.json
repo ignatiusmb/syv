@@ -8,9 +8,8 @@
   "scripts": {
     "dev": "pnpm build && vite dev",
     "format": "prettier --write . --plugin-search-dir=.",
-    "check": "pnpm check:style && pnpm check:types && pnpm check:svelte",
+    "check": "pnpm build && pnpm check:style && pnpm check:svelte",
     "check:style": "prettier --check . --plugin-search-dir=.",
-    "check:types": "pnpm build && tsc --noEmit",
     "check:svelte": "svelte-check --tsconfig ./tsconfig.json",
     "reset": "git reset --hard && git clean -dfx -e node_modules",
     "package": "pnpm build && svelte-package && pnpm copy",
