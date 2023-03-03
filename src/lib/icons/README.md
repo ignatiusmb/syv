@@ -1,4 +1,4 @@
-# Syv Icons
+# syv/icons
 
 ```svelte
 <script>
@@ -8,7 +8,7 @@
 <System icon={import('syv/icons/{system}/...')}>
 ```
 
-## Feather
+## Feather.svelte
 
 | Props   | Default       |
 | ------- | ------------- |
@@ -37,7 +37,7 @@ All icons from [Feather Icons](https://feathericons.com/) are available under th
 | Author     | Cole Bemis <<https://github.com/colebemis>>                         |
 | License    | MIT <<https://github.com/feathericons/feather/blob/master/LICENSE>> |
 
-## Fluent
+## Fluent.svelte
 
 | Props   | Default       |
 | ------- | ------------- |
