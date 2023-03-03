@@ -10,6 +10,7 @@
 	export { className as class };
 	let className = '';
 
+	const elements = FOCUSABLE.join(', ');
 	const dispatch = createEventDispatcher<{
 		'syv:close': 'keydown' | 'pointerdown';
 	}>();
@@ -46,7 +47,7 @@
 		return () => observer.disconnect();
 	});
 
-	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(FOCUSABLE) || []).filter(
+	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(elements) || []).filter(
 		(node) => node.offsetParent != null && node.offsetParent !== document.body
 	);
 </script>
