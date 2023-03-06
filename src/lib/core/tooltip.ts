@@ -57,13 +57,13 @@ export function dismount() {
 
 export function mount(anchor: HTMLElement, html?: ComponentProps<Tooltip>['html']) {
 	const { data = html, node } = scan(anchor);
-	if (!data) return; // no `data-syv:tooltip` found
+	if (!data) return; // no `html` provided or `data-syv:tooltip` found
 
 	if (timeout) clearTimeout(timeout);
 	listeners.attach((target = node || anchor));
 	const rect = target.getBoundingClientRect();
 	render({
-		html: data,
+		html: html || data, // `html` > possibly outdated `data`
 		x: window.scrollX + (rect.left + rect.right) / 2,
 		y: window.scrollY + rect.top,
 		class: OPTIONS.class || '',
