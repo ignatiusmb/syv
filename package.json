@@ -21,9 +21,9 @@
     "copy:cgl": "cp CHANGELOG.md dist/",
     "copy:lcs": "cp LICENSE dist/"
   },
-  "module": "./index.js",
   "types": "./index.d.ts",
-  "svelte": "./core/index.js",
+  "svelte": "./index.js",
+  "module": "./index.js",
   "exports": {
     ".": "./index.js",
     "./core": "./core/index.js",

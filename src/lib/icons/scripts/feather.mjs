@@ -15,5 +15,5 @@ export async function build() {
 		counter += +!fs.writeFileSync(`./feather/${kebab}.ts`, data);
 	}
 
-	console.log(`[Syv] Generated (${counter} / ${total}) Feather Icons`);
+	console.log(`[syv] generated (${counter} / ${total}) Feather Icons`);
 }
