@@ -31,7 +31,8 @@ export function mount<T extends SvelteComponent>(
 
 	for (const [k, v] of Object.entries(options)) {
 		if (!k.startsWith('on:')) continue;
-		events.push(component.$on(k, v));
+		const event = k.slice('on:'.length);
+		events.push(component.$on(event, v));
 	}
 }
 
