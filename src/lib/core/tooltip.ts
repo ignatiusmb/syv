@@ -5,9 +5,11 @@ import { onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
 import Tooltip from './Tooltip.svelte';
 
+type TooltipProps = ComponentProps<Tooltip>;
+
 const ATTR = 'data-syv:tooltip';
 const TIMEOUT = 240;
-const OPTIONS: Pick<ComponentProps<Tooltip>, 'class' | 'styles'> = {};
+const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
 let target: undefined | HTMLElement;
 let tooltip: undefined | Tooltip;
@@ -27,7 +29,7 @@ function scan(anchor: null | EventTarget) {
 	return { data: value || undefined, node: !orphan && parent };
 }
 
-function render(props: ComponentProps<Tooltip>) {
+function render(props: TooltipProps) {
 	if (tooltip) return tooltip.$set(props);
 	tooltip = new Tooltip({ target: document.body, props });
 	tooltip.$on('mouseenter', () => clearTimeout(timeout));
@@ -55,7 +57,7 @@ export function dismount() {
 	target = tooltip = void tooltip?.$destroy();
 }
 
-export function mount(anchor: HTMLElement, html?: ComponentProps<Tooltip>['html']) {
+export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 	const { data = html, node } = scan(anchor);
 	if (!data) return; // no `html` provided or `data-syv:tooltip` found
 
@@ -104,6 +106,6 @@ export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 	}
 }
 
-export function shift(props: ComponentProps<Tooltip>) {
+export function shift(props: TooltipProps) {
 	tooltip?.$set(props);
 }
