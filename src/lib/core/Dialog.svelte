@@ -40,6 +40,7 @@
 			dialog.style.setProperty('max-height', `${height}px`);
 		}
 
+		// (scrollbar width) = (window width) - (<html> width)
 		const bar = window.innerWidth - document.documentElement.clientWidth;
 		document.body.style.setProperty('padding-right', `${bar}px`);
 		document.body.style.setProperty('overflow', 'hidden');
@@ -53,16 +54,13 @@
 </script>
 
 <svelte:window
-	on:keydown={(event) => {
+	on:keydown={(event) /** focus trapping */ => {
 		if (!show || !dialog) return; // closed but not destroyed
 		if (event.key === 'Escape') return forward(event);
-		if (nodes && event.key === 'Tab') {
-			if (nodes.length === 0) return;
-			if (!dialog.contains(document.activeElement)) {
-				return nodes[0].focus(), event.preventDefault();
-			}
-
+		if (event.key === 'Tab' && nodes.length) {
 			const index = nodes.findIndex((i) => i === document.activeElement);
+			if (index === -1) return nodes[0].focus(), event.preventDefault();
+
 			const back = (index === 0 ? nodes.length : index) - 1;
 			const next = index === nodes.length - 1 ? 0 : index + 1;
 			nodes[event.shiftKey ? back : next].focus(), event.preventDefault();
@@ -94,8 +92,8 @@
 		justify-items: center;
 		align-items: flex-start;
 		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
-		background: rgba(0, 0, 0, 0.4);
-		backdrop-filter: blur(0.1rem);
+		background: var(--background, rgba(0, 0, 0, 0.4));
+		backdrop-filter: var(--filter, blur(0.1rem));
 	}
 	main {
 		width: 100%;
