@@ -1,4 +1,3 @@
-export { default as ButtonLink } from './ButtonLink.svelte';
 export { default as Dialog } from './Dialog.svelte';
 export { default as GradientBorder } from './GradientBorder.svelte';
 export { default as Image } from './Image.svelte';

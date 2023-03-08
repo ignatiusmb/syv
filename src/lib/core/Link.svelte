@@ -27,6 +27,7 @@
 
 <a
 	{href}
+	tabindex={!href ? -1 : null}
 	aria-label={label || undefined}
 	rel={external ? `external noopener${refer ? '' : ' noreferrer'}` : undefined}
 	data-sveltekit-reload={external || 'off'}
@@ -43,9 +44,36 @@
 
 <style>
 	a {
-		cursor: pointer;
+		user-select: none;
+		overflow-y: hidden;
+		width: 100%;
+
+		display: inline-flex;
+		padding: 0.5em 1em;
+		border-radius: inherit;
+		transform: translateY(-2ch);
+		transition: all var(--t-duration, 300ms) ease-in-out;
+
+		background-color: var(--bg-base, #1f2023);
+		text-transform: uppercase;
+		color: rgba(0, 0, 0, 0);
+		text-shadow: 0 2ch 0 var(--fg-surface, rgba(255, 255, 255, 0.65));
 	}
+	a:hover,
+	a:active {
+		color: var(--theme-secondary, #dc143c);
+		text-shadow: 0 2ch 0 rgba(0, 0, 0, 0);
+		transform: translateY(0);
+	}
+
 	a.disabled {
-		cursor: not-allowed;
+		opacity: 0.4;
+		pointer-events: none;
+		text-transform: none;
+	}
+	a.disabled:hover,
+	a.disabled:active {
+		box-shadow: none;
+		transform: none;
 	}
 </style>
