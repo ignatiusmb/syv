@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { SyvStyles } from '../types';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { FOCUSABLE, TIME } from '../options';
@@ -6,7 +7,9 @@
 
 	/** change UI mode to `Modal` */
 	export let required = false;
-	export let styles: Record<`--${string}`, string | number> = {};
+	export let styles: SyvStyles<
+		['backdrop-filter', 'background', 'border-radius', 'max-width', 'padding', 'z-index']
+	> = {};
 	export { className as class };
 	let className = '';
 
@@ -93,7 +96,7 @@
 		align-items: flex-start;
 		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
 		background: var(--background, rgba(0, 0, 0, 0.4));
-		backdrop-filter: var(--filter, blur(0.1rem));
+		backdrop-filter: var(--backdrop-filter, blur(0.1rem));
 	}
 	main {
 		width: 100%;
