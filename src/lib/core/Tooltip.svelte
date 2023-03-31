@@ -8,7 +8,7 @@
 
 	export let state: undefined | 'fade' = undefined;
 	export let styles: SyvStyles<
-		['background', 'border-radius', 'padding', 'text-color', 'text-size']
+		'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'
 	> = {};
 	export { className as class };
 	let className = '';

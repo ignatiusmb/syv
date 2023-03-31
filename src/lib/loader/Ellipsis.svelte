@@ -2,7 +2,7 @@
 	import type { SyvStyles } from '../types';
 	import { weave } from '../utils';
 
-	export let styles: SyvStyles<['background', 'margin', 'padding', 'spacing']> = {};
+	export let styles: SyvStyles<'background' | 'margin' | 'padding' | 'spacing'> = {};
 	export { className as class };
 	let className = '';
 </script>

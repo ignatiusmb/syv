@@ -34,8 +34,8 @@ export type SyvOptions<T extends ST.SvelteComponent> = Exposed<T> & {
 	'syv:intro'?: ST.ComponentConstructorOptions['intro'];
 };
 
-export type SyvStyles<T extends readonly string[]> = {
-	[K in T[number] as `--${K}`]?: 'none' | number | SyvCSS.GlobalValues;
+export type SyvStyles<T extends string> = {
+	[K in T as `--${K}`]?: 'none' | number | SyvCSS.GlobalValues;
 };
 
 // ---- CSS ----

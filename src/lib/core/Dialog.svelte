@@ -8,7 +8,13 @@
 	/** change UI mode to `Modal` */
 	export let required = false;
 	export let styles: SyvStyles<
-		['backdrop-filter', 'background', 'border-radius', 'max-width', 'padding', 'z-index']
+		| 'backdrop-color'
+		| 'backdrop-filter'
+		| 'background'
+		| 'border-radius'
+		| 'max-width'
+		| 'padding'
+		| 'z-index'
 	> = {};
 	export { className as class };
 	let className = '';
@@ -95,7 +101,7 @@
 		justify-items: center;
 		align-items: flex-start;
 		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
-		background: var(--background, rgba(0, 0, 0, 0.4));
+		background: var(--backdrop-color, rgba(0, 0, 0, 0.4));
 		backdrop-filter: var(--backdrop-filter, blur(0.1rem));
 	}
 	main {
