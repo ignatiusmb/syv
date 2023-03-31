@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { SyvStyles } from '../types';
 	import { weave } from '../utils';
 
 	export let html = '';
@@ -6,7 +7,9 @@
 	export let y = 0;
 
 	export let state: undefined | 'fade' = undefined;
-	export let styles: Record<`--${string}`, string | number> = {};
+	export let styles: SyvStyles<
+		'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'
+	> = {};
 	export { className as class };
 	let className = '';
 </script>

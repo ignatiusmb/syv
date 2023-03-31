@@ -1,9 +1,13 @@
-<script>
+<script lang="ts">
+	import type { SyvStyles } from '../types';
+	import { weave } from '../utils';
+
+	export let styles: SyvStyles<'background' | 'margin' | 'padding' | 'spacing'> = {};
 	export { className as class };
 	let className = '';
 </script>
 
-<div class="syv-loader-ellipsis {className}">
+<div style={weave(styles)} class="syv-loader-ellipsis {className}">
 	<span />
 	<span />
 	<span />
@@ -12,24 +16,24 @@
 <style>
 	div {
 		display: grid;
-		gap: 0.5em;
+		gap: var(--spacing, 0.5rem);
 		grid-auto-flow: column;
-		margin: 1em auto;
-		padding: 1em;
+		margin: var(--margin, 1rem auto);
+		padding: var(--padding, 1rem);
 	}
-	div span {
-		width: 0.8em;
-		height: 0.8em;
+	span {
+		width: 0.8rem;
+		height: 0.8rem;
 		border-radius: 50%;
-		background-color: #fc2f70;
+		background: var(--background, #fc2f70);
 		transform: translateY(-100%);
-		animation: wave 0.8s ease-in-out alternate infinite;
+		animation: wave 800ms ease-in-out alternate infinite;
 	}
-	div span:nth-of-type(1) {
-		animation-delay: -0.4s;
+	span:nth-of-type(1) {
+		animation-delay: -400ms;
 	}
-	div span:nth-of-type(2) {
-		animation-delay: -0.2s;
+	span:nth-of-type(2) {
+		animation-delay: -200ms;
 	}
 	@keyframes wave {
 		from {

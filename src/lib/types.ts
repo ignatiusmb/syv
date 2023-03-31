@@ -1,3 +1,4 @@
+import type { Flexible } from 'mauss/typings';
 import type * as ST from 'svelte';
 
 export interface AnyComponent {
@@ -32,3 +33,13 @@ export type SyvOptions<T extends ST.SvelteComponent> = Exposed<T> & {
 	'syv:anchor'?: ST.ComponentConstructorOptions['target'];
 	'syv:intro'?: ST.ComponentConstructorOptions['intro'];
 };
+
+export type SyvStyles<T extends string> = {
+	[K in T as `--${K}`]?: 'none' | number | SyvCSS.GlobalValues;
+};
+
+// ---- CSS ----
+
+namespace SyvCSS {
+	export type GlobalValues = Flexible<'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset'>;
+}
