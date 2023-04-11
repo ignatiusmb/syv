@@ -1,12 +1,13 @@
 <script>
+	import { onMount } from 'svelte';
+
 	export let themes = ['light', 'dark'];
 	export { className as class };
 	let className = '';
 
-	import { onMount } from 'svelte';
 	const browser = typeof window !== 'undefined';
-	const prefersDark = browser && matchMedia('(prefers-color-scheme: dark)').matches;
-	let current = browser ? localStorage.theme || (prefersDark ? 'dark' : 'light') : null;
+	const dark = browser && matchMedia('(prefers-color-scheme: dark)').matches;
+	let current = browser ? localStorage.theme || (dark ? 'dark' : 'light') : null;
 	let nice = false;
 
 	async function toggle() {

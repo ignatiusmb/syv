@@ -4,18 +4,19 @@
 	const reset = () => time.set(Date.now());
 </script>
 
-<script>
-	export let idleOnly = false;
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { noop } from '../utils';
+
+	/** "background" ignores `mousemove` and `keydown` events */
+	export let runner: 'background' | 'interactive' = 'background';
 	export let refresh = 10 * 60 * 1000;
 	export let interval = refresh / 60;
 	export let task = noop;
 
-	import { onMount } from 'svelte';
-	import { noop } from '../utils';
-	const binding = () => idleOnly && reset();
+	let timeout: NodeJS.Timeout;
 
-	/** @type {NodeJS.Timeout} */
-	let timeout;
+	const binding = () => runner === 'interactive' && reset();
 
 	async function worker() {
 		const diff = Date.now() - $time;

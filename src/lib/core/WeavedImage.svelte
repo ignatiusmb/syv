@@ -1,8 +1,8 @@
 <script>
+	import Image from './Image.svelte';
 	// ref: https://css-tricks.com/weaving-one-element-over-and-under-another-element/
 	export let src = '';
 	export let alt = '';
-	import Image from './Image.svelte';
 </script>
 
 <div class="syv-core-weaved-image">
