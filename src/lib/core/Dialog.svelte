@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { SyvStyles } from '../types';
-	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { FOCUSABLE, TIME } from '../options';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { FOCUSABLE, INPUT_FIELDS, TIME } from '../options';
 	import { weave } from '../utils';
 
 	/** change UI mode to `Modal` */
@@ -32,7 +32,14 @@
 		}, TIME.FLY);
 	}
 
+	function sieve(elements: NodeListOf<Element>) {
+		return Array.from(elements as NodeListOf<HTMLElement>).filter(
+			(node) => node.offsetParent != null && node.offsetParent !== document.body
+		);
+	}
+
 	let show = true;
+	let nodes: HTMLElement[];
 	let dialog: undefined | HTMLElement;
 	onMount(() => {
 		// accounting 128px top and 16px bottom padding
@@ -47,6 +54,9 @@
 		if (dialog) {
 			observer.observe(dialog);
 			dialog.style.setProperty('max-height', `${height}px`);
+			const elements = INPUT_FIELDS.join(', ');
+			const inputs = sieve(dialog.querySelectorAll(elements));
+			if (inputs.length) inputs[0].focus();
 		}
 
 		// (scrollbar width) = (window width) - (<html> width)
@@ -56,16 +66,13 @@
 
 		return () => observer.disconnect();
 	});
-
-	$: nodes = Array.from(dialog?.querySelectorAll<HTMLElement>(elements) || []).filter(
-		(node) => node.offsetParent != null && node.offsetParent !== document.body
-	);
 </script>
 
 <svelte:window
 	on:keydown={(event) /** focus trapping */ => {
 		if (!show || !dialog) return; // closed but not destroyed
 		if (event.key === 'Escape') return forward(event);
+		nodes = sieve(dialog.querySelectorAll(elements));
 		if (event.key === 'Tab' && nodes.length) {
 			const index = nodes.findIndex((i) => i === document.activeElement);
 			if (index === -1) return nodes[0].focus(), event.preventDefault();
@@ -87,7 +94,7 @@
 			out:fly={{ duration: TIME.FLY, y: -64 }}
 			bind:this={dialog}
 		>
-			<slot {forward} />
+			<slot {forward} {nodes} />
 		</main>
 	</div>
 {/if}
