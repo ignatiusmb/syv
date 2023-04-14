@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+	import { onMount } from 'svelte';
+
 	export let once = false;
 	export let top = 0;
 	export let right = 0;
@@ -8,10 +10,8 @@
 	let className = '';
 
 	let sighted = false;
-	/** @type {HTMLElement} */
-	let container;
+	let container: HTMLElement;
 
-	import { onMount } from 'svelte';
 	onMount(() => {
 		if (typeof IntersectionObserver !== 'undefined') {
 			const observer = new IntersectionObserver(

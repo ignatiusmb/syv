@@ -1,11 +1,11 @@
 <script>
+	import { mounted } from '../store';
+
 	export let z = 3;
 	/** height in css unit */
 	export let height = '1rem';
 	export { className as class };
 	let className = '';
-
-	import { mounted } from '../store';
 
 	let scrollY = $mounted ? document.body.scrollTop : 0;
 	let innerHeight = $mounted ? document.body.scrollHeight : 1;

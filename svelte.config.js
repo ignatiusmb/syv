@@ -9,10 +9,7 @@ const config = {
 		adapter: adapter(),
 
 		typescript: {
-			config(settings) {
-				settings.extends = 'mauss/tsconfig.json';
-				return settings;
-			},
+			config: (settings) => ({ extends: 'mauss/tsconfig.json', ...settings }),
 		},
 	},
 };

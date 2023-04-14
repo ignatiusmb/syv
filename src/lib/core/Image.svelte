@@ -1,4 +1,8 @@
 <script>
+	import Observe from './Observe.svelte';
+	import Overlay from './Overlay.svelte';
+	import { fade } from 'svelte/transition';
+
 	export let src = '';
 	export let alt = '';
 	/** image ratio with y/x axis as floating number */
@@ -16,9 +20,6 @@
 	export { className as class };
 	let className = '';
 
-	import { fade } from 'svelte/transition';
-	import Observe from './Observe.svelte';
-	import Overlay from './Overlay.svelte';
 	let show = false;
 </script>
 

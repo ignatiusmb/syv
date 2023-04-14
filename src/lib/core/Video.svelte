@@ -1,35 +1,28 @@
-<script>
-	/** @type {string | string[]} */
-	export let src = '';
-	/* Passed Values */
+<script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
+	export let src: string | string[] = '';
+	// Passed Values
 	export let autoplay = false;
 	export let controls = false;
 	export let loop = false;
-	// export let poster = '';
-	/** @type {null | number} */
-	export let width = null;
-	/** @type {null | number} */
-	export let height = null;
-	/* Binding Values */
+	export let width: number | null = null;
+	export let height: number | null = null;
+	// Binding Values
 	export let buffered = undefined;
 	export let currentTime = 0.0;
 	export let duration = 0.0;
 	export let muted = false;
 	export { className as class };
 	let className = '';
-	/** @type {HTMLVideoElement} */
-	let video; // Bind Video Element
 
-	import { createEventDispatcher } from 'svelte';
+	let video: HTMLVideoElement; // Bind Video Element
+
+	type Dispatched = 'contact' | 'leave';
 	const dispatch = createEventDispatcher();
-
-	/**
-	 * @typedef {'contact' | 'leave'} DispatchedKind
-	 * @typedef {MouseEvent | TouchEvent} PossibleEvents
-	 */
-
-	/** @type {(k: DispatchedKind) => (ev: PossibleEvents) => void} */
-	const handler = (k) => (event) => dispatch(k, { self: video, event });
+	const handler = (k: Dispatched) => (event: MouseEvent | TouchEvent) => {
+		dispatch(k, { self: video, event });
+	};
 </script>
 
 <video
