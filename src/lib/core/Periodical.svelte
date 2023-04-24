@@ -14,7 +14,7 @@
 	export let interval = refresh / 60;
 	export let task = noop;
 
-	let timeout: NodeJS.Timeout;
+	let timeout: number;
 
 	const binding = () => runner === 'interactive' && reset();
 
