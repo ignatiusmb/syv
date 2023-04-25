@@ -45,7 +45,7 @@ export const hold: HTMLAction<{
 	/** executed when `duration` has been reached */
 	invoke?: () => void;
 }> = (node, { duration = 2000, invoke = noop } = {}) => {
-	let timer: NodeJS.Timeout;
+	let timer: number;
 
 	function press() {
 		timer = setTimeout(invoke, duration);

@@ -41,7 +41,7 @@
     "./types": "./types.js",
     "./utils": "./utils.js"
   },
-  "packageManager": "pnpm@7.27.0",
+  "packageManager": "pnpm@8.3.1",
   "prettier": "mauss/prettier.json",
   "repository": "github:ignatiusmb/syv",
   "bugs": "https://github.com/ignatiusmb/syv/issues",
@@ -56,26 +56,26 @@
     "kit"
   ],
   "dependencies": {
-    "mauss": "^0.4.9"
+    "mauss": "^0.4.11"
   },
   "peerDependencies": {
     "svelte": "^3.49.0"
   },
   "devDependencies": {
     "@ignatiusmb/styles": "^0.1.1",
-    "@sveltejs/adapter-static": "^2.0.1",
-    "@sveltejs/kit": "^1.7.1",
-    "@sveltejs/package": "^2.0.1",
+    "@sveltejs/adapter-static": "^2.0.2",
+    "@sveltejs/kit": "^1.15.7",
+    "@sveltejs/package": "^2.0.2",
     "@types/feather-icons": "^4.29.1",
     "@types/prettier": "^2.7.2",
     "feather-icons": "^4.29.0",
-    "marqua": "^0.4.1",
-    "prettier": "^2.8.4",
-    "prettier-plugin-svelte": "^2.9.0",
-    "svelte": "^3.55.1",
-    "svelte-check": "^3.0.3",
-    "svelte2tsx": "^0.6.1",
-    "typescript": "^4.9.5",
-    "vite": "^4.1.1"
+    "marqua": "^0.4.4",
+    "prettier": "^2.8.8",
+    "prettier-plugin-svelte": "^2.10.0",
+    "svelte": "^3.58.0",
+    "svelte-check": "^3.2.0",
+    "svelte2tsx": "^0.6.11",
+    "typescript": "^5.0.4",
+    "vite": "^4.3.1"
   }
 }

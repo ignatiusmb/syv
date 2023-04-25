@@ -13,7 +13,7 @@ const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
 let target: undefined | HTMLElement;
 let tooltip: undefined | Tooltip;
-let timeout: NodeJS.Timeout;
+let timeout: number;
 
 function scan(anchor: null | EventTarget) {
 	const current = anchor as HTMLElement;

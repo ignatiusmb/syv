@@ -18,7 +18,7 @@
 	function jump(index: number) {
 		if (index < 0 || index > limit) return;
 		if (tween && (index === 0 || index === limit)) {
-			let timeout: NodeJS.Timeout;
+			let timeout: number;
 			const repeat = () => {
 				page = index === 0 ? page - 1 : page + 1;
 				if (page === 0 || page === limit) clearTimeout(timeout);
