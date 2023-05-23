@@ -30,7 +30,8 @@ function scan(anchor: null | EventTarget) {
 }
 
 function render(props: TooltipProps) {
-	if (tooltip) return tooltip.$set(props);
+	// destroy and remount, `style:` directives are not reactive
+	if (tooltip) tooltip = void tooltip.$destroy();
 	tooltip = new Tooltip({ target: document.body, props });
 	tooltip.$on('mouseenter', () => clearTimeout(timeout));
 	tooltip.$on('mouseleave', () => {
