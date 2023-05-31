@@ -2,7 +2,6 @@
 	import Feather from '../icons/Feather.svelte';
 
 	import type { AnyLazyComponent } from '../types';
-	import { tryNumber } from 'mauss/utils';
 	import { createEventDispatcher } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { TIME } from '../options';
@@ -122,11 +121,13 @@
 							{/each}
 						{:else}
 							{#each Object.entries(iterable).sort(([x], [y]) => x.localeCompare(y)) as [val, desc]}
+								{@const value = Number.isNaN(Number(val)) ? val : Number(val)}
+
 								<label>
 									{#if typeof filters[key] === 'string'}
-										<input type="radio" bind:group={filters[key]} value={tryNumber(val)} />
+										<input type="radio" bind:group={filters[key]} {value} />
 									{:else}
-										<input type="checkbox" bind:group={filters[key]} value={tryNumber(val)} />
+										<input type="checkbox" bind:group={filters[key]} {value} />
 									{/if}
 									<span>{desc}</span>
 								</label>
