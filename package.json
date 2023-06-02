@@ -56,7 +56,7 @@
     "kit"
   ],
   "dependencies": {
-    "mauss": "^0.4.11"
+    "mauss": "^0.5.0"
   },
   "peerDependencies": {
     "svelte": "^3.49.0"
@@ -64,18 +64,18 @@
   "devDependencies": {
     "@ignatiusmb/styles": "^0.1.1",
     "@sveltejs/adapter-static": "^2.0.2",
-    "@sveltejs/kit": "^1.15.7",
+    "@sveltejs/kit": "^1.20.0",
     "@sveltejs/package": "^2.0.2",
     "@types/feather-icons": "^4.29.1",
     "@types/prettier": "^2.7.2",
     "feather-icons": "^4.29.0",
-    "marqua": "^0.4.4",
+    "marqua": "^0.5.1",
     "prettier": "^2.8.8",
-    "prettier-plugin-svelte": "^2.10.0",
-    "svelte": "^3.58.0",
-    "svelte-check": "^3.2.0",
-    "svelte2tsx": "^0.6.11",
+    "prettier-plugin-svelte": "^2.10.1",
+    "svelte": "^3.59.1",
+    "svelte-check": "^3.4.3",
+    "svelte2tsx": "^0.6.15",
     "typescript": "^5.0.4",
-    "vite": "^4.3.1"
+    "vite": "^4.3.9"
   }
 }
