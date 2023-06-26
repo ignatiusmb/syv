@@ -1,14 +1,13 @@
 <script>
-	// import '@ignatiusmb/styles/core.css';
+	import '@ignatiusmb/styles/core.css';
 </script>
 
-<slot />
+<main>
+	<slot />
+</main>
 
 <style>
-	:global(*) {
-		box-sizing: border-box;
-	}
-	:global(body, #svelte) {
+	main {
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
