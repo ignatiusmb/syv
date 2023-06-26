@@ -16,11 +16,7 @@
     "package": "pnpm prep && svelte-package && pnpm copy",
     "prep": "pnpm prep:icons && svelte-kit sync",
     "prep:icons": "cd src/lib/icons && node build.mjs",
-    "copy": "pnpm copy:pkg && pnpm copy:rdm && pnpm copy:cgl && pnpm copy:lcs",
-    "copy:pkg": "cp package.json dist/",
-    "copy:rdm": "cp README.md dist/",
-    "copy:cgl": "cp CHANGELOG.md dist/",
-    "copy:lcs": "cp LICENSE dist/"
+    "copy": "cp package.json README.md CHANGELOG.md LICENSE dist/"
   },
   "types": "./index.d.ts",
   "svelte": "./index.js",
