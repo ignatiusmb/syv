@@ -10,6 +10,8 @@ interface PageContent {
 	path: string;
 }
 
+export const prerender = true;
+
 export const GET: import('./$types').RequestHandler = () => {
 	const docs = traverse({ entry: 'docs' }, ({ breadcrumb: [filename], buffer, parse }) => {
 		if (filename.startsWith('draft')) return;
