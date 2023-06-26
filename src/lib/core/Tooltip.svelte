@@ -15,6 +15,7 @@
 </script>
 
 <div
+	role="tooltip"
 	style:top="{y - 6}px"
 	style:left="{x}px"
 	style={weave(styles)}

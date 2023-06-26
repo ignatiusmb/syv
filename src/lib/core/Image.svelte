@@ -23,6 +23,7 @@
 	let show = false;
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
 	style:padding-top="{ratio * 100}%"
 	class:absolute
