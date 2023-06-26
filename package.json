@@ -41,7 +41,7 @@
     "./types": "./types.js",
     "./utils": "./utils.js"
   },
-  "packageManager": "pnpm@8.3.1",
+  "packageManager": "pnpm@8.6.4",
   "prettier": "mauss/prettier.json",
   "repository": "github:ignatiusmb/syv",
   "bugs": "https://github.com/ignatiusmb/syv/issues",
