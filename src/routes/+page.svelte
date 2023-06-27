@@ -2,15 +2,20 @@
 	import { syv } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
-	import Footer from './Footer.svelte';
 
 	import { autoresize } from '$lib/action';
-	import { outside, copy } from '$lib/action/click';
+	import { copy } from '$lib/action/click';
 
 	let value = '';
 </script>
 
-<main use:outside={() => {}}>
+<header>
+	<h1>Syv</h1>
+</header>
+
+<article>
+	<p>Syv is a complementary library for developing applications with Svelte.</p>
+
 	<SearchBar icon filters />
 
 	<textarea bind:value use:autoresize />
@@ -25,23 +30,10 @@
 	>
 		Open Dialog
 	</button>
-
-	<Footer />
-</main>
+</article>
 
 <style>
-	main {
-		--fg-surface: #818181;
-		--bg-overlay: #ffffff;
-	}
-	main {
+	article {
 		max-width: 86rem;
-		width: 100%;
-		display: grid;
-		gap: 0.75rem;
-		justify-items: center;
-
-		padding: 2em;
-		margin: 0 auto;
 	}
 </style>

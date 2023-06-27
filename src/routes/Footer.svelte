@@ -3,43 +3,14 @@
 </script>
 
 <footer>
-	<section>
-		<em>Read the help page for more information</em>
-	</section>
-
 	<section class="social-links">
-		<a href="https://www.facebook.com/ignatiusmb" aria-label="facebook profile">
-			<Feather icon={import('../lib/icons/feather/facebook')} />
-		</a>
-		<a href="https://www.instagram.com/ignatiusmb" aria-label="instagram profile">
-			<Feather icon={import('../lib/icons/feather/instagram')} />
-		</a>
-		<a href="https://www.linkedin.com/in/ignatiusmb" aria-label="linkedin profile">
-			<Feather icon={import('../lib/icons/feather/linkedin')} />
-		</a>
-		<a href="https://twitter.com/alchemauss" aria-label="twitter profile">
-			<Feather icon={import('../lib/icons/feather/twitter')} />
-		</a>
-		<a href="https://keybase.io/mauss" aria-label="keybase profile">
-			<Feather icon={import('../lib/icons/feather/key')} />
-		</a>
-		<a href="https://github.com/ignatiusmb" aria-label="github profile">
+		<a href="https://github.com/ignatiusmb/syv" aria-label="github repository">
 			<Feather icon={import('../lib/icons/feather/github')} />
-		</a>
-		<a href="https://gitlab.com/ignatiusmb" aria-label="gitlab profile">
-			<Feather icon={import('../lib/icons/feather/gitlab')} />
-		</a>
-		<a href="https://twitch.tv/alchemauss" aria-label="twitch profile">
-			<Feather icon={import('../lib/icons/feather/twitch')} />
-		</a>
-		<a href="https://www.youtube.com/user/Ignapure/playlists" aria-label="youtube playlist profile">
-			<Feather icon={import('../lib/icons/feather/youtube')} />
 		</a>
 	</section>
 
 	<section>
 		<p>Copyright &copy; 2017 &ndash; {new Date().getFullYear()} Ignatius Bagussuputra</p>
-		<p>Handcrafted with ❤️ using SvelteKit &plus; Marqua</p>
 	</section>
 </footer>
 
