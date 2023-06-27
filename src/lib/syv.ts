@@ -16,11 +16,11 @@ function purge() {
 
 export function mount<T extends SvelteComponent>(
 	Component: ComponentType<T>,
-	...[options]: Demand<SyvOptions<T>>
+	...[demanded]: Demand<SyvOptions<T>>
 ) {
 	purge(); // destroy here so it keeps the out transition
 
-	options = Object.assign({ 'syv:intro': true }, options);
+	const options = Object.assign({ 'syv:intro': true }, demanded);
 	const props = Object.keys(options).filter((k) => !k.includes(':'));
 	component = new Component({
 		intro: options['syv:intro'],
@@ -32,6 +32,7 @@ export function mount<T extends SvelteComponent>(
 	for (const [k, v] of Object.entries(options)) {
 		if (!k.startsWith('on:')) continue;
 		const event = k.slice('on:'.length);
+		// @ts-expect-error - v is guaranteed a function
 		events.push(component.$on(event, v));
 	}
 }
