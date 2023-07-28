@@ -34,7 +34,7 @@
 
 	function sieve(elements: NodeListOf<Element>) {
 		return Array.from(elements as NodeListOf<HTMLElement>).filter(
-			(node) => node.offsetParent != null && node.offsetParent !== document.body
+			(node) => node.offsetParent != null && node.offsetParent !== document.body,
 		);
 	}
 

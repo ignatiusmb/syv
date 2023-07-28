@@ -18,7 +18,7 @@ export type Demand<T> = {
 export type Exposed<
 	T extends ST.SvelteComponent,
 	Props = ST.ComponentProps<T>,
-	Events = ST.ComponentEvents<T>
+	Events = ST.ComponentEvents<T>,
 > = (Props extends { [key: string]: never } ? {} : Props) & {
 	[K in keyof Events as `on:${string & K}`]?: (ev: Events[K]) => void;
 };
