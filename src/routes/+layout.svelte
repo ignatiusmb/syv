@@ -21,7 +21,7 @@
 		display: grid;
 		gap: 0.75rem;
 		justify-items: center;
-		padding: 2em;
+		padding: 2rem;
 		margin: 0 auto;
 		background-color: #242424;
 		color: rgba(255, 255, 255, 0.9);
