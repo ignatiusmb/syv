@@ -3,5 +3,4 @@
 /dist
 
 # generated files
-/src/lib/icons/*/**
-!/src/lib/icons/scripts/*
+/src/lib/icons/**/*.ts
