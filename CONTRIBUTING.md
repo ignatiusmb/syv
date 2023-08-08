@@ -10,7 +10,7 @@ The easiest way to contribute! By just using the software, you're already helpin
 
 ## Documentation
 
-Documentation is especially helpful! You can add something that hasn't been covered or is missing in the docs and help guide others with your experience. The source for the documentation lives in the [content](content) directory.
+Documentation is especially helpful! You can add something that hasn't been covered or is missing in the docs and help guide others with your experience. The source for the documentation lives in the [docs](docs) directory.
 
 ## Developing
 
