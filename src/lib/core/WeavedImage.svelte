@@ -48,7 +48,9 @@
 	div.border {
 		border: 0.75em solid crimson;
 		border-radius: 0.5em;
-		box-shadow: 0 0 0.5em crimson, inset 0 0 1em crimson;
+		box-shadow:
+			0 0 0.5em crimson,
+			inset 0 0 1em crimson;
 		transform: rotate(45deg);
 	}
 	div.grid {
