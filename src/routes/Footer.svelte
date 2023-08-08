@@ -1,11 +1,12 @@
 <script>
+	import * as feather from '$lib/icons/feather';
 	import Feather from '$lib/icons/Feather.svelte';
 </script>
 
 <footer>
 	<section class="social-links">
 		<a href="https://github.com/ignatiusmb/syv" aria-label="github repository">
-			<Feather icon={import('../lib/icons/feather/github')} />
+			<Feather icon={feather.Github} />
 		</a>
 	</section>
 

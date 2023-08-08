@@ -19,7 +19,7 @@
 					sighted = entries[0].isIntersecting;
 					if (sighted && once) observer.unobserve(container);
 				},
-				{ rootMargin: `${bottom}px ${left}px ${top}px ${right}px` }
+				{ rootMargin: `${bottom}px ${left}px ${top}px ${right}px` },
 			);
 			observer.observe(container);
 			return () => observer.unobserve(container);

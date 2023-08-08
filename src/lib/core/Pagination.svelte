@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { SyvStyles } from '../types';
+	import * as feather from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 	import { writable } from 'svelte/store';
 	import { weave } from '../utils';
@@ -47,10 +48,10 @@
 	<slot name="left">
 		<div class="navigator">
 			<button disabled={page === 0} on:click={click(0)}>
-				<Feather icon={import('../icons/feather/chevrons-left')} />
+				<Feather icon={feather.ChevronsLeft} />
 			</button>
 			<button disabled={page === 0} on:click={click(page - 1)}>
-				<Feather icon={import('../icons/feather/chevron-left')} />
+				<Feather icon={feather.ChevronLeft} />
 			</button>
 		</div>
 	</slot>
@@ -64,10 +65,10 @@
 	<slot name="right">
 		<div class="navigator">
 			<button disabled={page === limit} on:click={click(page + 1)}>
-				<Feather icon={import('../icons/feather/chevron-right')} />
+				<Feather icon={feather.ChevronRight} />
 			</button>
 			<button disabled={page === limit} on:click={click(limit)}>
-				<Feather icon={import('../icons/feather/chevrons-right')} />
+				<Feather icon={feather.ChevronsRight} />
 			</button>
 		</div>
 	</slot>

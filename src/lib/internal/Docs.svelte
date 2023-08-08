@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Link } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 	import Edit from './lib/Edit.svelte';
 
@@ -26,7 +27,7 @@
 					on:mouseleave={() => (anchor = false)}
 				>
 					<a href="#{slug}">
-						<Feather icon={import('../icons/feather/link')} />
+						<Feather icon={Link} />
 					</a>
 					<span>{title}</span>
 					<Edit {repo} {path} />
