@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Filter, Search } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 
 	import type { AnyLazyComponent } from '../types';
@@ -68,7 +69,7 @@
 					{#if typeof icon === 'string'}
 						<img src={icon} alt="icon" />
 					{:else}
-						<Feather {scale} icon={import('../icons/feather/search')} />
+						<Feather {scale} icon={Search} />
 					{/if}
 				</span>
 			{/if}
@@ -97,7 +98,7 @@
 
 		{#if filters}
 			<button on:click={handle.toggle('filter', !show.filter)}>
-				<Feather {scale} icon={import('../icons/feather/filter')} />
+				<Feather {scale} icon={Filter} />
 			</button>
 		{/if}
 	</div>

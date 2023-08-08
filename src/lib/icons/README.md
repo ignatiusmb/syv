@@ -2,31 +2,33 @@
 
 ```svelte
 <script>
+  import * as system from 'syv/icons/system';
   import System from 'syv/icons/{System}.svelte';
 </script>
 
-<System icon={import('syv/icons/{system}/...')}>
+<System icon={system.IconName}>
 ```
 
 ## Feather.svelte
 
-| Props   | Default       |
-| ------- | ------------- |
-| icon \* | `import(...)` |
-| label   | `''`          |
-| scale   | `1.5`         |
-| girth   | `1.5`         |
-| flip    | `undefined`   |
-| style   | `''`          |
+| Props   | Default                           |
+| ------- | --------------------------------- |
+| icon \* | `import from 'syv/icons/feather'` |
+| label   | `''`                              |
+| scale   | `1.5`                             |
+| girth   | `1.5`                             |
+| flip    | `undefined`                       |
+| style   | `''`                              |
 
 All icons from [Feather Icons](https://feathericons.com/) are available under the `syv/icons/feather` module.
 
 ```svelte
 <script>
+  import * as feather from 'syv/icons/feather';
   import Feather from 'syv/icons/Feather.svelte';
 </script>
 
-<Feather icon={import('syv/icons/feather/...')}>
+<Feather icon={feather.IconName}>
 ```
 
 ### Credits
@@ -39,20 +41,21 @@ All icons from [Feather Icons](https://feathericons.com/) are available under th
 
 ## Fluent.svelte
 
-| Props   | Default       |
-| ------- | ------------- |
-| icon \* | `import(...)` |
-| label   | `''`          |
-| flip    | `undefined`   |
+| Props   | Default                          |
+| ------- | -------------------------------- |
+| icon \* | `import from 'syv/icons/fluent'` |
+| label   | `''`                             |
+| flip    | `undefined`                      |
 
 All icons from [Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons) are available under the `syv/icons/fluent` module.
 
 ```svelte
 <script>
+  import * as fluent from 'syv/icons/fluent';
   import Fluent from 'syv/icons/Fluent.svelte';
 </script>
 
-<Fluent icon={import('syv/icons/fluent/...')}>
+<Fluent icon={feather.IconName}>
 ```
 
 ### Credits
