@@ -1,8 +1,18 @@
 <script lang="ts">
-	import type { ComponentProps } from 'svelte';
-	import FeatherSync from './FeatherSync.svelte';
-
-	export let icon: Promise<Pick<ComponentProps<FeatherSync>, 'contents' | 'attrs'>>;
+	export let icon: {
+		contents: string;
+		attrs: {
+			xmlns: string;
+			width: number;
+			height: number;
+			viewBox: string;
+			fill: string;
+			stroke: string;
+			'stroke-width': number;
+			'stroke-linecap': 'inherit' | 'butt' | 'round' | 'square';
+			'stroke-linejoin': 'inherit' | 'round' | 'miter' | 'bevel';
+		};
+	};
 
 	export let label = '';
 	export let style = '';
@@ -11,14 +21,31 @@
 	export let flip: undefined | 'x' | 'y' = undefined;
 	export { className as class };
 	let className = '';
+
+	function scope<T>(fn: () => T) {
+		return fn();
+	}
+
+	$: ({ width, height } = scope(() => {
+		const { width: w, height: h } = icon.attrs || {};
+		const ratio = Math.max(w, h) / 16 || 1;
+		return {
+			width: +scale * (w / ratio),
+			height: +scale * (h / ratio),
+		};
+	}));
+	$: data = {
+		...icon.attrs,
+		style,
+		width,
+		height,
+		'aria-label': label || null,
+		'stroke-width': girth,
+		role: label ? 'img' : 'presentation',
+		class: className || null,
+	};
 </script>
 
-{#await icon}
-	<slot name="loading" />
-{:then { attrs, contents }}
-	<FeatherSync {contents} {attrs} {label} {style} {girth} {scale} {flip} class={className} />
-{:catch error}
-	<slot name="error">
-		<pre>{JSON.stringify(error)}</pre>
-	</slot>
-{/await}
+<svg {...data} style:transform={flip ? `scale${{ x: 'Y', y: 'X' }[flip]}(-1)` : ''}>
+	{@html icon.contents}
+</svg>
