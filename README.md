@@ -3,8 +3,8 @@
 > The Svelte Complementary Library, a multipurpose library for working with Svelte.
 
 -   Provides most of the essential components that are usually rewritten in a new project
-    -   Need to lazy-load a component? `import { LazyLoad } from 'syv/core';`
-    -   Need to see if an element is in view? `import { Observe } from 'syv/core';`
+    -   Need to lazy-load a component? `import LazyLoad from 'syv/core/LazyLoad.svelte';`
+    -   Need to see if an element is in view? `import Observe from 'syv/core/Observe.svelte';`
 -   Prepackaged customizable set of icons from various sources, import from `syv/icons`
 -   Built-in loaders that are ready-to-use anywhere transitions are needed, import from `syv/loader`
 -   Imports are modularized into their own namespaces and provides intuitive API for a nice usage with Svelte
