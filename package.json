@@ -17,7 +17,7 @@
 		"package": "pnpm prep && svelte-package && pnpm copy",
 		"prep": "pnpm prep:icons && svelte-kit sync",
 		"prep:icons": "cd src/lib/icons && node build.mjs",
-		"copy": "cp package.json README.md CHANGELOG.md LICENSE dist/"
+		"copy": "cp package.json README.md LICENSE dist/"
 	},
 	"module": "./index.js",
 	"svelte": "./index.js",
