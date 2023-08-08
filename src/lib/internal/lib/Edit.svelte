@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Edit } from '../../icons/feather';
 	import Feather from '../../icons/Feather.svelte';
 
 	export let repo: string;
@@ -8,7 +9,7 @@
 </script>
 
 <a href="{link}/{path}">
-	<Feather icon={import('../../icons/feather/edit')} />
+	<Feather icon={Edit} />
 </a>
 
 <style>

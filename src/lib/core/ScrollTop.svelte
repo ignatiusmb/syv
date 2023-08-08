@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { SyvStyles } from '../types';
+	import { ChevronsUp } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 	import { mounted } from '../store';
 	import { weave } from '../utils';
@@ -21,7 +22,7 @@
 	class:show={!($mounted && reveal > (y / document.body.scrollHeight) * 100)}
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior })}
 >
-	<Feather icon={import('../icons/feather/chevrons-up')} />
+	<Feather icon={ChevronsUp} />
 </button>
 
 <style>

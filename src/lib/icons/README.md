@@ -23,10 +23,11 @@ All icons from [Feather Icons](https://feathericons.com/) are available under th
 
 ```svelte
 <script>
+  import * as feather from 'syv/icons/feather';
   import Feather from 'syv/icons/Feather.svelte';
 </script>
 
-<Feather icon={import('syv/icons/feather/...')}>
+<Feather icon={feather.IconName}>
 ```
 
 ### Credits
