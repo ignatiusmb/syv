@@ -2,8 +2,7 @@ name: REL
 
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   publish:
@@ -11,12 +10,13 @@ jobs:
     if: "contains(github.event.head_commit.message, '~ v')"
     permissions:
       id-token: write
+
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: https://registry.npmjs.org
 
       - run: pnpm install && pnpm package
