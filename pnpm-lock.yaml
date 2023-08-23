@@ -10,6 +10,15 @@ dependencies:
     version: 0.7.0
 
 devDependencies:
+  '@fontsource/fira-code':
+    specifier: ^5.0.8
+    version: 5.0.8
+  '@fontsource/karla':
+    specifier: ^5.0.9
+    version: 5.0.9
+  '@fontsource/rubik':
+    specifier: ^5.0.9
+    version: 5.0.9
   '@ignatiusmb/styles':
     specifier: ^0.1.1
     version: 0.1.1
@@ -263,6 +272,18 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@fontsource/fira-code@5.0.8:
+    resolution: {integrity: sha512-kp/tJUVnjaZeLHENMBFTTSgP2B7+/rIboeofuMfoGB40s2U0DKXNqQcOqIF5PtDhJ5QTG1LcviYXMnc1yG6oYQ==}
+    dev: true
+
+  /@fontsource/karla@5.0.9:
+    resolution: {integrity: sha512-aKJodjzrrLo4bUrEgvHQgx3ULIkSB1zDcJ3kkZHqhITbLBBdCahlMz8jDiAKhCKTzRZCSJpKAEBkAmWxQm2QKA==}
+    dev: true
+
+  /@fontsource/rubik@5.0.9:
+    resolution: {integrity: sha512-3yKyomN595SrV+tUx1YvlTvg3SONE1PwzyYiJJu+/qKMi7vhYz9OBaHZXBy60fHbkXB881zlzosBUP5MZyCYCw==}
+    dev: true
 
   /@ignatiusmb/styles@0.1.1:
     resolution: {integrity: sha512-2Py7LWaRCtsd2HKTAjNft598+wFkVplV9+QYzdgSkv7QkTE/D5soIqNQNLxzK1MB3Uu4Gr0krMNHIfCNY5CEeA==}

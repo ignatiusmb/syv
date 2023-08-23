@@ -5,6 +5,7 @@ export default defineConfig({
 	plugins: [sveltekit()],
 
 	server: {
+		fs: { allow: ['./package.json'] },
 		port: 3000,
 	},
 });

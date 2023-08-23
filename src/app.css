@@ -1,0 +1,50 @@
+:root {
+	--stone-050: #fafaf9;
+	--stone-100: #f5f5f4;
+	--stone-200: #e7e5e4;
+	--stone-300: #d6d3d1;
+	--stone-400: #a8a29e;
+	--stone-500: #78716c;
+	--stone-600: #57534e;
+	--stone-700: #44403c;
+	--stone-800: #292524;
+	--stone-900: #1c1917;
+	--stone-950: #0c0a09;
+
+	--sky-050: #f0f9ff;
+	--sky-100: #e0f2fe;
+	--sky-200: #bae6fd;
+	--sky-300: #7dd3fc;
+	--sky-400: #38bdf8;
+	--sky-500: #0ea5e9;
+	--sky-600: #0284c7;
+	--sky-700: #0369a1;
+	--sky-800: #075985;
+	--sky-900: #0c4a6e;
+	--sky-950: #082f49;
+
+	--rose-050: #fff1f2;
+	--rose-100: #ffe4e6;
+	--rose-200: #fecdd3;
+	--rose-300: #fda4af;
+	--rose-400: #fb7185;
+	--rose-500: #f43f5e;
+	--rose-600: #e11d48;
+	--rose-700: #be123c;
+	--rose-800: #9f1239;
+	--rose-900: #881337;
+	--rose-950: #4c0519;
+
+	--font-mono: 'Fira Code', monospace;
+}
+
+html,
+body {
+	background: var(--stone-900);
+	color: var(--stone-200);
+	font-family: 'Rubik', 'Ubuntu', 'Helvetica Neue', sans-serif;
+}
+
+a {
+	color: var(--sky-400);
+}

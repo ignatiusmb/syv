@@ -1,30 +1,43 @@
 <script>
-	import '@ignatiusmb/styles/core.css';
+	import '@fontsource/rubik/400.css';
+	import '@fontsource/karla/400.css';
+	import '@fontsource/karla/600.css';
+	import '@fontsource/fira-code/400.css';
 
-	import Footer from './Footer.svelte';
+	import '@ignatiusmb/styles/core.css';
+	import '../app.css';
 </script>
 
-<main>
-	<slot />
+<slot />
 
-	<Footer />
-</main>
+<footer>
+	<p>
+		<span>Copyright &copy;</span>
+		<a href="https://mauss.dev">Ignatius Bagussuputra</a>
+		<span>2021 &ndash; {new Date().getFullYear()}</span>
+	</p>
+	<p>
+		<span>Documentation made with</span>
+		<span style:color="var(--sky-300)">&#x2764;</span>
+		<span>using</span>
+		<a href="https://github.com/sveltejs/kit">SvelteKit</a>
+		<span>&plus;</span>
+		<a href="https://github.com/ignatiusmb/marqua">Marqua</a>
+	</p>
+</footer>
 
 <style>
-	main {
-		--fg-surface: #818181;
-		--bg-overlay: #ffffff;
-
-		min-height: 100vh;
+	footer {
 		width: 100%;
-
+		max-width: 84ch;
+		position: relative;
 		display: grid;
-		gap: 0.75rem;
-		justify-items: center;
-		padding: 2rem;
+		gap: 0.5rem;
+		padding: 3rem 2rem;
 		margin: 0 auto;
-		background-color: #242424;
-		color: rgba(255, 255, 255, 0.9);
-		font-family: sans-serif;
+
+		text-align: center;
+		font-family: var(--font-mono);
+		font-size: clamp(0.8rem, 3vw, 1rem);
 	}
 </style>
