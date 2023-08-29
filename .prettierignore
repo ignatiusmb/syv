@@ -1,8 +1,0 @@
-node_modules
-/.svelte-kit
-/dist
-
-pnpm-lock.yaml
-
-# generated files
-**/icons/**/*.ts
