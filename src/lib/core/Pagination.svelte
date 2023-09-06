@@ -10,7 +10,7 @@
 	export let bound = 3;
 	export let increment = bound;
 	export let tween = false;
-	export let styles: SyvStyles<'disabled-opacity' | 'text-color'> = {};
+	export let styles: SyvStyles<'text-color' | 'disabled:opacity'> = {};
 	export { className as class };
 	let className = '';
 

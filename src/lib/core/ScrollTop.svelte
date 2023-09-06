@@ -9,7 +9,7 @@
 	export let reveal = 0;
 	export let behavior: ScrollBehavior = 'smooth';
 	export let styles: SyvStyles<
-		'background' | 'text-color' | 'transition-duration' | 'z-index' | 'hover-background'
+		'background' | 'text-color' | 'transition-duration' | 'z-index' | 'hover:background'
 	> = {};
 
 	let y = 0;
