@@ -15,7 +15,7 @@
 		| 'text-color'
 		| 'transition-duration'
 		| 'z-index'
-		| 'hover-background'
+		| 'hover:background'
 	> = {};
 
 	let y = 0;
