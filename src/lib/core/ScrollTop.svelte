@@ -9,7 +9,13 @@
 	export let reveal = 0;
 	export let behavior: ScrollBehavior = 'smooth';
 	export let styles: SyvStyles<
-		'background' | 'text-color' | 'transition-duration' | 'z-index' | 'hover:background'
+		| 'background'
+		| 'show-x'
+		| 'show-y'
+		| 'text-color'
+		| 'transition-duration'
+		| 'z-index'
+		| 'hover:background'
 	> = {};
 
 	let y = 0;
@@ -44,15 +50,9 @@
 		transition: transform var(--transition-duration, 300ms);
 	}
 	button.show {
-		transform: translate(-50%, -150%);
+		transform: translate3d(var(--show-x, -50%), var(--show-y, -50%), 0);
 	}
 	button:hover {
 		background: var(--hover-background, rgba(0, 0, 0, 0.5));
-	}
-
-	@media only screen and (min-width: 600px) {
-		button.show {
-			transform: translate(-50%, -50%);
-		}
 	}
 </style>
