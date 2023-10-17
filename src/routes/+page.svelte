@@ -1,47 +1,27 @@
 <script lang="ts">
-	import { syv } from '$lib';
-	import SearchBar from '$lib/core/SearchBar.svelte';
-	import ExampleDialog from './ExampleDialog.svelte';
-	import Footer from './Footer.svelte';
+	import Docs from './Docs.svelte';
 
-	import { autoresize } from '$lib/action';
-	import { outside, copy } from '$lib/action/click';
-
-	let value = '';
+	export let data;
 </script>
 
-<main use:outside={() => {}}>
-	<SearchBar icon filters />
+<header>
+	<h1>Syv</h1>
+	<p>Svelte Complementary Library</p>
+</header>
 
-	<textarea bind:value use:autoresize />
-
-	<button use:copy={{ data: value }}>Copy to Clipboard</button>
-
-	<button
-		on:click={() => {
-			syv.mount(ExampleDialog);
-			syv.load(() => import('./ExampleDialog.svelte'));
-		}}
-	>
-		Open Dialog
-	</button>
-
-	<Footer />
-</main>
+<Docs repo="ignatiusmb/syv" sections={data.docs} />
 
 <style>
-	main {
-		--fg-surface: #818181;
-		--bg-overlay: #ffffff;
-	}
-	main {
-		max-width: 86rem;
+	header {
+		max-width: 78rem;
 		width: 100%;
-		display: grid;
-		gap: 0.75rem;
-		justify-items: center;
-
-		padding: 2em;
+		padding-top: 2rem;
 		margin: 0 auto;
+		font-family: 'Karla';
+		font-size: 1.25rem;
+	}
+	h1 {
+		margin-bottom: 1rem;
+		font-size: 4rem;
 	}
 </style>

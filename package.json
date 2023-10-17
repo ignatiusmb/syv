@@ -30,7 +30,6 @@
 		"./action/click": "./action/click.js",
 		"./icons/*.svelte": "./icons/*.svelte",
 		"./icons/*": "./icons/*.js",
-		"./internal/*.svelte": "./internal/*.svelte",
 		"./loader/*.svelte": "./loader/*.svelte",
 		"./store": "./store/index.js",
 		"./store/api": "./store/api.js",
@@ -58,6 +57,9 @@
 		"svelte": "^3.49.0 || ^4.0.0"
 	},
 	"devDependencies": {
+		"@fontsource/fira-code": "^5.0.8",
+		"@fontsource/karla": "^5.0.9",
+		"@fontsource/rubik": "^5.0.9",
 		"@ignatiusmb/styles": "^0.1.1",
 		"@sveltejs/adapter-vercel": "^3.0.3",
 		"@sveltejs/kit": "^1.23.0",
