@@ -10,9 +10,9 @@
 		"reset": "git reset --hard && git clean -dfx -e node_modules",
 		"dev": "pnpm prep && vite dev",
 		"build": "pnpm prep && vite build",
-		"format": "prettier -w . --plugin=prettier-plugin-svelte --plugin=prettier-plugin-sort-package-json",
-		"check": "pnpm prep && pnpm check:style && pnpm check:svelte",
-		"check:style": "prettier -c . --plugin=prettier-plugin-svelte --plugin=prettier-plugin-sort-package-json",
+		"format": "prettier -w . --plugin=prettier-plugin-sort-package-json",
+		"check": "pnpm prep && pnpm run \"/^check:.*/\"",
+		"check:style": "prettier -c . --plugin=prettier-plugin-sort-package-json",
 		"check:svelte": "svelte-check --tsconfig ./tsconfig.json",
 		"package": "pnpm prep && svelte-package && pnpm copy",
 		"prep": "pnpm prep:icons && svelte-kit sync",
@@ -20,26 +20,69 @@
 		"copy": "cp package.json README.md LICENSE dist/"
 	},
 	"module": "./index.js",
-	"svelte": "./index.js",
 	"types": "./index.d.ts",
 	"exports": {
-		".": "./index.js",
-		"./core": "./core/index.js",
-		"./core/*.svelte": "./core/*.svelte",
-		"./action": "./action/index.js",
-		"./action/click": "./action/click.js",
-		"./icons/*.svelte": "./icons/*.svelte",
-		"./icons/*": "./icons/*.js",
-		"./internal/*.svelte": "./internal/*.svelte",
-		"./loader/*.svelte": "./loader/*.svelte",
-		"./store": "./store/index.js",
-		"./store/api": "./store/api.js",
-		"./store/browser": "./store/browser.js",
-		"./options": "./options.js",
-		"./types": "./types.js",
-		"./utils": "./utils.js"
+		".": {
+			"types": "./index.d.ts",
+			"svelte": "./index.js"
+		},
+		"./core": {
+			"types": "./core/index.d.ts",
+			"svelte": "./core/index.js"
+		},
+		"./core/*.svelte": {
+			"types": "./core/*.svelte.d.ts",
+			"svelte": "./core/*.svelte"
+		},
+		"./action": {
+			"types": "./action/index.d.ts",
+			"default": "./action/index.js"
+		},
+		"./action/click": {
+			"types": "./action/click.d.ts",
+			"default": "./action/click.js"
+		},
+		"./icons/*.svelte": {
+			"types": "./icons/*.svelte.d.ts",
+			"svelte": "./icons/*.svelte"
+		},
+		"./icons/*": {
+			"types": "./icons/*.d.ts",
+			"default": "./icons/*.js"
+		},
+		"./internal/*.svelte": {
+			"types": "./internal/*.svelte.d.ts",
+			"svelte": "./internal/*.svelte"
+		},
+		"./loader/*.svelte": {
+			"types": "./loader/*.svelte.d.ts",
+			"svelte": "./loader/*.svelte"
+		},
+		"./store": {
+			"types": "./store/index.d.ts",
+			"default": "./store/index.js"
+		},
+		"./store/api": {
+			"types": "./store/api.d.ts",
+			"default": "./store/api.js"
+		},
+		"./store/browser": {
+			"types": "./store/browser.d.ts",
+			"default": "./store/browser.js"
+		},
+		"./options": {
+			"types": "./options.d.ts",
+			"default": "./options.js"
+		},
+		"./types": {
+			"types": "./types.d.ts"
+		},
+		"./utils": {
+			"types": "./utils.d.ts",
+			"default": "./utils.js"
+		}
 	},
-	"packageManager": "pnpm@8.7.0",
+	"packageManager": "pnpm@8.12.1",
 	"prettier": "mauss/prettier.json",
 	"keywords": [
 		"svelte",
@@ -52,26 +95,27 @@
 		"kit"
 	],
 	"dependencies": {
-		"mauss": "^0.7.1"
+		"mauss": "^0.7.2"
 	},
 	"peerDependencies": {
-		"svelte": "^3.49.0 || ^4.0.0"
+		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
 		"@ignatiusmb/styles": "^0.1.1",
-		"@sveltejs/adapter-vercel": "^3.0.3",
-		"@sveltejs/kit": "^1.23.0",
-		"@sveltejs/package": "^2.2.2",
-		"@types/feather-icons": "^4.29.1",
+		"@sveltejs/adapter-vercel": "^4.0.2",
+		"@sveltejs/kit": "^2.0.2",
+		"@sveltejs/package": "^2.2.3",
+		"@sveltejs/vite-plugin-svelte": "^3.0.1",
+		"@types/feather-icons": "^4.29.4",
 		"feather-icons": "^4.29.1",
-		"marqua": "^0.5.3",
-		"prettier": "^3.0.2",
+		"marqua": "^0.5.6",
+		"prettier": "^3.1.1",
 		"prettier-plugin-sort-package-json": "^0.2.0",
-		"prettier-plugin-svelte": "^3.0.3",
-		"svelte": "^4.2.0",
-		"svelte-check": "^3.5.0",
-		"svelte2tsx": "^0.6.20",
-		"typescript": "^5.2.2",
-		"vite": "^4.4.9"
+		"prettier-plugin-svelte": "^3.1.2",
+		"svelte": "^4.2.8",
+		"svelte-check": "^3.6.2",
+		"svelte2tsx": "^0.6.27",
+		"typescript": "^5.3.3",
+		"vite": "^5.0.10"
 	}
 }
