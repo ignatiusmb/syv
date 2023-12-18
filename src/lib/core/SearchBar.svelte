@@ -15,32 +15,42 @@
 		(event: (MouseEvent | FocusEvent) & { currentTarget: EventTarget & HTMLElement }): void;
 	}
 
-	export let query = '';
-	export let placeholder = 'Type your queries here (Press "/" to focus)';
-	export let items: any[] = [];
-	/**
-	 * - `string` to reference an image from static assets
-	 * - `boolean` (`true`) to use built-in feather icon
-	 * - callback to dynamically import and use an icon component
-	 */
-	export let icon: string | boolean | AnyLazyComponent = false;
-	/** icon scale, base 16 */
-	export let scale: string | number = '1.5';
-	export let filters: boolean | IterableValues = false;
-	export let unique: boolean | IterableValues = false;
-	export { className as class };
-	let className = '';
+	let {
+		query = '',
+		placeholder = 'Type your queries here (Press "/" to focus)',
+		items = [],
+		icon = false,
+		scale = '1.5',
+		filters = false,
+		unique = false,
+		class: className = '',
+	} = $props<{
+		query?: string;
+		placeholder?: string;
+		items: any[];
+		/**
+		 * - `string` to reference an image from static assets
+		 * - `boolean` (`true`) to use built-in feather icon
+		 * - callback to dynamically import and use an icon component
+		 */
+		icon?: string | boolean | AnyLazyComponent;
+		/** icon scale, base 16 */
+		scale?: string | number;
+		filters?: boolean | IterableValues;
+		unique?: boolean | IterableValues;
+		class?: string;
+	}>();
 
 	const dispatch = createEventDispatcher();
 
-	const show = { autocomplete: false, filter: false };
-	let searchbox: HTMLInputElement;
+	const show = $state({ autocomplete: false, filter: false });
+	let searchbox: undefined | HTMLInputElement = $state();
 
 	const handle = {
 		select(item: any): WildcardHandler {
 			return () => {
 				dispatch('select', item);
-				searchbox.blur();
+				searchbox?.blur();
 			};
 		},
 		toggle(property: keyof typeof show, value: boolean): WildcardHandler {
@@ -56,7 +66,7 @@
 		if (document.activeElement === searchbox) {
 			if (event.key === 'Escape') searchbox.blur();
 		} else if (event.key === '/') {
-			event.preventDefault(), searchbox.focus();
+			event.preventDefault(), searchbox?.focus();
 		}
 	}}
 />
@@ -87,7 +97,7 @@
 				<div class="autocomplete" on:pointerdown|preventDefault={noop}>
 					{#each items as item}
 						<slot name="autocomplete" {item} utils={{ select: handle.select(item) }}>
-							<span on:pointerup={handle.select(item)}>
+							<span onpointerup={handle.select(item)}>
 								{typeof item !== 'string' ? JSON.stringify(item) : item}
 							</span>
 						</slot>
@@ -97,7 +107,7 @@
 		</label>
 
 		{#if filters}
-			<button on:click={handle.toggle('filter', !show.filter)}>
+			<button onclick={handle.toggle('filter', !show.filter)}>
 				<Feather {scale} icon={Filter} />
 			</button>
 		{/if}

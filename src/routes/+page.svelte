@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { syv } from '$lib';
+	import { syv as core } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
@@ -7,7 +7,7 @@
 	import { autoresize } from '$lib/action';
 	import { outside, copy } from '$lib/action/click';
 
-	let value = '';
+	let value = $state('');
 </script>
 
 <main use:outside={() => {}}>
@@ -19,8 +19,21 @@
 
 	<button
 		on:click={() => {
-			syv.mount(ExampleDialog);
-			syv.load(() => import('./ExampleDialog.svelte'));
+			core.mount(ExampleDialog, {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
+			core.load(import('./ExampleDialog.svelte'), {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
+			core.load(() => import('./ExampleDialog.svelte'), {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
 		}}
 	>
 		Open Dialog

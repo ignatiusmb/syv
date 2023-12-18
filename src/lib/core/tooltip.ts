@@ -1,18 +1,27 @@
-import type { ComponentProps } from 'svelte';
 import type { HTMLAction } from '../action/types';
-
-import { onMount } from 'svelte';
+import type { SyvStyles } from '../types';
+import { createRoot, onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
 import Tooltip from './Tooltip.svelte';
 
-type TooltipProps = ComponentProps<Tooltip>;
+export interface TooltipProps {
+	html?: string;
+	x?: number;
+	y?: number;
+	state?: 'fade';
+	styles?: SyvStyles<'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'>;
+	class?: string;
+
+	onmouseenter?(event: MouseEvent): void;
+	onmouseleave?(event: MouseEvent): void;
+}
 
 const ATTR = 'data-syv:tooltip';
 const TIMEOUT = 240;
 const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
 let target: undefined | HTMLElement;
-let tooltip: undefined | Tooltip;
+let tooltip: undefined | ReturnType<typeof createRoot>;
 let timeout: number;
 
 function scan(anchor: null | EventTarget) {
@@ -32,11 +41,18 @@ function scan(anchor: null | EventTarget) {
 function render(props: TooltipProps) {
 	// destroy and remount, `style:` directives are not reactive
 	if (tooltip) tooltip = void tooltip.$destroy();
-	tooltip = new Tooltip({ target: document.body, props });
-	tooltip.$on('mouseenter', () => clearTimeout(timeout));
-	tooltip.$on('mouseleave', () => {
-		if (target === document.activeElement) return;
-		timeout = setTimeout(dismount, TIMEOUT);
+
+	tooltip = createRoot(Tooltip, {
+		target: document.body,
+		props: Object.assign(props, {
+			onmouseenter() {
+				clearTimeout(timeout);
+			},
+			onmouseleave() {
+				if (target === document.activeElement) return;
+				timeout = setTimeout(dismount, TIMEOUT);
+			},
+		}),
 	});
 }
 

@@ -8,11 +8,20 @@
 	import { onMount } from 'svelte';
 	import { noop } from '../utils';
 
-	/** "background" ignores `mousemove` and `keydown` events */
-	export let runner: 'background' | 'interactive' = 'background';
-	export let refresh = 10 * 60 * 1000;
-	export let interval = refresh / 60;
-	export let task = noop;
+	const {
+		runner = 'background',
+		refresh = 10 * 60 * 1000,
+		interval = refresh / 60,
+		task = noop,
+	} = $props<{
+		/** "background" ignores `mousemove` and `keydown` events */
+		runner?: 'background' | 'interactive';
+		refresh?: number;
+		interval?: number;
+		task?(): void;
+	}>();
+
+	// export let interval = refresh / 60;
 
 	let timeout: number;
 
@@ -30,5 +39,5 @@
 	});
 </script>
 
-<svelte:window on:mousemove={binding} on:keydown={binding} />
+<svelte:window onmousemove={binding} onkeydown={binding} />
 <slot remaining={Math.max(0, refresh - (Date.now() - $time))} />

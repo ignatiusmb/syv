@@ -5,14 +5,21 @@
 	import { writable } from 'svelte/store';
 	import { weave } from '../utils';
 
-	export let store = writable<any[]>([]);
-	export let items: any[] = [];
-	export let bound = 3;
-	export let increment = bound;
-	export let tween = false;
-	export let styles: SyvStyles<'text-color' | 'disabled:opacity'> = {};
-	export { className as class };
-	let className = '';
+	const {
+		items = [],
+		bound = 3,
+		increment = bound,
+		tween = false,
+		styles = {},
+		class: className = '',
+	} = $props<{
+		items: any[];
+		bound?: number;
+		increment?: number;
+		tween?: boolean;
+		styles?: SyvStyles<'text-color' | 'disabled:opacity'>;
+		class?: string;
+	}>();
 
 	let page = 0;
 
@@ -47,10 +54,10 @@
 <section style={weave(styles)} class="syv-core-pagination {className}">
 	<slot name="left">
 		<div class="navigator">
-			<button disabled={page === 0} on:click={click(0)}>
+			<button disabled={page === 0} onclick={click(0)}>
 				<Feather icon={feather.ChevronsLeft} />
 			</button>
-			<button disabled={page === 0} on:click={click(page - 1)}>
+			<button disabled={page === 0} onclick={click(page - 1)}>
 				<Feather icon={feather.ChevronLeft} />
 			</button>
 		</div>
@@ -64,10 +71,10 @@
 
 	<slot name="right">
 		<div class="navigator">
-			<button disabled={page === limit} on:click={click(page + 1)}>
+			<button disabled={page === limit} onclick={click(page + 1)}>
 				<Feather icon={feather.ChevronRight} />
 			</button>
-			<button disabled={page === limit} on:click={click(limit)}>
+			<button disabled={page === limit} onclick={click(limit)}>
 				<Feather icon={feather.ChevronsRight} />
 			</button>
 		</div>

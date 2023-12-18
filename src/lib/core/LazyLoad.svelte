@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { AnyLazyComponent } from '../types';
 
-	export let files: AnyLazyComponent[];
-	export let when = true;
+	const { files, when = true } = $props<{
+		files: AnyLazyComponent[];
+		when?: boolean;
+	}>();
 
-	let promises: undefined | ReturnType<(typeof files)[number]>[];
-	$: if (when && !promises && Array.isArray(files)) {
-		promises = files.map((file) => file());
-	}
+	const load = $derived(when && Array.isArray(files));
+	const promises = $derived(load ? files.map((file) => file()) : []);
 </script>
 
-{#if when && promises && promises.length}
+{#if when && promises.length}
 	{#await Promise.all(promises)}
 		<slot name="loading" />
 	{:then components}

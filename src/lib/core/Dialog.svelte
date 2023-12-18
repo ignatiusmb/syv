@@ -1,23 +1,34 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import type { SyvStyles } from '../types';
 	import { fly } from 'svelte/transition';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { FOCUSABLE, INPUT_FIELDS, TIME } from '../options';
 	import { weave } from '../utils';
 
-	/** change UI mode to `Modal` */
-	export let required = false;
-	export let styles: SyvStyles<
-		| 'backdrop-color'
-		| 'backdrop-filter'
-		| 'background'
-		| 'border-radius'
-		| 'max-width'
-		| 'padding'
-		| 'z-index'
-	> = {};
-	export { className as class };
-	let className = '';
+	const {
+		required = false,
+		styles = {},
+		class: className,
+		children,
+	} = $props<{
+		/** change UI mode to `Modal` */
+		required?: boolean;
+		styles?: SyvStyles<
+			| 'backdrop-color'
+			| 'backdrop-filter'
+			| 'background'
+			| 'border-radius'
+			| 'max-width'
+			| 'padding'
+			| 'z-index'
+		>;
+		class?: string;
+		children: Snippet<{
+			forward: typeof forward;
+			nodes: typeof nodes;
+		}>;
+	}>();
 
 	const elements = FOCUSABLE.join(', ');
 	const dispatch = createEventDispatcher<{
@@ -38,9 +49,9 @@
 		);
 	}
 
-	let show = true;
-	let nodes: HTMLElement[];
-	let dialog: undefined | HTMLElement;
+	let show = $state(true);
+	let nodes: HTMLElement[] = $state([]);
+	let dialog: undefined | HTMLElement = $state();
 	onMount(() => {
 		// accounting 128px top and 16px bottom padding
 		const height = window.innerHeight - (128 + 16);
@@ -94,13 +105,13 @@
 			out:fly={{ duration: TIME.FLY, y: -64 }}
 			bind:this={dialog}
 		>
-			<slot {forward} {nodes} />
+			{@render children({ forward, nodes })}
 		</main>
 	</div>
 {/if}
 
 <style>
-	div /** backdrop */ {
+	div {
 		z-index: var(--z-index, 9);
 		position: fixed;
 		inset: 0;

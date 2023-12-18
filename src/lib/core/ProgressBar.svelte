@@ -1,17 +1,22 @@
-<script>
+<script lang="ts">
 	import { mounted } from '../store';
 
-	export let z = 3;
-	/** height in css unit */
-	export let height = '1rem';
-	export { className as class };
-	let className = '';
+	const {
+		z = 3,
+		height = '1rem',
+		class: className = '',
+	} = $props<{
+		z?: number;
+		/** height in css unit */
+		height?: string;
+		class?: string;
+	}>();
 
-	let scrollY = $mounted ? document.body.scrollTop : 0;
-	let innerHeight = $mounted ? document.body.scrollHeight : 1;
+	let scrollY = $state($mounted ? document.body.scrollTop : 0);
+	let innerHeight = $state($mounted ? document.body.scrollHeight : 1);
 
-	$: scrolled = $mounted ? document.body.scrollHeight : scrollY;
-	$: progress = (scrollY / (scrolled - innerHeight)) * 100;
+	const scrolled = $derived($mounted ? document.body.scrollHeight : scrollY);
+	const progress = $derived((scrollY / (scrolled - innerHeight)) * 100);
 </script>
 
 <svelte:window bind:scrollY bind:innerHeight />

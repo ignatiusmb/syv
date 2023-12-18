@@ -5,20 +5,26 @@
 	import { mounted } from '../store';
 	import { weave } from '../utils';
 
-	/** show button based on document scroll percentage */
-	export let reveal = 0;
-	export let behavior: ScrollBehavior = 'smooth';
-	export let styles: SyvStyles<
-		| 'background'
-		| 'show-x'
-		| 'show-y'
-		| 'text-color'
-		| 'transition-duration'
-		| 'z-index'
-		| 'hover:background'
-	> = {};
+	const {
+		reveal = 0,
+		behavior = 'smooth',
+		styles = {},
+	} = $props<{
+		/** show button based on document scroll percentage */
+		reveal?: number;
+		behavior?: ScrollBehavior;
+		styles?: SyvStyles<
+			| 'background'
+			| 'show-x'
+			| 'show-y'
+			| 'text-color'
+			| 'transition-duration'
+			| 'z-index'
+			| 'hover:background'
+		>;
+	}>();
 
-	let y = 0;
+	let y = $state(0);
 </script>
 
 <svelte:window bind:scrollY={y} />

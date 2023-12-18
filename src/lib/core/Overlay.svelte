@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import { fade } from 'svelte/transition';
 	import { TIME } from '../options';
 
-	export let show = false;
-	export { className as class };
-	let className = '';
+	const { show = false, class: className = '' } = $props<{
+		show?: boolean;
+		class?: string;
+	}>();
 </script>
 
 {#if show}
