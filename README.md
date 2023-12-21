@@ -24,7 +24,6 @@ pnpm add -D syv
 | [`action`](/src/lib/api)    | `'syv/action'` |
 | [`icons`](/src/lib/icons)   | `'syv/icons'`  |
 | [`loader`](/src/lib/loader) | `'syv/loader'` |
-| [`store`](/src/lib/store)   | `'syv/store'`  |
 
 ---
 

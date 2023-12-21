@@ -1,16 +1,15 @@
 <script>
-	import { mounted } from '../store';
-
 	export let z = 3;
 	/** height in css unit */
 	export let height = '1rem';
 	export { className as class };
 	let className = '';
 
-	let scrollY = $mounted ? document.body.scrollTop : 0;
-	let innerHeight = $mounted ? document.body.scrollHeight : 1;
+	const browser = typeof window !== 'undefined';
+	let scrollY = browser ? document.body.scrollTop : 0;
+	let innerHeight = browser ? document.body.scrollHeight : 1;
 
-	$: scrolled = $mounted ? document.body.scrollHeight : scrollY;
+	$: scrolled = browser ? document.body.scrollHeight : scrollY;
 	$: progress = (scrollY / (scrolled - innerHeight)) * 100;
 </script>
 

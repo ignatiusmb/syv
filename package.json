@@ -58,18 +58,6 @@
 			"types": "./loader/*.svelte.d.ts",
 			"svelte": "./loader/*.svelte"
 		},
-		"./store": {
-			"types": "./store/index.d.ts",
-			"default": "./store/index.js"
-		},
-		"./store/api": {
-			"types": "./store/api.d.ts",
-			"default": "./store/api.js"
-		},
-		"./store/browser": {
-			"types": "./store/browser.d.ts",
-			"default": "./store/browser.js"
-		},
 		"./options": {
 			"types": "./options.d.ts",
 			"default": "./options.js"

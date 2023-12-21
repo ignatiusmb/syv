@@ -2,7 +2,6 @@
 	import type { SyvStyles } from '../types';
 	import { ChevronsUp } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
-	import { mounted } from '../store';
 	import { weave } from '../utils';
 
 	/** show button based on document scroll percentage */
@@ -25,7 +24,7 @@
 <button
 	type="button"
 	style={weave(styles)}
-	class:show={!($mounted && reveal > (y / document.body.scrollHeight) * 100)}
+	class:show={!(typeof window !== 'undefined' && reveal > (y / document.body.scrollHeight) * 100)}
 	on:click={() => window.scrollTo({ top: 0, left: 0, behavior })}
 >
 	<Feather icon={ChevronsUp} />
