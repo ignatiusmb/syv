@@ -2,15 +2,18 @@
 	import { fade } from 'svelte/transition';
 	import { TIME } from '../options';
 
-	const { show = false, class: className = '' } = $props<{
+	interface Props {
 		show?: boolean;
 		class?: string;
-	}>();
+		children: import('svelte').Snippet;
+	}
+
+	const { show = false, class: className = '', children }: Props = $props();
 </script>
 
 {#if show}
 	<div class="syv-core-overlay {className}" transition:fade={{ duration: TIME.FADE }}>
-		<slot />
+		{@render children()}
 	</div>
 {/if}
 

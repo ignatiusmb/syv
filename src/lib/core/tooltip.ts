@@ -1,6 +1,6 @@
 import type { HTMLAction } from '../action/types';
 import type { SyvStyles } from '../types';
-import { createRoot, onMount } from 'svelte';
+import { mount as attach, onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
 import Tooltip from './Tooltip.svelte';
 
@@ -21,7 +21,7 @@ const TIMEOUT = 240;
 const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
 let target: undefined | HTMLElement;
-let tooltip: undefined | ReturnType<typeof createRoot>;
+let tooltip: undefined | ReturnType<typeof attach>;
 let timeout: number;
 
 function scan(anchor: null | EventTarget) {
@@ -42,7 +42,7 @@ function render(props: TooltipProps) {
 	// destroy and remount, `style:` directives are not reactive
 	if (tooltip) tooltip = void tooltip.$destroy();
 
-	tooltip = createRoot(Tooltip, {
+	tooltip = attach(Tooltip, {
 		target: document.body,
 		props: Object.assign(props, {
 			onmouseenter() {

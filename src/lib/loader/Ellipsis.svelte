@@ -2,15 +2,18 @@
 	import type { SyvStyles } from '../types';
 	import { weave } from '../utils';
 
-	export let styles: SyvStyles<'background' | 'margin' | 'padding' | 'spacing'> = {};
-	export { className as class };
-	let className = '';
+	interface Props {
+		styles?: SyvStyles<'background' | 'margin' | 'padding' | 'spacing'>;
+		class?: string;
+	}
+
+	let { styles = {}, class: className = '' }: Props = $props();
 </script>
 
 <div style={weave(styles)} class="syv-loader-ellipsis {className}">
-	<span />
-	<span />
-	<span />
+	<span></span>
+	<span></span>
+	<span></span>
 </div>
 
 <style>

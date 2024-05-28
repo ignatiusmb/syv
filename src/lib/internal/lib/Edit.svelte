@@ -2,9 +2,11 @@
 	import { Edit } from '../../icons/feather';
 	import Feather from '../../icons/Feather.svelte';
 
-	export let repo: string;
-	export let path: string;
-
+	interface Props {
+		repo: string;
+		path: string;
+	}
+	const { repo, path }: Props = $props();
 	const link = `https://github.com/${repo}/edit/master`;
 </script>
 

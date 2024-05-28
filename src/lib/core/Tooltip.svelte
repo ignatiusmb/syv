@@ -10,7 +10,7 @@
 		styles = {},
 		class: className,
 		...props
-	} = $props<TooltipProps>();
+	}: TooltipProps = $props();
 </script>
 
 <div

@@ -11,14 +11,14 @@
 </script>
 
 <main use:outside={() => {}}>
-	<SearchBar icon filters />
+	<SearchBar items={[]} icon filters />
 
-	<textarea bind:value use:autoresize />
+	<textarea bind:value use:autoresize></textarea>
 
 	<button use:copy={{ data: value }}>Copy to Clipboard</button>
 
 	<button
-		on:click={() => {
+		onclick={() => {
 			core.mount(ExampleDialog, {
 				required: true,
 				// @ts-expect-error

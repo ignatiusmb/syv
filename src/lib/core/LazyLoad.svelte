@@ -1,10 +1,16 @@
 <script lang="ts">
 	import type { AnyLazyComponent } from '../types';
 
-	const { files, when = true } = $props<{
+	interface Props {
 		files: AnyLazyComponent[];
 		when?: boolean;
-	}>();
+
+		loading?: import('svelte').Snippet;
+		fallback?: import('svelte').Snippet<[error: any]>;
+		children: import('svelte').Snippet<[loaded: any]>;
+	}
+
+	const { files, when = true, loading, fallback, children }: Props = $props();
 
 	const load = $derived(when && Array.isArray(files));
 	const promises = $derived(load ? files.map((file) => file()) : []);
@@ -12,10 +18,10 @@
 
 {#if when && promises.length}
 	{#await Promise.all(promises)}
-		<slot name="loading" />
+		{@render loading?.()}
 	{:then components}
-		<slot loaded={components.map((c) => c.default)} />
+		{@render children(components.map((c) => c.default))}
 	{:catch error}
-		<slot name="fallback" {error} />
+		{@render fallback?.(error)}
 	{/await}
 {/if}

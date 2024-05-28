@@ -1,18 +1,22 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
-	export let themes = ['light', 'dark'];
-	export { className as class };
-	let className = '';
+	interface Props {
+		themes?: string[];
+		class?: string;
+		children?: import('svelte').Snippet<[current: string]>;
+	}
+
+	const { themes = ['light', 'dark'], class: className = '', children }: Props = $props();
 
 	const browser = typeof window !== 'undefined';
 	const dark = browser && matchMedia('(prefers-color-scheme: dark)').matches;
-	let current = browser ? localStorage.theme || (dark ? 'dark' : 'light') : null;
-	let nice = false;
+	let current = $state(browser ? localStorage.theme || (dark ? 'dark' : 'light') : null);
+	let nice = $state(false);
 
 	async function toggle() {
 		let switched = false;
-		const { classList } = /** @type {HTMLHtmlElement} */ (document.querySelector('html'));
+		const { classList } = document.querySelector('html') as HTMLHtmlElement;
 		for (let i = 0; i < themes.length; i++) {
 			if (!switched || themes[i] !== current) classList.remove(themes[i]);
 			if (themes[i] === current && !switched) {
@@ -31,11 +35,13 @@
 	class="syv-theme-switcher {className}"
 	aria-label="Toggle Theme"
 	class:nice
-	on:click={toggle}
-	on:mousedown={() => (nice = true)}
-	on:blur={() => (nice = false)}
+	onclick={toggle}
+	onmousedown={() => (nice = true)}
+	onblur={() => (nice = false)}
 >
-	<slot {current}>
+	{#if children}
+		{@render children(current)}
+	{:else}
 		<svg viewBox="0 0 24 24">
 			{#if current === 'light'}
 				<path
@@ -50,7 +56,7 @@
 				/>
 			{/if}
 		</svg>
-	</slot>
+	{/if}
 </button>
 
 <style>

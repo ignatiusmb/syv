@@ -1,6 +1,10 @@
+<script lang="ts">
+	const { children }: { children: import('svelte').Snippet } = $props();
+</script>
+
 <!-- ref: https://codepen.io/alphardex/pen/vYEYGzp -->
 <div class="syv-core-gradient-border">
-	<slot />
+	{@render children()}
 </div>
 
 <style>

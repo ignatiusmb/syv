@@ -3,10 +3,14 @@
 	import Feather from '../icons/Feather.svelte';
 	import Edit from './lib/Edit.svelte';
 
-	export let sections: Record<'slug' | 'title' | 'content' | 'path', string>[];
-	export let repo: string;
+	interface Props {
+		sections: Record<'slug' | 'title' | 'content' | 'path', string>[];
+		repo: string;
+	}
 
-	let anchor = false;
+	const { sections, repo }: Props = $props();
+
+	let anchor = $state(false);
 </script>
 
 <main>
@@ -23,8 +27,8 @@
 				<h2
 					id={slug}
 					class:anchor
-					on:mouseenter={() => (anchor = true)}
-					on:mouseleave={() => (anchor = false)}
+					onmouseenter={() => (anchor = true)}
+					onmouseleave={() => (anchor = false)}
 				>
 					<a href="#{slug}">
 						<Feather icon={Link} />

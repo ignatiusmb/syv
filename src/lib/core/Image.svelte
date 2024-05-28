@@ -3,17 +3,7 @@
 	import Overlay from './Overlay.svelte';
 	import { fade } from 'svelte/transition';
 
-	const {
-		src = '',
-		alt = '',
-		ratio = 9 / 16,
-		lazy = false,
-		contain = false,
-		overlay = false,
-		absolute = false,
-		transition = {},
-		class: className,
-	} = $props<{
+	interface Props {
 		/** image source */
 		src?: string;
 		/** image alt text */
@@ -32,7 +22,21 @@
 		transition?: import('svelte/transition').FadeParams;
 		/** class name */
 		class?: string;
-	}>();
+		children: import('svelte').Snippet;
+	}
+
+	const {
+		src = '',
+		alt = '',
+		ratio = 9 / 16,
+		lazy = false,
+		contain = false,
+		overlay = false,
+		absolute = false,
+		transition = {},
+		class: className,
+		children,
+	}: Props = $props();
 
 	let show = $state(false);
 </script>
@@ -41,18 +45,18 @@
 	<img {src} {alt} in:fade={transition} class:contain />
 	{#if overlay}
 		<Overlay {show}>
-			<slot />
+			{@render children()}
 		</Overlay>
 	{/if}
 {/snippet}
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	style:padding-top="{ratio * 100}%"
 	class:absolute
 	class="syv-core-image {className}"
-	on:mouseenter={() => (show = true)}
-	on:mouseleave={() => (show = false)}
+	onmouseenter={() => (show = true)}
+	onmouseleave={() => (show = false)}
 >
 	{#if lazy}
 		<Observe once={true}>

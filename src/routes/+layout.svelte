@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 	import '@ignatiusmb/styles/core.css';
+
+	const { children } = $props();
 </script>
 
 <main>
-	<slot />
+	{@render children()}
 </main>
 
 <style>

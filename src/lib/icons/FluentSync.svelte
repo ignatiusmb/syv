@@ -1,11 +1,13 @@
 <script lang="ts">
-	export let size: number | string;
-	export let contents: string;
+	interface Props {
+		size: number | string;
+		contents: string;
+		label?: string;
+		flip?: undefined | 'x' | 'y';
+		class?: string;
+	}
 
-	export let label = '';
-	export let flip: undefined | 'x' | 'y' = undefined;
-	export { className as class };
-	let className = '';
+	let { size, contents, label = '', flip = undefined, class: className = '' }: Props = $props();
 </script>
 
 <svg

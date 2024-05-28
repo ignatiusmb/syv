@@ -1,20 +1,13 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
-
-	const {
-		once = false,
-		margin = '0px',
-		class: className = '',
-		children,
-	} = $props<{
+	interface Props {
 		/** unobserve after first sighting */
 		once?: boolean;
 		margin?: string;
 		class?: string;
-		children: Snippet<{
-			sighted: typeof sighted;
-		}>;
-	}>();
+		children: import('svelte').Snippet<[sighted: typeof sighted]>;
+	}
+
+	const { once = false, margin = '0px', class: className = '', children }: Props = $props();
 
 	let sighted = $state(false);
 	let container: undefined | HTMLElement = $state();
@@ -35,7 +28,7 @@
 </script>
 
 <div bind:this={container} class="syv-core-observe {className}">
-	{@render children({ sighted })}
+	{@render children(sighted)}
 </div>
 
 <style>

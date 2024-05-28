@@ -1,25 +1,27 @@
 <script context="module">
-	import { writable } from 'svelte/store';
-	const time = writable(Date.now());
-	const reset = () => time.set(Date.now());
+	const time = $state({ start: Date.now() });
+	const reset = () => (time.start = Date.now());
 </script>
 
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { noop } from '../utils';
 
+	interface Props {
+		runner?: 'background' | 'interactive';
+		refresh?: number;
+		interval?: number;
+		task?(): void;
+		children?: import('svelte').Snippet<[remaining: number]>;
+	}
+
 	const {
 		runner = 'background',
 		refresh = 10 * 60 * 1000,
 		interval = refresh / 60,
 		task = noop,
-	} = $props<{
-		/** "background" ignores `mousemove` and `keydown` events */
-		runner?: 'background' | 'interactive';
-		refresh?: number;
-		interval?: number;
-		task?(): void;
-	}>();
+		children,
+	}: Props = $props();
 
 	// export let interval = refresh / 60;
 
@@ -28,7 +30,7 @@
 	const binding = () => runner === 'interactive' && reset();
 
 	async function worker() {
-		const diff = Date.now() - $time;
+		const diff = Date.now() - time.start;
 		if (diff >= refresh) task(), reset();
 		timeout = setTimeout(worker, interval);
 	}
@@ -40,4 +42,4 @@
 </script>
 
 <svelte:window onmousemove={binding} onkeydown={binding} />
-<slot remaining={Math.max(0, refresh - (Date.now() - $time))} />
+{@render children?.(Math.max(0, refresh - (Date.now() - time.start)))}

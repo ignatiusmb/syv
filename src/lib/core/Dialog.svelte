@@ -2,16 +2,11 @@
 	import type { Snippet } from 'svelte';
 	import type { SyvStyles } from '../types';
 	import { fly } from 'svelte/transition';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { FOCUSABLE, INPUT_FIELDS, TIME } from '../options';
 	import { weave } from '../utils';
 
-	const {
-		required = false,
-		styles = {},
-		class: className,
-		children,
-	} = $props<{
+	interface Props {
 		/** change UI mode to `Modal` */
 		required?: boolean;
 		styles?: SyvStyles<
@@ -24,19 +19,15 @@
 			| 'z-index'
 		>;
 		class?: string;
-		children: Snippet<{
-			forward: typeof forward;
-			nodes: typeof nodes;
-		}>;
-	}>();
+		onclose?(type: 'keydown' | 'pointerdown'): boolean;
+		children: Snippet<[{ forward: typeof forward; nodes: typeof nodes }]>;
+	}
+
+	const { required = false, styles = {}, class: className, onclose, children }: Props = $props();
 
 	const elements = FOCUSABLE.join(', ');
-	const dispatch = createEventDispatcher<{
-		'syv:close': 'keydown' | 'pointerdown';
-	}>();
 	async function forward<T extends Event>(event: T) {
-		const type = event.type as Parameters<typeof dispatch>[1];
-		if (!dispatch('syv:close', type, { cancelable: true })) return;
+		if (onclose && !onclose(event.type as 'keydown' | 'pointerdown')) return;
 		show = !!void setTimeout(() => {
 			document.body.style.removeProperty('padding-right');
 			document.body.style.removeProperty('overflow');
@@ -80,7 +71,7 @@
 </script>
 
 <svelte:window
-	on:keydown={(event) /** focus trapping */ => {
+	onkeydown={(event) /** focus trapping */ => {
 		if (!show || !dialog) return; // closed but not destroyed
 		if (event.key === 'Escape') return forward(event);
 		nodes = sieve(dialog.querySelectorAll(elements));
@@ -96,7 +87,10 @@
 />
 
 {#if show}
-	<div style={weave(styles)} on:pointerdown|self={(event) => !required && forward(event)}>
+	<div
+		style={weave(styles)}
+		onpointerdown={(event) => event.currentTarget === event.target && !required && forward(event)}
+	>
 		<main
 			role="dialog"
 			aria-modal="true"

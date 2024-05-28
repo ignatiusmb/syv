@@ -59,20 +59,20 @@
 	},
 	"devDependencies": {
 		"@ignatiusmb/styles": "^0.1.1",
-		"@sveltejs/adapter-vercel": "^4.0.2",
-		"@sveltejs/kit": "^2.0.2",
-		"@sveltejs/package": "^2.2.3",
-		"@sveltejs/vite-plugin-svelte": "^3.0.1",
+		"@sveltejs/adapter-vercel": "^4.0.5",
+		"@sveltejs/kit": "^2.5.10",
+		"@sveltejs/package": "^2.3.1",
+		"@sveltejs/vite-plugin-svelte": "^3.1.0",
 		"@types/feather-icons": "^4.29.4",
-		"feather-icons": "^4.29.1",
-		"marqua": "^0.5.6",
-		"prettier": "^3.1.1",
+		"feather-icons": "^4.29.2",
+		"marqua": "^0.5.8",
+		"prettier": "^3.2.5",
 		"prettier-plugin-sort-package-json": "^0.2.0",
-		"prettier-plugin-svelte": "^3.1.2",
+		"prettier-plugin-svelte": "^3.2.3",
 		"svelte": "next",
-		"svelte-check": "^3.6.2",
+		"svelte-check": "^3.7.1",
 		"svelte2tsx": "^0.6.27",
-		"typescript": "^5.3.3",
-		"vite": "^5.0.10"
+		"typescript": "^5.4.5",
+		"vite": "^5.2.11"
 	}
 }
