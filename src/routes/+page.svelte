@@ -11,7 +11,7 @@
 </script>
 
 <main use:outside={() => {}}>
-	<SearchBar items={[]} icon filters />
+	<SearchBar items={[]} transformer={() => ({})} icon />
 
 	<textarea bind:value use:autoresize></textarea>
 
