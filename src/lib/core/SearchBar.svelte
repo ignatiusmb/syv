@@ -1,4 +1,4 @@
-<script lang="ts" generics="T extends { slug: string; title: string }">
+<script lang="ts" generics="T extends { slug: string }">
 	import { Search } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 
