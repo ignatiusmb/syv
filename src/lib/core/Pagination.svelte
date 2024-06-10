@@ -2,19 +2,37 @@
 	import type { SyvStyles } from '../types';
 	import * as feather from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
-	import { writable } from 'svelte/store';
 	import { weave } from '../utils';
 
-	export let store = writable<any[]>([]);
-	export let items: any[] = [];
-	export let bound = 3;
-	export let increment = bound;
-	export let tween = false;
-	export let styles: SyvStyles<'text-color' | 'disabled:opacity'> = {};
-	export { className as class };
-	let className = '';
+	interface Props {
+		items: any[];
+		bound?: number;
+		increment?: number;
+		tween?: boolean;
+		styles?: SyvStyles<'text-color' | 'disabled:opacity'>;
+		class?: string;
 
-	let page = 0;
+		left?: import('svelte').Snippet;
+		right?: import('svelte').Snippet;
+		children?: import('svelte').Snippet<
+			[{ limit: number; page: number; jump: (index: number) => void }]
+		>;
+	}
+
+	const {
+		items = [],
+		bound = 3,
+		increment = bound,
+		tween = false,
+		styles = {},
+		class: className = '',
+
+		left,
+		right,
+		children,
+	}: Props = $props();
+
+	let page = $state(0);
 
 	function jump(index: number) {
 		if (index < 0 || index > limit) return;
@@ -31,47 +49,44 @@
 
 	const click = (i: number) => () => jump(i);
 
-	$: total = items.length;
-	$: ceil = Math.ceil((total - bound) / increment);
-	$: limit = ceil < 0 ? 0 : ceil;
-	$: page = page > limit ? limit : page;
+	const total = $derived(items.length);
+	const ceil = $derived(Math.ceil((total - bound) / increment));
+	const limit = $derived(ceil < 0 ? 0 : ceil);
+	// const page = $derived(page > limit ? limit : page);
 
-	$: count = page * increment;
-	$: curr = total ? count + 1 : 0;
-	$: comp = curr - 1 + bound;
-	$: next = comp <= total ? comp : total;
+	const count = $derived(page * increment);
+	const curr = $derived(total ? count + 1 : 0);
+	const comp = $derived(curr - 1 + bound);
+	const next = $derived(comp <= total ? comp : total);
 
-	$: $store = items.slice(count, count + bound);
+	// $: $store = items.slice(count, count + bound);
 </script>
 
+{#snippet fallback(side)}
+	{@const disabled = side === 'left' ? page === 0 : page === limit}
+
+	<div class="navigator">
+		<button {disabled} onclick={click(side === 'left' ? 0 : page + 1)}>
+			<Feather icon={side === 'left' ? feather.ChevronsLeft : feather.ChevronRight} />
+		</button>
+		<button {disabled} onclick={click(side === 'left' ? page - 1 : limit)}>
+			<Feather icon={side === 'left' ? feather.ChevronLeft : feather.ChevronsRight} />
+		</button>
+	</div>
+{/snippet}
+
 <section style={weave(styles)} class="syv-core-pagination {className}">
-	<slot name="left">
-		<div class="navigator">
-			<button disabled={page === 0} on:click={click(0)}>
-				<Feather icon={feather.ChevronsLeft} />
-			</button>
-			<button disabled={page === 0} on:click={click(page - 1)}>
-				<Feather icon={feather.ChevronLeft} />
-			</button>
-		</div>
-	</slot>
+	{#if left}{@render left()}{:else}{@render fallback('left')}{/if}
 
 	<div class="slotted">
-		<slot {limit} {page} {jump}>
+		{#if children}
+			{@render children({ limit, page, jump })}
+		{:else}
 			<div>{curr} - {next} / {total}</div>
-		</slot>
+		{/if}
 	</div>
 
-	<slot name="right">
-		<div class="navigator">
-			<button disabled={page === limit} on:click={click(page + 1)}>
-				<Feather icon={feather.ChevronRight} />
-			</button>
-			<button disabled={page === limit} on:click={click(limit)}>
-				<Feather icon={feather.ChevronsRight} />
-			</button>
-		</div>
-	</slot>
+	{#if right}{@render right()}{:else}{@render fallback('right')}{/if}
 </section>
 
 <style>

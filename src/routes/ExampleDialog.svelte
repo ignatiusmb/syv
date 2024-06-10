@@ -1,13 +1,15 @@
 <script lang="ts">
 	import Dialog from '$lib/core/Dialog.svelte';
 
-	export let required: boolean = false;
+	let { required = false } = $props();
 </script>
 
-<Dialog {required} let:forward>
-	<h2>Hello from Dialog</h2>
+<Dialog {required}>
+	{#snippet children({ forward })}
+		<h2>Hello from Dialog</h2>
 
-	<input type="text" />
+		<input type="text" />
 
-	<button on:click={forward}>Close Dialog</button>
+		<button onclick={forward}>Close Dialog</button>
+	{/snippet}
 </Dialog>

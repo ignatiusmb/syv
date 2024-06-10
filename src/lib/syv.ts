@@ -1,40 +1,26 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
 import type { Demand, LazyComponent, SyvOptions } from './types.js';
+import { mount as create, unmount } from 'svelte';
 import { ntv } from 'mauss/std';
 
-let component: SvelteComponent;
-let events: Array<() => void> = [];
-
-function purge() {
-	events.forEach((destroy) => destroy());
-	component && component.$destroy();
-
-	events = [];
-}
+let instance: ReturnType<typeof create>;
 
 // ---- exposed ----
 
 export function mount<T extends SvelteComponent>(
-	Component: ComponentType<T>,
+	component: ComponentType<T>,
 	...[demanded]: Demand<SyvOptions<T>>
 ) {
-	purge(); // destroy here so it keeps the out transition
+	instance && unmount(instance); // destroy here so it keeps the out transition
 
 	const options = Object.assign({ 'syv:intro': true }, demanded);
 	const props = Object.keys(options).filter((k) => !k.includes(':'));
-	component = new Component({
+	// @ts-expect-error - not sure what's going on here
+	instance = create(component, {
 		intro: options['syv:intro'],
 		target: options['syv:anchor'] || document.body,
-		// @ts-expect-error - valid after T exists
 		props: ntv.pick(props)(options),
 	});
-
-	for (const [k, v] of Object.entries(options)) {
-		if (!k.startsWith('on:')) continue;
-		const event = k.slice('on:'.length);
-		// @ts-expect-error - v is guaranteed a function
-		events.push(component.$on(event, v));
-	}
 }
 
 export function load<T extends SvelteComponent>(

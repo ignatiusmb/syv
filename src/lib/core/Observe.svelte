@@ -1,45 +1,34 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	interface Props {
+		/** unobserve after first sighting */
+		once?: boolean;
+		margin?: string;
+		class?: string;
+		children: import('svelte').Snippet<[sighted: typeof sighted]>;
+	}
 
-	export let once = false;
-	export let top = 0;
-	export let right = 0;
-	export let bottom = 0;
-	export let left = 0;
-	export { className as class };
-	let className = '';
+	const { once = false, margin = '0px', class: className = '', children }: Props = $props();
 
-	let sighted = false;
-	let container: HTMLElement;
+	let sighted = $state(false);
+	let container: undefined | HTMLElement = $state();
 
-	onMount(() => {
-		if (typeof IntersectionObserver !== 'undefined') {
-			const observer = new IntersectionObserver(
-				(entries) => {
-					sighted = entries[0].isIntersecting;
-					if (sighted && once) observer.unobserve(container);
-				},
-				{ rootMargin: `${bottom}px ${left}px ${top}px ${right}px` },
-			);
-			observer.observe(container);
-			return () => observer.unobserve(container);
-		}
-		function handler() {
-			const bcr = container.getBoundingClientRect();
-			sighted =
-				bcr.bottom + bottom > 0 &&
-				bcr.right + right > 0 &&
-				bcr.top - top < window.innerHeight &&
-				bcr.left - left < window.innerWidth;
-			if (sighted && once) window.removeEventListener('scroll', handler);
-		}
-		window.addEventListener('scroll', handler);
-		return () => window.removeEventListener('scroll', handler);
+	$effect(() => {
+		const observer = new IntersectionObserver(
+			([{ isIntersecting }]) => {
+				sighted = isIntersecting;
+				if (sighted && once && container) {
+					observer.unobserve(container);
+				}
+			},
+			{ rootMargin: margin },
+		);
+		container && observer.observe(container);
+		return () => observer.unobserve(container!);
 	});
 </script>
 
 <div bind:this={container} class="syv-core-observe {className}">
-	<slot {sighted} />
+	{@render children(sighted)}
 </div>
 
 <style>

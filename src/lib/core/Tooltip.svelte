@@ -1,17 +1,16 @@
 <script lang="ts">
-	import type { SyvStyles } from '../types';
+	import type { TooltipProps } from './tooltip';
 	import { weave } from '../utils';
 
-	export let html = '';
-	export let x = 0;
-	export let y = 0;
-
-	export let state: undefined | 'fade' = undefined;
-	export let styles: SyvStyles<
-		'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'
-	> = {};
-	export { className as class };
-	let className = '';
+	let {
+		html = '',
+		x = 0,
+		y = 0,
+		state,
+		styles = {},
+		class: className,
+		...props
+	}: TooltipProps = $props();
 </script>
 
 <div
@@ -21,8 +20,7 @@
 	style={weave(styles)}
 	class:fade={state === 'fade'}
 	class="tooltip {className}"
-	on:mouseenter
-	on:mouseleave
+	{...props}
 >
 	{@html html}
 </div>

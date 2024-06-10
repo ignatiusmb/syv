@@ -1,6 +1,5 @@
 import type { HTMLAction } from './types.js';
 import { clipboard } from 'mauss/web';
-import { noop } from '../utils.js';
 
 export const copy: HTMLAction<{
 	data?: string | Blob;
@@ -44,7 +43,7 @@ export const hold: HTMLAction<{
 	duration?: number;
 	/** executed when `duration` has been reached */
 	invoke?: () => void;
-}> = (node, { duration = 2000, invoke = noop } = {}) => {
+}> = (node, { duration = 2000, invoke = () => {} } = {}) => {
 	let timer: number;
 
 	function press() {

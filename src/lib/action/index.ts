@@ -7,7 +7,7 @@ export const autofocus: HTMLAction<boolean> = (node, when = true) => (
 	when && node.focus(), { update: (when) => when && node.focus() }
 );
 
-/** automatically expand/shrink `textarea` height according to content  */
+/** automatically expand `textarea` height according to content  */
 export const autoresize: Action<HTMLTextAreaElement> = (node) => {
 	const { paddingTop: pt, paddingBottom: pb } = getComputedStyle(node);
 	const vertical = parseFloat(pt.slice(0, -2)) + parseFloat(pb.slice(0, -2));

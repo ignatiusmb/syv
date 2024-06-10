@@ -1,31 +1,33 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import type { SyvStyles } from '../types';
 	import { fly } from 'svelte/transition';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { FOCUSABLE, INPUT_FIELDS, TIME } from '../options';
 	import { weave } from '../utils';
 
-	/** change UI mode to `Modal` */
-	export let required = false;
-	export let styles: SyvStyles<
-		| 'backdrop-color'
-		| 'backdrop-filter'
-		| 'background'
-		| 'border-radius'
-		| 'max-width'
-		| 'padding'
-		| 'z-index'
-	> = {};
-	export { className as class };
-	let className = '';
+	interface Props {
+		/** change UI mode to `Modal` */
+		required?: boolean;
+		styles?: SyvStyles<
+			| 'backdrop-color'
+			| 'backdrop-filter'
+			| 'background'
+			| 'border-radius'
+			| 'max-width'
+			| 'padding'
+			| 'z-index'
+		>;
+		class?: string;
+		onclose?(type: 'keydown' | 'pointerdown'): boolean;
+		children: Snippet<[{ forward: typeof forward; nodes: typeof nodes }]>;
+	}
+
+	const { required = false, styles = {}, class: className, onclose, children }: Props = $props();
 
 	const elements = FOCUSABLE.join(', ');
-	const dispatch = createEventDispatcher<{
-		'syv:close': 'keydown' | 'pointerdown';
-	}>();
 	async function forward<T extends Event>(event: T) {
-		const type = event.type as Parameters<typeof dispatch>[1];
-		if (!dispatch('syv:close', type, { cancelable: true })) return;
+		if (onclose && !onclose(event.type as 'keydown' | 'pointerdown')) return;
 		show = !!void setTimeout(() => {
 			document.body.style.removeProperty('padding-right');
 			document.body.style.removeProperty('overflow');
@@ -38,9 +40,9 @@
 		);
 	}
 
-	let show = true;
-	let nodes: HTMLElement[];
-	let dialog: undefined | HTMLElement;
+	let show = $state(true);
+	let nodes: HTMLElement[] = $state([]);
+	let dialog: undefined | HTMLElement = $state();
 	onMount(() => {
 		// accounting 128px top and 16px bottom padding
 		const height = window.innerHeight - (128 + 16);
@@ -69,7 +71,7 @@
 </script>
 
 <svelte:window
-	on:keydown={(event) /** focus trapping */ => {
+	onkeydown={(event) /** focus trapping */ => {
 		if (!show || !dialog) return; // closed but not destroyed
 		if (event.key === 'Escape') return forward(event);
 		nodes = sieve(dialog.querySelectorAll(elements));
@@ -85,22 +87,25 @@
 />
 
 {#if show}
-	<div style={weave(styles)} on:pointerdown|self={(event) => !required && forward(event)}>
+	<div
+		style={weave(styles)}
+		onpointerdown={(event) => event.currentTarget === event.target && !required && forward(event)}
+	>
 		<main
+			bind:this={dialog}
+			in:fly={{ duration: TIME.FLY, y: 64 }}
+			out:fly={{ duration: TIME.FLY, y: -64 }}
 			role="dialog"
 			aria-modal="true"
 			class="syv-core-dialog {className}"
-			in:fly={{ duration: TIME.FLY, y: 64 }}
-			out:fly={{ duration: TIME.FLY, y: -64 }}
-			bind:this={dialog}
 		>
-			<slot {forward} {nodes} />
+			{@render children({ forward, nodes })}
 		</main>
 	</div>
 {/if}
 
 <style>
-	div /** backdrop */ {
+	div {
 		z-index: var(--z-index, 9);
 		position: fixed;
 		inset: 0;

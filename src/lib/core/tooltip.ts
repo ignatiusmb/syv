@@ -1,18 +1,27 @@
-import type { ComponentProps } from 'svelte';
 import type { HTMLAction } from '../action/types';
-
-import { onMount } from 'svelte';
+import type { SyvStyles } from '../types';
+import { mount as attach, unmount, onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
 import Tooltip from './Tooltip.svelte';
 
-type TooltipProps = ComponentProps<Tooltip>;
+export interface TooltipProps {
+	html?: string;
+	x?: number;
+	y?: number;
+	state?: 'fade';
+	styles?: SyvStyles<'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'>;
+	class?: string;
 
-const ATTR = 'data-syv:tooltip';
+	onmouseenter?(event: MouseEvent): void;
+	onmouseleave?(event: MouseEvent): void;
+}
+
+const ATTR = 'data-syv-tooltip';
 const TIMEOUT = 240;
 const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
 let target: undefined | HTMLElement;
-let tooltip: undefined | Tooltip;
+let tooltip: undefined | ReturnType<typeof attach>;
 let timeout: number;
 
 function scan(anchor: null | EventTarget) {
@@ -31,12 +40,19 @@ function scan(anchor: null | EventTarget) {
 
 function render(props: TooltipProps) {
 	// destroy and remount, `style:` directives are not reactive
-	if (tooltip) tooltip = void tooltip.$destroy();
-	tooltip = new Tooltip({ target: document.body, props });
-	tooltip.$on('mouseenter', () => clearTimeout(timeout));
-	tooltip.$on('mouseleave', () => {
-		if (target === document.activeElement) return;
-		timeout = setTimeout(dismount, TIMEOUT);
+	if (tooltip) tooltip = void unmount(tooltip);
+
+	tooltip = attach(Tooltip, {
+		target: document.body,
+		props: Object.assign(props, {
+			onmouseenter() {
+				clearTimeout(timeout);
+			},
+			onmouseleave() {
+				if (target === document.activeElement) return;
+				timeout = setTimeout(dismount, TIMEOUT);
+			},
+		}),
 	});
 }
 
@@ -55,12 +71,12 @@ const listeners = {
 // ---- exposed ----
 
 export function dismount() {
-	target = tooltip = void tooltip?.$destroy();
+	target = tooltip = void (tooltip && unmount(tooltip));
 }
 
 export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 	const { data = html, node } = scan(anchor);
-	if (!data) return; // no `html` provided or `data-syv:tooltip` found
+	if (!data) return; // no `html` provided or `data-syv-tooltip` found
 
 	if (timeout) clearTimeout(timeout);
 	listeners.attach((target = node || anchor));
@@ -76,8 +92,7 @@ export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 
 export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 	Object.assign(OPTIONS, options);
-	const escaped = ATTR.replace(':', '\\:');
-	const elements = FOCUSABLE.map((el) => `${el}[${escaped}]`);
+	const elements = FOCUSABLE.map((el) => `${el}[${ATTR}]`);
 
 	function enter(event: MouseEvent) {
 		const alive = target === document.activeElement;

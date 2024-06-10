@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { syv } from '$lib';
+	import { syv as core } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
@@ -7,20 +7,33 @@
 	import { autoresize } from '$lib/action';
 	import { outside, copy } from '$lib/action/click';
 
-	let value = '';
+	let value = $state('');
 </script>
 
 <main use:outside={() => {}}>
-	<SearchBar icon filters />
+	<SearchBar items={[]} transformer={() => ({})} icon />
 
-	<textarea bind:value use:autoresize />
+	<textarea bind:value use:autoresize></textarea>
 
 	<button use:copy={{ data: value }}>Copy to Clipboard</button>
 
 	<button
-		on:click={() => {
-			syv.mount(ExampleDialog);
-			syv.load(() => import('./ExampleDialog.svelte'));
+		onclick={() => {
+			core.mount(ExampleDialog, {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
+			core.load(import('./ExampleDialog.svelte'), {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
+			core.load(() => import('./ExampleDialog.svelte'), {
+				required: true,
+				// @ts-expect-error
+				error: false,
+			});
 		}}
 	>
 		Open Dialog

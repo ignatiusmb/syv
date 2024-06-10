@@ -1,8 +1,8 @@
 import type { Flexible } from 'mauss/typings';
-import type * as ST from 'svelte';
+import type { ComponentProps, ComponentType, SvelteComponent } from 'svelte';
 
 export interface AnyComponent {
-	new (...args: any): ST.SvelteComponentTyped;
+	new (...args: any): typeof SvelteComponent;
 }
 
 export interface AnyLazyComponent {
@@ -15,23 +15,15 @@ export type Demand<T> = {
 	? [T?]
 	: [T];
 
-export type Exposed<
-	T extends ST.SvelteComponent,
-	Props = ST.ComponentProps<T>,
-	Events = ST.ComponentEvents<T>,
-> = (Props extends { [key: string]: never } ? {} : Props) & {
-	[K in keyof Events as `on:${string & K}`]?: (ev: Events[K]) => void;
-};
-
-export interface LazyComponent<T extends ST.SvelteComponent> {
-	(): Promise<{ default: ST.ComponentType<T> }>;
+export interface LazyComponent<T extends SvelteComponent> {
+	(): Promise<{ default: ComponentType<T> }>;
 }
 
 // ---- Syv ----
 
-export type SyvOptions<T extends ST.SvelteComponent> = Exposed<T> & {
-	'syv:anchor'?: ST.ComponentConstructorOptions['target'];
-	'syv:intro'?: ST.ComponentConstructorOptions['intro'];
+export type SyvOptions<T extends SvelteComponent> = ComponentProps<T> & {
+	'syv:anchor'?: Element | Document;
+	'syv:intro'?: boolean;
 };
 
 export type SyvStyles<T extends string> = {

@@ -1,54 +1,71 @@
-<script>
+<script lang="ts">
 	import Observe from './Observe.svelte';
 	import Overlay from './Overlay.svelte';
 	import { fade } from 'svelte/transition';
 
-	export let src = '';
-	export let alt = '';
-	/** image ratio with y/x axis as floating number */
-	export let ratio = 9 / 16;
-	/** lazily load image using intersection observer */
-	export let lazy = false;
-	/** set object-fit to contain */
-	export let contain = false;
-	/** enable overlay with default slot */
-	export let overlay = false;
-	/** position wrapper div as absolute */
-	export let absolute = false;
-	/** @type {import('svelte/transition').FadeParams} fade in options */
-	export let transition = {};
-	export { className as class };
-	let className = '';
+	interface Props {
+		/** image source */
+		src?: string;
+		/** image alt text */
+		alt?: string;
+		/** image ratio with y/x axis as floating number */
+		ratio?: number;
+		/** lazily load image using intersection observer */
+		lazy?: boolean;
+		/** set object-fit to contain */
+		contain?: boolean;
+		/** enable overlay with default slot */
+		overlay?: boolean;
+		/** position wrapper div as absolute */
+		absolute?: boolean;
+		/** fade in options */
+		transition?: import('svelte/transition').FadeParams;
+		/** class name */
+		class?: string;
+		children: import('svelte').Snippet;
+	}
 
-	let show = false;
+	const {
+		src = '',
+		alt = '',
+		ratio = 9 / 16,
+		lazy = false,
+		contain = false,
+		overlay = false,
+		absolute = false,
+		transition = {},
+		class: className,
+		children,
+	}: Props = $props();
+
+	let show = $state(false);
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+{#snippet image()}
+	<img {src} {alt} in:fade={transition} class:contain />
+	{#if overlay}
+		<Overlay {show}>
+			{@render children()}
+		</Overlay>
+	{/if}
+{/snippet}
+
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	style:padding-top="{ratio * 100}%"
 	class:absolute
 	class="syv-core-image {className}"
-	on:mouseenter={() => (show = true)}
-	on:mouseleave={() => (show = false)}
+	onmouseenter={() => (show = true)}
+	onmouseleave={() => (show = false)}
 >
 	{#if lazy}
-		<Observe once let:sighted>
-			{#if sighted}
-				<img {src} {alt} in:fade={transition} class:contain />
-				{#if overlay}
-					<Overlay {show}>
-						<slot />
-					</Overlay>
-				{/if}
-			{/if}
+		<Observe once={true}>
+			{#snippet children(sighted)}
+				{#if sighted}{@render image()}{/if}
+			{/snippet}
 		</Observe>
 	{:else}
-		<img {src} {alt} in:fade={transition} class:contain />
-		{#if overlay}
-			<Overlay {show}>
-				<slot />
-			</Overlay>
-		{/if}
+		{@render image()}
 	{/if}
 </div>
 
