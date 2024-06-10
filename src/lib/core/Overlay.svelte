@@ -27,7 +27,7 @@
 		display: grid;
 		justify-items: center;
 		align-content: space-between;
-		padding: 1em 0.5em;
+		padding: 1rem 0.5rem;
 		border-radius: inherit;
 		background-color: rgba(0, 0, 0, 0.7);
 		color: #ffffff;
