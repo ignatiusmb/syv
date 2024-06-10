@@ -1,6 +1,6 @@
 import type { ComponentType, SvelteComponent } from 'svelte';
 import type { Demand, LazyComponent, SyvOptions } from './types.js';
-import { mount as create } from 'svelte';
+import { mount as create, unmount } from 'svelte';
 import { ntv } from 'mauss/std';
 
 let instance: ReturnType<typeof create>;
@@ -11,7 +11,7 @@ export function mount<T extends SvelteComponent>(
 	component: ComponentType<T>,
 	...[demanded]: Demand<SyvOptions<T>>
 ) {
-	instance && instance[1](); // destroy here so it keeps the out transition
+	instance && unmount(instance); // destroy here so it keeps the out transition
 
 	const options = Object.assign({ 'syv:intro': true }, demanded);
 	const props = Object.keys(options).filter((k) => !k.includes(':'));

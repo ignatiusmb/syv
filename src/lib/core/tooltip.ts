@@ -1,6 +1,6 @@
 import type { HTMLAction } from '../action/types';
 import type { SyvStyles } from '../types';
-import { mount as attach, onMount } from 'svelte';
+import { mount as attach, unmount, onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
 import Tooltip from './Tooltip.svelte';
 
@@ -16,7 +16,7 @@ export interface TooltipProps {
 	onmouseleave?(event: MouseEvent): void;
 }
 
-const ATTR = 'data-syv:tooltip';
+const ATTR = 'data-syv-tooltip';
 const TIMEOUT = 240;
 const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
 
@@ -40,7 +40,7 @@ function scan(anchor: null | EventTarget) {
 
 function render(props: TooltipProps) {
 	// destroy and remount, `style:` directives are not reactive
-	if (tooltip) tooltip = void tooltip.$destroy();
+	if (tooltip) tooltip = void unmount(tooltip);
 
 	tooltip = attach(Tooltip, {
 		target: document.body,
@@ -71,12 +71,12 @@ const listeners = {
 // ---- exposed ----
 
 export function dismount() {
-	target = tooltip = void tooltip?.$destroy();
+	target = tooltip = void (tooltip && unmount(tooltip));
 }
 
 export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 	const { data = html, node } = scan(anchor);
-	if (!data) return; // no `html` provided or `data-syv:tooltip` found
+	if (!data) return; // no `html` provided or `data-syv-tooltip` found
 
 	if (timeout) clearTimeout(timeout);
 	listeners.attach((target = node || anchor));
@@ -92,8 +92,7 @@ export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 
 export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 	Object.assign(OPTIONS, options);
-	const escaped = ATTR.replace(':', '\\:');
-	const elements = FOCUSABLE.map((el) => `${el}[${escaped}]`);
+	const elements = FOCUSABLE.map((el) => `${el}[${ATTR}]`);
 
 	function enter(event: MouseEvent) {
 		const alive = target === document.activeElement;

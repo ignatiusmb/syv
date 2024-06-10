@@ -5,7 +5,6 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { noop } from '../utils';
 
 	interface Props {
 		runner?: 'background' | 'interactive';
@@ -19,11 +18,9 @@
 		runner = 'background',
 		refresh = 10 * 60 * 1000,
 		interval = refresh / 60,
-		task = noop,
+		task = () => {},
 		children,
 	}: Props = $props();
-
-	// export let interval = refresh / 60;
 
 	let timeout: number;
 

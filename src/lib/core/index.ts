@@ -1,5 +1,4 @@
 export { default as Dialog } from './Dialog.svelte';
-export { default as GradientBorder } from './GradientBorder.svelte';
 export { default as Image } from './Image.svelte';
 export { default as LazyLoad } from './LazyLoad.svelte';
 export { default as Observe } from './Observe.svelte';
