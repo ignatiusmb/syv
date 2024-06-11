@@ -11,7 +11,7 @@
 </script>
 
 <main use:outside={() => {}}>
-	<SearchBar items={[]} transformer={() => ({})} />
+	<SearchBar items={[]} sieve={() => true} />
 
 	<textarea bind:value use:autoresize></textarea>
 
