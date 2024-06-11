@@ -93,7 +93,7 @@
 	>
 		<main
 			bind:this={dialog}
-			in:fly={{ duration: TIME.FLY, y: 64 }}
+			in:fly|global={{ duration: TIME.FLY, y: 64 }}
 			out:fly={{ duration: TIME.FLY, y: -64 }}
 			role="dialog"
 			aria-modal="true"
