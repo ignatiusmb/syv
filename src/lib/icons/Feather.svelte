@@ -20,7 +20,6 @@
 		girth?: string | number;
 		scale?: string | number;
 		flip?: undefined | 'x' | 'y';
-		class?: string;
 	}
 
 	const {
@@ -30,7 +29,6 @@
 		girth = 1.5,
 		scale = 1.5,
 		flip = undefined,
-		class: className = '',
 	}: Props = $props();
 
 	const { width, height } = $derived.by(() => {
@@ -49,7 +47,6 @@
 		'aria-label': label || null,
 		'stroke-width': girth,
 		role: label ? 'img' : 'presentation',
-		class: className || null,
 	});
 </script>
 

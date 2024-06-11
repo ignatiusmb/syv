@@ -3,11 +3,10 @@
 
 	interface Props {
 		themes?: string[];
-		class?: string;
 		children?: import('svelte').Snippet<[current: string]>;
 	}
 
-	const { themes = ['light', 'dark'], class: className = '', children }: Props = $props();
+	const { themes = ['light', 'dark'], children }: Props = $props();
 
 	const browser = typeof window !== 'undefined';
 	const dark = browser && matchMedia('(prefers-color-scheme: dark)').matches;
@@ -32,12 +31,12 @@
 </script>
 
 <button
-	class="syv-theme-switcher {className}"
 	aria-label="Toggle Theme"
 	class:nice
+	class="syv-theme-switcher"
 	onclick={toggle}
-	onmousedown={() => (nice = true)}
 	onblur={() => (nice = false)}
+	onmousedown={() => (nice = true)}
 >
 	{#if children}
 		{@render children(current)}

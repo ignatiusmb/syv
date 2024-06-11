@@ -18,12 +18,12 @@
 			| 'padding'
 			| 'z-index'
 		>;
-		class?: string;
+
 		onclose?(type: 'keydown' | 'pointerdown'): boolean;
 		children: Snippet<[{ forward: typeof forward; nodes: typeof nodes }]>;
 	}
 
-	const { required = false, styles = {}, class: className, onclose, children }: Props = $props();
+	const { required = false, styles = {}, onclose, children }: Props = $props();
 
 	const elements = FOCUSABLE.join(', ');
 	async function forward<T extends Event>(event: T) {
@@ -97,7 +97,7 @@
 			out:fly={{ duration: TIME.FLY, y: -64 }}
 			role="dialog"
 			aria-modal="true"
-			class="syv-core-dialog {className}"
+			class="syv-core-dialog"
 		>
 			{@render children({ forward, nodes })}
 		</main>
