@@ -54,7 +54,7 @@
 		gap: 0.75rem;
 		justify-items: center;
 
-		padding: 2em;
+		padding: 2rem;
 		margin: 0 auto;
 	}
 </style>

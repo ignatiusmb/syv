@@ -62,7 +62,7 @@
 <style>
 	button {
 		cursor: pointer;
-		height: 1.5em;
+		height: 1.5rem;
 	}
 	button path {
 		transition: var(--t-duration, 300ms);

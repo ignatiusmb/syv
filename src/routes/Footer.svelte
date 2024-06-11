@@ -52,28 +52,28 @@
 		--t-duration: 200ms;
 
 		width: 100%;
-		max-width: 53em;
+		max-width: 53rem;
 		position: relative;
 		display: grid;
-		gap: 0.5em;
-		padding: 3em 1em;
-		margin: auto auto 3em;
+		gap: 0.5rem;
+		padding: 3rem 1rem;
+		margin: auto auto 3rem;
 		text-align: center;
 		line-height: 1.5;
 		font-family: var(--font-monospace);
-		font-size: clamp(0.8em, 3vw, 1em);
+		font-size: clamp(0.8rem, 3vw, 1rem);
 	}
 	.social-links {
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		padding: 0 0 0.5em;
+		padding: 0 0 0.5rem;
 		margin: auto;
 	}
 	.social-links > a {
-		flex: 0 1 5em;
-		padding-top: 1em;
+		flex: 0 1 5rem;
+		padding-top: 1rem;
 	}
 	.social-links a,
 	.social-links a:visited {
@@ -99,6 +99,6 @@
 		display: grid;
 		grid-template-rows: repeat(2, 1fr);
 		place-items: center;
-		gap: 0.5em;
+		gap: 0.5rem;
 	}
 </style>
