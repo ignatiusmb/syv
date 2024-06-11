@@ -4,8 +4,6 @@
 
 	interface Props {
 		items: T[];
-		transformer(item: T): Record<string, string>;
-
 		value?: string;
 		placeholder?: string;
 
@@ -14,15 +12,15 @@
 			filter: import('svelte').ComponentProps<Feather>['icon'];
 		};
 
-		autocomplete?: import('svelte').Snippet<[{ index: T[]; update(v: string): void }]>;
+		sieve(utils: { item: T; query: string; normalize(s: string): string }): boolean;
 		filter?(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }): void;
 
+		autocomplete?: import('svelte').Snippet<[{ index: T[]; update(v: string): void }]>;
 		children?: import('svelte').Snippet<[{ query: string; index: T[] }]>;
 	}
 
 	let {
 		items,
-		transformer,
 
 		value = '',
 		placeholder = 'Type your queries here (Press "/" to focus)',
@@ -31,23 +29,19 @@
 			filter: Sliders,
 		},
 
-		autocomplete,
+		sieve,
 		filter,
+
+		autocomplete,
 		children,
 	}: Props = $props();
 
 	const show = $state({ autocomplete: false });
 	let searchbox: undefined | HTMLInputElement = $state();
 
-	function normalize(s: string) {
-		return s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
-	}
-
 	const sifted = $derived.by(() => {
-		const query = normalize(value);
-		return items.filter((i) =>
-			Object.values(transformer(i)).some((v) => normalize(v).includes(query)),
-		);
+		const normalize = (s: string) => s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
+		return items.filter((item) => sieve({ item, query: value, normalize }));
 	});
 </script>
 
