@@ -26,10 +26,6 @@
 			"types": "./index.d.ts",
 			"svelte": "./index.js"
 		},
-		"./core": {
-			"types": "./core/index.d.ts",
-			"svelte": "./core/index.js"
-		},
 		"./core/*.svelte": {
 			"types": "./core/*.svelte.d.ts",
 			"svelte": "./core/*.svelte"
@@ -37,10 +33,6 @@
 		"./action": {
 			"types": "./action/index.d.ts",
 			"default": "./action/index.js"
-		},
-		"./action/click": {
-			"types": "./action/click.d.ts",
-			"default": "./action/click.js"
 		},
 		"./icons/*.svelte": {
 			"types": "./icons/*.svelte.d.ts",
