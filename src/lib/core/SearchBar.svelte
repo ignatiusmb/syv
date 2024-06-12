@@ -1,49 +1,47 @@
 <script lang="ts" generics="T extends { slug: string }">
-	import { Search } from '../icons/feather';
+	import { Search, Sliders } from '../icons/feather';
 	import Feather from '../icons/Feather.svelte';
 
 	interface Props {
 		items: T[];
-		transformer(item: T): Record<string, string>;
-
 		value?: string;
 		placeholder?: string;
 
-		/**
-		 * - `string` to reference an image from static assets
-		 * - `boolean` (`true`) to use built-in feather icon
-		 * - snippet to render your own icon
-		 */
-		icon?: string | boolean | import('svelte').Snippet;
-		class?: string;
+		icons?: {
+			search: import('svelte').ComponentProps<Feather>['icon'];
+			filter: import('svelte').ComponentProps<Feather>['icon'];
+		};
 
+		sieve(utils: { item: T; query: string; normalize(s: string): string }): boolean;
+		filter?(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }): void;
+
+		autocomplete?: import('svelte').Snippet<[{ index: T[]; update(v: string): void }]>;
 		children?: import('svelte').Snippet<[{ query: string; index: T[] }]>;
 	}
 
 	let {
+		items,
+
 		value = '',
 		placeholder = 'Type your queries here (Press "/" to focus)',
-		icon = false,
-		class: className = '',
+		icons = {
+			search: Search,
+			filter: Sliders,
+		},
 
-		items,
-		transformer,
+		sieve,
+		filter,
 
+		autocomplete,
 		children,
 	}: Props = $props();
 
 	const show = $state({ autocomplete: false });
 	let searchbox: undefined | HTMLInputElement = $state();
 
-	function normalize(s: string) {
-		return s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
-	}
-
 	const sifted = $derived.by(() => {
-		const query = normalize(value);
-		return items.filter((i) =>
-			Object.values(transformer(i)).some((v) => normalize(v).includes(query)),
-		);
+		const normalize = (s: string) => s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
+		return items.filter((item) => sieve({ item, query: value, normalize }));
 	});
 </script>
 
@@ -57,86 +55,50 @@
 	}}
 />
 
-<div class="syv-core-search-bar {className}">
-	<div class:icon class="sb">
-		<label>
-			{#if icon}
-				<span>
-					{#if typeof icon === 'string'}
-						<img src={icon} alt="icon" />
-					{:else if typeof icon === 'boolean'}
-						<Feather scale="1.5" icon={Search} />
-					{:else}
-						{@render icon()}
-					{/if}
-				</span>
-			{/if}
+<div class="syv-core-search-bar">
+	<label>
+		<Feather scale="1.5" icon={icons.search} />
 
-			<input
-				bind:this={searchbox}
-				bind:value
-				type="text"
-				{placeholder}
-				onblur={() => (show.autocomplete = false)}
-				onfocus={() => (show.autocomplete = true)}
-			/>
-		</label>
+		<input
+			bind:this={searchbox}
+			bind:value
+			type="text"
+			{placeholder}
+			onblur={() => (show.autocomplete = false)}
+			onfocus={() => (show.autocomplete = true)}
+		/>
+	</label>
 
-		{#if show.autocomplete && value.length > 1 && sifted.length}
-			<div class="autocomplete">
-				{#each sifted.map(transformer) as { slug, title } (slug)}
-					<span
-						onpointerdown={() => {
-							value = title;
-							searchbox?.blur();
-						}}
-					>
-						{title}
-					</span>
-				{/each}
-			</div>
-		{/if}
-	</div>
+	{#if filter}
+		<button onclick={filter}>
+			<Feather scale="1.5" icon={icons.filter} />
+		</button>
+	{/if}
+
+	{#if show.autocomplete && value.length > 1 && autocomplete}
+		<div class="autocomplete">
+			{@render autocomplete({
+				index: sifted,
+				update(v) {
+					value = v;
+					searchbox?.blur();
+				},
+			})}
+		</div>
+	{/if}
 </div>
 
 {@render children?.({ query: value, index: sifted })}
 
 <style>
 	.syv-core-search-bar {
-		display: grid;
-		gap: 0.5em;
-	}
-
-	.sb {
 		position: relative;
-		display: grid;
-		gap: 0.5em;
-		grid-template-columns: 1fr;
+		width: 100%;
+
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
 		border-radius: inherit;
-
-		&.icon {
-			label {
-				& > input {
-					padding-left: 2.7em;
-				}
-
-				& > span:first-child {
-					pointer-events: none;
-					max-width: 1.5em;
-					max-height: 1.5em;
-					position: absolute;
-					top: 50%;
-					left: 0.6em;
-					transform: translate(0, -50%);
-					color: var(--fg-surface, rgba(255, 255, 255, 0.65));
-
-					& > :global(*) {
-						width: 100%;
-						height: 100%;
-					}
-				}
-			}
-		}
 
 		label,
 		input {
@@ -146,14 +108,45 @@
 		}
 		label {
 			position: relative;
+			flex-grow: 1;
+
+			& > :global(:first-child) {
+				pointer-events: none;
+				max-width: 1.5rem;
+				max-height: 1.5rem;
+				width: 100%;
+				height: 100%;
+
+				position: absolute;
+				top: 50%;
+				left: 0.6rem;
+				transform: translate(0, -50%);
+				color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+			}
+
+			& > input {
+				padding-left: 2.7rem;
+			}
 		}
 		input {
 			width: 100%;
 			height: 100%;
 		}
+
+		button {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			border-radius: inherit;
+			color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+
+			&:hover,
+			&:focus {
+				background-color: var(--bg-overlay, #2d2f34);
+			}
+		}
 	}
 
-	/* Autocomplete */
 	.autocomplete {
 		z-index: 9;
 		overflow-y: auto;
@@ -164,7 +157,7 @@
 		top: 100%;
 
 		display: grid;
-		padding: 0.5em 0;
+		padding: 0.5rem 0;
 		margin-top: 0.25rem;
 		border: 1px solid var(--fg-surface, rgba(255, 255, 255, 0.65));
 		border-radius: var(--b-radius);
@@ -172,18 +165,24 @@
 		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
 		background-color: var(--bg-overlay, #2d2f34);
 
+		&:empty {
+			display: none;
+		}
+
 		& > :global(*) {
 			overflow: hidden;
 			white-space: nowrap;
+			text-align: left;
 			text-overflow: ellipsis;
 
-			padding: 0.4em 0.8em;
-		}
+			padding: 0.4rem 0.8rem;
+			color: inherit;
 
-		& > :global(:hover) {
-			cursor: pointer;
-			color: #ffffff;
-			background: #2e69e2;
+			&:hover {
+				cursor: pointer;
+				color: #ffffff;
+				background: #2e69e2;
+			}
 		}
 	}
 </style>
