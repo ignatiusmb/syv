@@ -4,8 +4,7 @@
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
 
-	import { autoresize } from '$lib/action';
-	import { outside, copy } from '$lib/action/click';
+	import { autoresize, copy, outside } from '$lib/action';
 
 	let value = $state('');
 </script>
