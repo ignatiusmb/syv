@@ -1,5 +1,5 @@
 import type { Flexible } from 'mauss/typings';
-import type { ComponentProps, ComponentType, SvelteComponent } from 'svelte';
+import type { ComponentType, SvelteComponent } from 'svelte';
 
 export interface AnyComponent {
 	new (...args: any): typeof SvelteComponent;
@@ -21,7 +21,7 @@ export interface LazyComponent<T extends SvelteComponent> {
 
 // ---- Syv ----
 
-export type SyvOptions<T extends SvelteComponent> = ComponentProps<T> & {
+export type SyvOptions = {
 	'syv:anchor'?: Element | Document;
 	'syv:intro'?: boolean;
 };

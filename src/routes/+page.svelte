@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { syv as core } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
+
+	import Empty from './Empty.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
 	import Footer from './Footer.svelte';
 
@@ -18,6 +20,9 @@
 
 	<button
 		onclick={() => {
+			core.mount(Empty);
+			// @ts-expect-error
+			core.mount(ExampleDialog);
 			core.mount(ExampleDialog, {
 				required: true,
 				// @ts-expect-error
