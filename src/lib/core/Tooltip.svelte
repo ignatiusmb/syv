@@ -2,15 +2,7 @@
 	import type { TooltipProps } from './tooltip';
 	import { weave } from '../utils';
 
-	let {
-		html = '',
-		x = 0,
-		y = 0,
-		state,
-		styles = {},
-		class: className,
-		...props
-	}: TooltipProps = $props();
+	let { html = '', x = 0, y = 0, state, styles = {}, ...props }: TooltipProps = $props();
 </script>
 
 <div
@@ -19,7 +11,7 @@
 	style:left="{x}px"
 	style={weave(styles)}
 	class:fade={state === 'fade'}
-	class="tooltip {className}"
+	class="syv-core-tooltip"
 	{...props}
 >
 	{@html html}

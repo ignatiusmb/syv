@@ -1,7 +1,10 @@
 <script lang="ts">
 	import Dialog from '$lib/core/Dialog.svelte';
 
-	let { required = false } = $props();
+	interface Props {
+		required: boolean;
+	}
+	let { required = false }: Props = $props();
 </script>
 
 <Dialog {required}>

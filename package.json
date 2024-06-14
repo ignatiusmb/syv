@@ -26,10 +26,6 @@
 			"types": "./index.d.ts",
 			"svelte": "./index.js"
 		},
-		"./core": {
-			"types": "./core/index.d.ts",
-			"svelte": "./core/index.js"
-		},
 		"./core/*.svelte": {
 			"types": "./core/*.svelte.d.ts",
 			"svelte": "./core/*.svelte"
@@ -37,10 +33,6 @@
 		"./action": {
 			"types": "./action/index.d.ts",
 			"default": "./action/index.js"
-		},
-		"./action/click": {
-			"types": "./action/click.d.ts",
-			"default": "./action/click.js"
 		},
 		"./icons/*.svelte": {
 			"types": "./icons/*.svelte.d.ts",
@@ -99,10 +91,10 @@
 		"marqua": "^0.5.8",
 		"prettier": "^3.2.5",
 		"prettier-plugin-sort-package-json": "^0.2.0",
-		"prettier-plugin-svelte": "^3.2.3",
-		"svelte": "next",
-		"svelte-check": "^3.7.1",
-		"svelte2tsx": "^0.6.27",
+		"prettier-plugin-svelte": "^3.2.4",
+		"svelte": "5.0.0-next.153",
+		"svelte-check": "^3.8.0",
+		"svelte2tsx": "^0.7.9",
 		"typescript": "^5.4.5",
 		"vite": "^5.2.11"
 	}

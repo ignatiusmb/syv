@@ -4,13 +4,12 @@
 
 	interface Props {
 		styles?: SyvStyles<'background' | 'margin' | 'padding' | 'spacing'>;
-		class?: string;
 	}
 
-	let { styles = {}, class: className = '' }: Props = $props();
+	let { styles = {} }: Props = $props();
 </script>
 
-<div style={weave(styles)} class="syv-loader-ellipsis {className}">
+<div style={weave(styles)} class="syv-loader-ellipsis">
 	<span></span>
 	<span></span>
 	<span></span>

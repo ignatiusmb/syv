@@ -10,7 +10,6 @@ export interface TooltipProps {
 	y?: number;
 	state?: 'fade';
 	styles?: SyvStyles<'background' | 'border-radius' | 'padding' | 'text-color' | 'text-size'>;
-	class?: string;
 
 	onmouseenter?(event: MouseEvent): void;
 	onmouseleave?(event: MouseEvent): void;
@@ -18,7 +17,7 @@ export interface TooltipProps {
 
 const ATTR = 'data-syv-tooltip';
 const TIMEOUT = 240;
-const OPTIONS: Pick<TooltipProps, 'class' | 'styles'> = {};
+const OPTIONS: Pick<TooltipProps, 'styles'> = {};
 
 let target: undefined | HTMLElement;
 let tooltip: undefined | ReturnType<typeof attach>;
@@ -85,7 +84,6 @@ export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 		html: html || data, // `html` > possibly outdated `data`
 		x: window.scrollX + (rect.left + rect.right) / 2,
 		y: window.scrollY + rect.top,
-		class: OPTIONS.class || '',
 		styles: OPTIONS.styles || {},
 	});
 }
