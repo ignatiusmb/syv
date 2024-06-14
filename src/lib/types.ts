@@ -21,10 +21,10 @@ export interface LazyComponent<T extends SvelteComponent> {
 
 // ---- Syv ----
 
-export type SyvOptions = {
+export interface SyvOptions {
 	'syv:anchor'?: Element | Document;
 	'syv:intro'?: boolean;
-};
+}
 
 export type SyvStyles<T extends string> = {
 	[K in T as `--${K}`]?: 'none' | number | SyvCSS.GlobalValues;
