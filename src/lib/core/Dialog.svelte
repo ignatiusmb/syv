@@ -10,12 +10,15 @@
 		/** change UI mode to `Modal` */
 		required?: boolean;
 		styles?: SyvStyles<
+			| 'align-self'
 			| 'backdrop-color'
 			| 'backdrop-filter'
 			| 'background'
 			| 'border-radius'
+			| 'margin-top'
 			| 'max-width'
 			| 'padding'
+			| 'side-padding'
 			| 'z-index'
 		>;
 
@@ -44,18 +47,19 @@
 	let nodes: HTMLElement[] = $state([]);
 	let dialog: undefined | HTMLElement = $state();
 	onMount(() => {
-		// accounting 128px top and 16px bottom padding
-		const height = window.innerHeight - (128 + 16);
+		const mb = dialog && window.getComputedStyle(dialog).marginBlock.split(' ');
+		const gap = mb ? Math.max(+mb[0].slice(0, -2), +(mb[1]?.slice(0, -2) || 0)) : 0;
+		const mxh = window.innerHeight - (gap * 2 + /* container y-padding */ 32);
 		const observer = new ResizeObserver(([observed]) => {
 			const target = observed.target as HTMLElement;
 			target.style.removeProperty('overflow');
-			if (target.clientHeight < height) return;
+			if (target.clientHeight < mxh) return;
 			target.style.setProperty('overflow', 'auto');
 		});
 
 		if (dialog) {
 			observer.observe(dialog);
-			dialog.style.setProperty('max-height', `${height}px`);
+			dialog.style.setProperty('max-height', `${mxh}px`);
 			const elements = INPUT_FIELDS.join(', ');
 			const inputs = sieve(dialog.querySelectorAll(elements));
 			if (inputs.length) inputs[0].focus();
@@ -113,14 +117,16 @@
 		justify-items: center;
 		align-items: flex-start;
 		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
+		padding: 1rem var(--side-padding, 1rem);
 		background: var(--backdrop-color, rgba(0, 0, 0, 0.4));
 		backdrop-filter: var(--backdrop-filter, blur(0.1rem));
 	}
 	main {
 		width: 100%;
 		grid-column: 2;
+		align-self: var(--align-self, center);
 		padding: var(--padding, 2rem);
-		margin-top: 8rem;
+		margin-top: var(--margin-top);
 		border-radius: var(--border-radius, 0.5rem);
 		background: var(--background, #ffffff);
 	}
