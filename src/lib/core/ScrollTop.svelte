@@ -27,6 +27,7 @@
 <svelte:window bind:scrollY />
 <button
 	type="button"
+	aria-label="Scroll to Top"
 	style={weave(styles)}
 	style:--progress={progress}
 	class:show={progress >= reveal}
