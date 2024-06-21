@@ -1,12 +1,8 @@
 import type { Flexible } from 'mauss/typings';
-import type { ComponentType, SvelteComponent } from 'svelte';
+import type { SvelteComponent } from 'svelte';
 
-export interface AnyComponent {
-	new (...args: any): typeof SvelteComponent;
-}
-
-export interface AnyLazyComponent {
-	(): Promise<{ default: AnyComponent }>;
+export interface AnyComponent<T extends SvelteComponent = SvelteComponent> {
+	new (...args: any): T;
 }
 
 export type Demand<T> = {
@@ -16,7 +12,7 @@ export type Demand<T> = {
 	: [T];
 
 export interface LazyComponent<T extends SvelteComponent> {
-	(): Promise<{ default: ComponentType<T> }>;
+	(): Promise<{ default: AnyComponent<T> }>;
 }
 
 // ---- Syv ----
