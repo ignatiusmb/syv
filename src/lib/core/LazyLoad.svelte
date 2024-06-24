@@ -1,13 +1,17 @@
-<script lang="ts">
-	import type { AnyLazyComponent } from '../types';
+<script lang="ts" generics="T extends LazyComponent<any>[]">
+	type Loaded = {
+		[K in keyof T]: T[K] extends () => Promise<{ default: infer C }> ? C : never;
+	};
+
+	import type { LazyComponent } from '../types';
 
 	interface Props {
-		files: AnyLazyComponent[];
+		files: [...T];
 		when?: boolean;
 
 		loading?: import('svelte').Snippet;
 		fallback?: import('svelte').Snippet<[error: any]>;
-		children: import('svelte').Snippet<[loaded: any]>;
+		children: import('svelte').Snippet<[loaded: Loaded]>;
 	}
 
 	const { files, when = true, loading, fallback, children }: Props = $props();
@@ -20,7 +24,7 @@
 	{#await Promise.all(promises)}
 		{@render loading?.()}
 	{:then components}
-		{@render children(components.map((c) => c.default))}
+		{@render children(components.map((c) => c.default) as Loaded)}
 	{:catch error}
 		{@render fallback?.(error)}
 	{/await}
