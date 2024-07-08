@@ -40,7 +40,7 @@
 
 	<section>
 		<p>Copyright &copy; 2017 &ndash; {new Date().getFullYear()} Ignatius Bagussuputra</p>
-		<p>Handcrafted with ❤️ using SvelteKit &plus; Marqua</p>
+		<p>Handcrafted with ❤️ using SvelteKit &plus; Aubade</p>
 	</section>
 </footer>
 

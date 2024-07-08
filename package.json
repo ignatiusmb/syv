@@ -62,7 +62,7 @@
 			"default": "./utils.js"
 		}
 	},
-	"packageManager": "pnpm@8.12.1",
+	"packageManager": "pnpm@9.5.0",
 	"prettier": "mauss/prettier.json",
 	"keywords": [
 		"svelte",
@@ -75,27 +75,27 @@
 		"kit"
 	],
 	"dependencies": {
-		"mauss": "^0.7.2"
+		"mauss": "^0.8.1"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
 		"@ignatiusmb/styles": "^0.1.1",
-		"@sveltejs/adapter-vercel": "^4.0.5",
-		"@sveltejs/kit": "^2.5.10",
-		"@sveltejs/package": "^2.3.1",
-		"@sveltejs/vite-plugin-svelte": "^3.1.0",
+		"@sveltejs/adapter-vercel": "^5.4.1",
+		"@sveltejs/kit": "^2.5.18",
+		"@sveltejs/package": "^2.3.2",
+		"@sveltejs/vite-plugin-svelte": "^3.1.1",
 		"@types/feather-icons": "^4.29.4",
+		"aubade": "^0.9.0",
 		"feather-icons": "^4.29.2",
-		"marqua": "^0.5.8",
-		"prettier": "^3.2.5",
+		"prettier": "^3.3.2",
 		"prettier-plugin-sort-package-json": "^0.2.0",
-		"prettier-plugin-svelte": "^3.2.4",
+		"prettier-plugin-svelte": "^3.2.5",
 		"svelte": "5.0.0-next.153",
-		"svelte-check": "^3.8.0",
-		"svelte2tsx": "^0.7.9",
-		"typescript": "^5.4.5",
-		"vite": "^5.2.11"
+		"svelte-check": "^3.8.4",
+		"svelte2tsx": "^0.7.13",
+		"typescript": "^5.5.3",
+		"vite": "^5.3.3"
 	}
 }

@@ -1,7 +1,7 @@
 import type { ComponentProps, ComponentType, SvelteComponent } from 'svelte';
 import type { Demand, LazyComponent, SyvOptions } from './types.js';
 import { mount as create, unmount } from 'svelte';
-import { ntv } from 'mauss/std';
+import { augment } from 'mauss/std';
 
 let instance: ReturnType<typeof create>;
 
@@ -19,7 +19,7 @@ export function mount<T extends SvelteComponent>(
 	instance = create(component, {
 		intro: options['syv:intro'],
 		target: options['syv:anchor'] || document.body,
-		props: ntv.pick(props)(options),
+		props: augment(options).filter(props),
 	});
 }
 
