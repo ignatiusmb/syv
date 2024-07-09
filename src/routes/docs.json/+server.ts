@@ -21,7 +21,7 @@ export const GET: import('./$types').RequestHandler = () => {
 			title: metadata.title,
 			slug: filename.slice(3, -2),
 			content: body.replace(/@VERSION/g, `@${version}`),
-			path: `docs/${filename}.md`,
+			path: `docs/${filename}`,
 		};
 		return { ...metadata, ...specified };
 	});
