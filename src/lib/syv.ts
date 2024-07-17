@@ -1,7 +1,6 @@
 import type { ComponentProps, ComponentType, SvelteComponent } from 'svelte';
 import type { Demand, LazyComponent, SyvOptions } from './types.js';
 import { mount as create, unmount } from 'svelte';
-import { augment } from 'mauss/std';
 
 let instance: ReturnType<typeof create>;
 
@@ -13,13 +12,13 @@ export function mount<T extends SvelteComponent>(
 ) {
 	instance && unmount(instance); // destroy here so it keeps the out transition
 
-	const options = Object.assign({ 'syv:intro': true }, demanded);
-	const props = Object.keys(options).filter((k) => !k.includes(':'));
+	const internal = Object.assign({ 'syv:intro': true }, demanded);
+	if (demanded) delete demanded['syv:intro'], delete demanded['syv:anchor'];
 	// @ts-expect-error - not sure what's going on here
 	instance = create(component, {
-		intro: options['syv:intro'],
-		target: options['syv:anchor'] || document.body,
-		props: augment(options).filter(props),
+		intro: internal['syv:intro'],
+		target: internal['syv:anchor'] || document.body,
+		props: demanded, // pass the object as-is to preserve reactivity
 	});
 }
 
