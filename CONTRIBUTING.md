@@ -18,14 +18,13 @@ Follow this if you're looking to contribute to the code.
 
 ### Preparing
 
-First step is to prepare your environment and make sure that [pnpm](https://pnpm.io/) is available to use, you can follow their [installation guide](https://pnpm.io/installation), but if you're using Node.js above v16.13, you can simply enable [corepack](https://nodejs.org/api/corepack.html).
+First step is to prepare your environment and make sure that [pnpm](https://pnpm.io/) is available to use, you can follow their [installation guide](https://pnpm.io/installation).
 
 ```bash
-corepack enable
-corepack prepare pnpm@latest --activate
+corepack enable pnpm
+git clone https://github.com/ignatiusmb/syv syv
+cd syv && pnpm i
 ```
-
-The next step is to checkout the code by forking and cloning the repository.
 
 ### Scripts
 
