@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '~ v')"
+    if: startsWith(github.event.head_commit.message, '~ v')
     permissions:
       id-token: write
 
