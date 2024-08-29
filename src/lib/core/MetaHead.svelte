@@ -1,8 +1,10 @@
 <script lang="ts">
 	interface Props {
 		title: string;
+		domain: string;
 
 		authors?: string[];
+		base?: string;
 		canonical?: string;
 		description?: string;
 		keywords?: string[];
@@ -28,7 +30,10 @@
 
 	let {
 		title,
+		domain,
+
 		authors = [],
+		base,
 		canonical,
 		description,
 		keywords,
@@ -43,11 +48,13 @@
 <svelte:head>
 	<title>{title}</title>
 
-	{#each authors as author}<meta name="author" content={author} />{/each}
-	{#if canonical}<link rel="canonical" href="https://mauss.dev/{canonical}" />{/if}
+	{#if base}<base href={base} />{/if}
+	{#if canonical}<link rel="canonical" href="{domain}/{canonical}" />{/if}
+
 	{#if description}<meta name="description" content={description} />{/if}
 	{#if keywords}<meta name="keywords" content={keywords.join(',')} />{/if}
 
+	{#each authors as author}<meta name="author" content={author} />{/each}
 	{#each alternate as { href, hreflang, type, title }}
 		<link rel="alternate" {href} {hreflang} {type} {title} />
 	{/each}
