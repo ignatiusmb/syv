@@ -12,7 +12,11 @@
 			filter: import('svelte').ComponentProps<Feather>['icon'];
 		};
 
-		sieve(utils: { item: T; query: string; normalize(s: string): string }): boolean;
+		sieve(utils: {
+			item: T;
+			query: string;
+			normalize(s: string): string;
+		}): true | import('mauss/typings').Falsy;
 		filter?(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }): void;
 
 		autocomplete?: import('svelte').Snippet<[{ index: T[]; update(v: string): void }]>;
