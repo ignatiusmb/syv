@@ -8,6 +8,7 @@
 		canonical?: string;
 		description?: string;
 		keywords?: string[];
+		robots?: `${'no' | ''}index,${'no' | ''}follow`;
 
 		alternate?: Array<{ href: string; hreflang: string; type: string; title: string }>;
 		scripts?: Array<string | import('mauss/typings').Falsy>;
@@ -37,6 +38,7 @@
 		canonical,
 		description,
 		keywords,
+		robots,
 
 		alternate = [],
 		scripts = [],
@@ -53,6 +55,7 @@
 
 	{#if description}<meta name="description" content={description} />{/if}
 	{#if keywords}<meta name="keywords" content={keywords.join(',')} />{/if}
+	{#if robots}<meta name="robots" content={robots} />{/if}
 
 	{#each authors as author}<meta name="author" content={author} />{/each}
 	{#each alternate as { href, hreflang, type, title }}
