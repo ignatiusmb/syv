@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { syv as core } from '$lib';
-	import LazyLoad from '$lib/core/LazyLoad.svelte';
+	import { dialog } from '$lib';
 	import SearchBar from '$lib/core/SearchBar.svelte';
 
 	import Empty from './Empty.svelte';
@@ -13,20 +12,6 @@
 </script>
 
 <main use:outside={() => {}}>
-	<LazyLoad
-		files={[() => import('./ExampleDialog.svelte'), () => import('$lib/core/ScrollTop.svelte')]}
-	>
-		{#snippet children([
-			Example,
-			Scroll,
-			// @ts-expect-error
-			Yeah,
-		])}
-			<Example required={false} />
-			<Scroll />
-		{/snippet}
-	</LazyLoad>
-
 	<SearchBar items={[]} sieve={() => true} />
 
 	<textarea bind:value use:autoresize></textarea>
@@ -35,20 +20,20 @@
 
 	<button
 		onclick={() => {
-			core.mount(Empty);
+			dialog.mount(Empty);
 			// @ts-expect-error
-			core.mount(ExampleDialog);
-			core.mount(ExampleDialog, {
+			dialog.mount(ExampleDialog);
+			dialog.mount(ExampleDialog, {
 				required: true,
 				// @ts-expect-error
 				error: false,
 			});
-			core.load(import('./ExampleDialog.svelte'), {
+			dialog.load(import('./ExampleDialog.svelte'), {
 				required: true,
 				// @ts-expect-error
 				error: false,
 			});
-			core.load(() => import('./ExampleDialog.svelte'), {
+			dialog.load(() => import('./ExampleDialog.svelte'), {
 				required: true,
 				// @ts-expect-error
 				error: false,

@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentType, SvelteComponent } from 'svelte';
-import type { Demand, LazyComponent, SyvOptions } from './types.js';
+import type { Demand, LazyComponent, SyvOptions } from '../types.js';
 import { mount as create, unmount } from 'svelte';
 
 let instance: ReturnType<typeof create>;
