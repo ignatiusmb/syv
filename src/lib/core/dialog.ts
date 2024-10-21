@@ -8,7 +8,7 @@ let instance: ReturnType<typeof create>;
 
 export function mount<T extends Component<any, any>>(
 	component: T,
-	...[demanded]: SyvOptions & Demand<ComponentProps<T>>
+	...[demanded]: Demand<SyvOptions & ComponentProps<T>>
 ) {
 	instance && unmount(instance); // destroy here so it keeps the out transition
 
