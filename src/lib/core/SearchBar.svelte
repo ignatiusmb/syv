@@ -8,8 +8,8 @@
 		placeholder?: string;
 
 		icons?: {
-			search: import('svelte').ComponentProps<Feather>['icon'];
-			filter: import('svelte').ComponentProps<Feather>['icon'];
+			search: import('svelte').ComponentProps<typeof Feather>['icon'];
+			filter: import('svelte').ComponentProps<typeof Feather>['icon'];
 		};
 
 		sieve(utils: {
