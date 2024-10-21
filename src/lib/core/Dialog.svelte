@@ -31,10 +31,11 @@
 	const elements = FOCUSABLE.join(', ');
 	async function forward<T extends Event>(event: T) {
 		if (onclose && !onclose(event.type as 'keydown' | 'pointerdown')) return;
-		show = !!void setTimeout(() => {
+		void setTimeout(() => {
 			document.body.style.removeProperty('padding-right');
 			document.body.style.removeProperty('overflow');
 		}, TIME.FLY);
+		show = false;
 	}
 
 	function sieve(elements: NodeListOf<Element>) {
