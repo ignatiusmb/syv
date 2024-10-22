@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
 	const time = $state({ start: Date.now() });
 	const reset = () => (time.start = Date.now());
 </script>
