@@ -13,9 +13,8 @@
 		"format": "prettier -w . --plugin=prettier-plugin-sort-package-json",
 		"check": "pnpm run \"/^check:.*/\"",
 		"check:style": "prettier -c . --plugin=prettier-plugin-sort-package-json",
-		"check:svelte": "svelte-check --tsconfig ./tsconfig.json",
+		"check:svelte": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"package": "svelte-package && pnpm copy",
-		"prepare": "svelte-kit sync",
 		"copy": "cp package.json README.md LICENSE dist/"
 	},
 	"module": "./index.js",
