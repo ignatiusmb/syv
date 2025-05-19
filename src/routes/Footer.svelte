@@ -1,8 +1,3 @@
-<script>
-	import * as feather from '$lib/icons/feather';
-	import Feather from '$lib/icons/Feather.svelte';
-</script>
-
 <footer>
 	<section>
 		<em>Read the help page for more information</em>
@@ -10,31 +5,28 @@
 
 	<section class="social-links">
 		<a href="https://www.facebook.com/ignatiusmb" aria-label="facebook profile">
-			<Feather icon={feather.Facebook} />
+			<i data-icon="facebook"></i>
 		</a>
 		<a href="https://www.instagram.com/ignatiusmb" aria-label="instagram profile">
-			<Feather icon={feather.Instagram} />
+			<i data-icon="instagram"></i>
 		</a>
 		<a href="https://www.linkedin.com/in/ignatiusmb" aria-label="linkedin profile">
-			<Feather icon={feather.Linkedin} />
-		</a>
-		<a href="https://twitter.com/alchemauss" aria-label="twitter profile">
-			<Feather icon={feather.Twitter} />
+			<i data-icon="linkedin"></i>
 		</a>
 		<a href="https://keybase.io/mauss" aria-label="keybase profile">
-			<Feather icon={feather.Key} />
+			<i data-icon="keyhole"></i>
 		</a>
 		<a href="https://github.com/ignatiusmb" aria-label="github profile">
-			<Feather icon={feather.Github} />
+			<i data-icon="github"></i>
 		</a>
 		<a href="https://gitlab.com/ignatiusmb" aria-label="gitlab profile">
-			<Feather icon={feather.Gitlab} />
+			<i data-icon="gitlab"></i>
 		</a>
 		<a href="https://twitch.tv/alchemauss" aria-label="twitch profile">
-			<Feather icon={feather.Twitch} />
+			<i data-icon="twitch"></i>
 		</a>
 		<a href="https://www.youtube.com/user/Ignapure/playlists" aria-label="youtube playlist profile">
-			<Feather icon={feather.Youtube} />
+			<i data-icon="youtube"></i>
 		</a>
 	</section>
 

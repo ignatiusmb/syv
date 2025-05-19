@@ -1,16 +1,8 @@
 <script lang="ts" generics="T extends { slug: string }">
-	import { Search, Sliders } from '../icons/feather';
-	import Feather from '../icons/Feather.svelte';
-
 	interface Props {
 		items: T[];
 		value?: string;
 		placeholder?: string;
-
-		icons?: {
-			search: import('svelte').ComponentProps<typeof Feather>['icon'];
-			filter: import('svelte').ComponentProps<typeof Feather>['icon'];
-		};
 
 		sieve(utils: {
 			item: T;
@@ -28,10 +20,6 @@
 
 		value = '',
 		placeholder = 'Type your queries here (Press "/" to focus)',
-		icons = {
-			search: Search,
-			filter: Sliders,
-		},
 
 		sieve,
 		filter,
@@ -42,7 +30,6 @@
 
 	const show = $state({ autocomplete: false });
 	let searchbox: undefined | HTMLInputElement = $state();
-
 	const sifted = $derived.by(() => {
 		const normalize = (s: string) => s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
 		return items.filter((item) => sieve({ item, query: value, normalize }));
@@ -61,7 +48,17 @@
 
 <div class="syv-core-search-bar">
 	<label>
-		<Feather scale="1.5" icon={icons.search} />
+		<svg
+			viewBox="0 0 256 256"
+			fill="none"
+			stroke="currentColor"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+			stroke-width="16"
+		>
+			<circle cx="112" cy="112" r="80" />
+			<line x1="168.57" y1="168.57" x2="224" y2="224" />
+		</svg>
 
 		<input
 			bind:this={searchbox}
@@ -75,7 +72,24 @@
 
 	{#if filter}
 		<button onclick={filter}>
-			<Feather scale="1.5" icon={icons.filter} />
+			<svg
+				viewBox="0 0 256 256"
+				fill="none"
+				stroke="currentColor"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="16"
+			>
+				<line x1="128" y1="120" x2="128" y2="216" />
+				<line x1="128" y1="40" x2="128" y2="88" />
+				<line x1="200" y1="200" x2="200" y2="216" />
+				<line x1="200" y1="40" x2="200" y2="168" />
+				<line x1="224" y1="168" x2="176" y2="168" />
+				<line x1="56" y1="168" x2="56" y2="216" />
+				<line x1="56" y1="40" x2="56" y2="136" />
+				<line x1="32" y1="136" x2="80" y2="136" />
+				<line x1="152" y1="88" x2="104" y2="88" />
+			</svg>
 		</button>
 	{/if}
 
@@ -138,6 +152,7 @@
 		}
 
 		button {
+			width: 3rem;
 			height: 100%;
 			display: flex;
 			align-items: center;

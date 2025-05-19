@@ -1,6 +1,3 @@
 node_modules
 /.svelte-kit
 /dist
-
-# generated files
-/src/lib/icons/**/*.ts
