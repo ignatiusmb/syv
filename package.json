@@ -32,6 +32,10 @@
 			"types": "./action/index.d.ts",
 			"default": "./action/index.js"
 		},
+		"./attachment": {
+			"types": "./attachment/index.d.ts",
+			"default": "./attachment/index.js"
+		},
 		"./internal/*.svelte": {
 			"types": "./internal/*.svelte.d.ts",
 			"svelte": "./internal/*.svelte"

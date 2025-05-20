@@ -1,4 +1,4 @@
-import type { HTMLAction } from '../action/types';
+import type { Attachment } from 'svelte/attachments';
 import type { SyvStyles } from '../types';
 import { mount as attach, unmount, onMount } from 'svelte';
 import { FOCUSABLE } from '../options.js';
@@ -62,6 +62,12 @@ const listeners = {
 			node.addEventListener(event, this[event]);
 		}
 	},
+	cleanup(node: HTMLElement) {
+		for (const event of ['focusin', 'focusout'] as const) {
+			if (`on${event}` in node) continue;
+			node.removeEventListener(event, this[event]);
+		}
+	},
 
 	focusin: (ev: FocusEvent) => mount(ev.target as HTMLElement),
 	focusout: () => dismount(),
@@ -88,7 +94,7 @@ export function mount(anchor: HTMLElement, html?: TooltipProps['html']) {
 	});
 }
 
-export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
+export function setup(options: typeof OPTIONS = {}): Attachment {
 	Object.assign(OPTIONS, options);
 	const elements = FOCUSABLE.map((el) => `${el}[${ATTR}]`);
 
@@ -112,12 +118,11 @@ export function setup(options: typeof OPTIONS = {}): HTMLAction<any> {
 		};
 	});
 
-	return (node) => (listen(node), { update: () => listen(node) });
-	function listen(parent: HTMLElement) {
-		for (const node of parent.querySelectorAll(elements.join(', '))) {
-			listeners.attach(node as HTMLElement);
-		}
-	}
+	return (parent) => {
+		const nodes = parent.querySelectorAll(elements.join(', '));
+		nodes.forEach((n) => listeners.attach(n as HTMLElement));
+		return () => nodes.forEach((n) => listeners.cleanup(n as HTMLElement));
+	};
 }
 
 export function shift(props: TooltipProps) {
