@@ -7,7 +7,7 @@
 	const link = `https://github.com/${repo}/edit/master`;
 </script>
 
-<a href="{link}/{path}">
+<a href="{link}/{path}" aria-label="edit">
 	<svg
 		viewBox="0 0 256 256"
 		fill="none"
