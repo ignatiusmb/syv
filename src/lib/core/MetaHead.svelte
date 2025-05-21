@@ -11,7 +11,7 @@
 		robots?: `${'no' | ''}index,${'no' | ''}follow`;
 
 		alternate?: Array<{ href: string; hreflang: string; type: string; title: string }>;
-		scripts?: Array<string | import('mauss/typings').Falsy>;
+		scripts?: Record<string, import('mauss/typings').Falsy | { [attributes: string]: string }>;
 
 		/** https://ogp.me/ */
 		og?: {
@@ -41,7 +41,7 @@
 		robots,
 
 		alternate = [],
-		scripts = [],
+		scripts = {},
 		og,
 		children,
 	}: Props = $props();
@@ -73,8 +73,8 @@
 		{#if og.site_name}<meta property="og:site_name" content={og.site_name} />{/if}
 	{/if}
 
-	{#each scripts.filter((s) => typeof s === 'string') as link}
-		<script defer src={link}></script>
+	{#each Object.entries(scripts) as [link, attributes]}
+		{#if attributes}<script defer src={link} {...attributes}></script>{/if}
 	{/each}
 
 	{@render children?.()}
