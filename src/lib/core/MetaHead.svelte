@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Falsy, Nullish } from 'mauss/typings';
+
 	interface Props {
 		title: string;
 		domain: string;
@@ -11,7 +13,7 @@
 		robots?: `${'no' | ''}index,${'no' | ''}follow`;
 
 		alternate?: Array<{ href: string; hreflang: string; type: string; title: string }>;
-		scripts?: Record<string, import('mauss/typings').Falsy | { [attributes: string]: string }>;
+		scripts?: Record<string, Falsy | { [attributes: string]: string | Nullish }>;
 
 		/** https://ogp.me/ */
 		og?: {
