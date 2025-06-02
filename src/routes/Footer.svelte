@@ -22,9 +22,6 @@
 		<a href="https://gitlab.com/ignatiusmb" aria-label="gitlab profile">
 			<i data-icon="gitlab"></i>
 		</a>
-		<a href="https://twitch.tv/alchemauss" aria-label="twitch profile">
-			<i data-icon="twitch"></i>
-		</a>
 		<a href="https://www.youtube.com/user/Ignapure/playlists" aria-label="youtube playlist profile">
 			<i data-icon="youtube"></i>
 		</a>

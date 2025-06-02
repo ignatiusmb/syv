@@ -66,7 +66,8 @@
 		transition: transform var(--transition-duration, 240ms);
 
 		/* radial progress */
-		background: radial-gradient(closest-side, var(--background, #0e0e0e) 84%, transparent 90% 100%),
+		background:
+			radial-gradient(closest-side, var(--background, #0e0e0e) 84%, transparent 90% 100%),
 			conic-gradient(var(--color, #990000) calc(var(--progress) * 1%), var(--background, #0e0e0e) 0);
 
 		&.show {

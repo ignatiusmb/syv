@@ -10,9 +10,9 @@
 		"reset": "git reset --hard && git clean -dfx -e node_modules",
 		"dev": "vite dev",
 		"build": "vite build",
-		"format": "prettier -w . --plugin=prettier-plugin-sort-package-json",
+		"format": "prettier --write .",
 		"check": "pnpm run \"/^check:.*/\"",
-		"check:style": "prettier -c . --plugin=prettier-plugin-sort-package-json",
+		"check:style": "prettier --check .",
 		"check:svelte": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"package": "svelte-package && pnpm copy",
 		"copy": "cp package.json README.md LICENSE dist/"
@@ -57,7 +57,7 @@
 		}
 	},
 	"packageManager": "pnpm@10.11.0",
-	"prettier": "mauss/prettier.json",
+	"prettier": "mauss/prettier.config.js",
 	"keywords": [
 		"svelte",
 		"complementary",
@@ -68,7 +68,7 @@
 		"kit"
 	],
 	"dependencies": {
-		"mauss": "^0.8.2"
+		"mauss": "^0.9.1"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
@@ -79,11 +79,11 @@
 		"@sveltejs/kit": "^2.21.1",
 		"@sveltejs/package": "^2.3.11",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
-		"aubade": "^0.9.0",
+		"aubade": "^0.9.1",
 		"prettier": "^3.5.3",
-		"prettier-plugin-sort-package-json": "^0.2.0",
+		"prettier-plugin-sort-package-json": "^1.0.1",
 		"prettier-plugin-svelte": "^3.4.0",
-		"svelte": "^5.30.2",
+		"svelte": "^5.33.13",
 		"svelte-check": "^4.2.1",
 		"svelte2tsx": "^0.7.39",
 		"typescript": "^5.8.3",
