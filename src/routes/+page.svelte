@@ -4,22 +4,20 @@
 
 	import Empty from './Empty.svelte';
 	import ExampleDialog from './ExampleDialog.svelte';
-	import Footer from './Footer.svelte';
 
-	import { autoresize, copy, outside } from '$lib/action';
+	import { autoresize, copy } from '$lib/attachment';
 
 	let value = $state('');
 </script>
 
-<main use:outside={() => {}}>
-	<SearchBar items={[]} sieve={() => true} />
+<SearchBar items={[]} sieve={() => true} />
 
-	<textarea bind:value use:autoresize></textarea>
+<textarea bind:value {@attach autoresize}></textarea>
 
-	<button use:copy={{ data: value }}>Copy to Clipboard</button>
+<button {@attach copy({ data: value })}>Copy to Clipboard</button>
 
-	<button
-		onclick={() => {
+<button
+	onclick={() => {
 			dialog.mount(Empty);
 			// @ts-expect-error
 			dialog.mount(ExampleDialog);
@@ -39,26 +37,9 @@
 				error: false,
 			});
 		}}
-	>
-		Open Dialog
-	</button>
-
-	<Footer />
-</main>
+>
+	Open Dialog
+</button>
 
 <style>
-	main {
-		--fg-surface: #818181;
-		--bg-overlay: #ffffff;
-	}
-	main {
-		max-width: 86rem;
-		width: 100%;
-		display: grid;
-		gap: 0.75rem;
-		justify-items: center;
-
-		padding: 2rem;
-		margin: 0 auto;
-	}
 </style>
