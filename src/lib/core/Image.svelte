@@ -1,5 +1,7 @@
 <script lang="ts">
+	import type { SyvStyles } from '../types';
 	import { fade } from 'svelte/transition';
+	import { weave } from '../utils';
 
 	interface Props {
 		/** image source */
@@ -12,6 +14,7 @@
 		contain?: boolean;
 		/** fade in options */
 		transition?: import('svelte/transition').FadeParams;
+		styles?: SyvStyles<'background' | 'padding' | 'transition-duration'>;
 		children?: import('svelte').Snippet;
 	}
 
@@ -20,12 +23,13 @@
 		alt = '',
 		ratio = 9 / 16,
 		contain = false,
+		styles = {},
 		transition = {},
 		children,
 	}: Props = $props();
 </script>
 
-<div style:padding-top="{ratio * 100}%" class="syv-core-image">
+<div class="syv-core-image" style:padding-top="{ratio * 100}%" style={weave(styles)}>
 	<img {src} {alt} loading="lazy" in:fade={transition} class:contain />
 	{#if children}
 		<div class="canvas">
@@ -61,9 +65,14 @@
 			position: absolute;
 			top: 0;
 			left: 0;
+			display: grid;
+			align-items: center;
+			justify-content: center;
+			padding: var(--padding, 1rem);
 			border-radius: inherit;
-			background: rgba(0, 0, 0, 0.5);
-			transition: var(--t-duration, 300ms);
+			text-align: center;
+			background: var(--background, rgba(0, 0, 0, 0.5));
+			transition: var(--transition-duration, 300ms);
 
 			&:hover {
 				opacity: 1;

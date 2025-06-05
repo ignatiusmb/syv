@@ -7,7 +7,7 @@
 		reveal?: number;
 		behavior?: ScrollBehavior;
 		styles?: SyvStyles<
-			'background' | 'size' | 'show-x' | 'show-y' | 'text-color' | 'transition-duration' | 'z-index'
+			'background' | 'color' | 'size' | 'show-x' | 'show-y' | 'transition-duration' | 'z-index'
 		>;
 	}
 

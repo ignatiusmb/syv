@@ -1,8 +1,19 @@
 <script lang="ts" generics="T extends { slug: string }">
+	import type { SyvStyles } from '../types';
+	import { weave } from '../utils';
+
 	interface Props {
 		items: T[];
 		value?: string;
 		placeholder?: string;
+		styles?: SyvStyles<
+			| 'background-color'
+			| 'background-highlight'
+			| 'border-color'
+			| 'border-radius'
+			| 'gap'
+			| 'text-color'
+		>;
 
 		sieve(utils: {
 			item: T;
@@ -20,6 +31,7 @@
 
 		value = '',
 		placeholder = 'Type your queries here (Press "/" to focus)',
+		styles = {},
 
 		sieve,
 		filter,
@@ -46,7 +58,7 @@
 	}}
 />
 
-<div class="syv-core-search-bar">
+<div class="syv-core-search-bar" style={weave(styles)}>
 	<label>
 		<svg
 			viewBox="0 0 256 256"
@@ -71,7 +83,7 @@
 	</label>
 
 	{#if filter}
-		<button onclick={filter}>
+		<button onclick={filter} aria-label="filter results">
 			<svg
 				viewBox="0 0 256 256"
 				fill="none"
@@ -114,15 +126,15 @@
 		width: 100%;
 
 		display: flex;
-		gap: 0.5rem;
+		gap: var(--gap, 0.5rem);
 		align-items: center;
 		border-radius: inherit;
 
 		label,
 		input {
 			border-radius: inherit;
-			color: var(--fg-surface, rgba(255, 255, 255, 0.65));
-			background-color: var(--bg-overlay, #2d2f34);
+			color: var(--text-color, #e1e0e4);
+			background-color: var(--background-color, #1f1f21);
 		}
 		label {
 			position: relative;
@@ -139,7 +151,7 @@
 				top: 50%;
 				left: 0.6rem;
 				transform: translate(0, -50%);
-				color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+				color: var(--text-color, #e1e0e4);
 			}
 
 			& > input {
@@ -157,11 +169,11 @@
 			display: flex;
 			align-items: center;
 			border-radius: inherit;
-			color: var(--fg-surface, rgba(255, 255, 255, 0.65));
+			color: var(--text-color, #e1e0e4);
 
 			&:hover,
 			&:focus {
-				background-color: var(--bg-overlay, #2d2f34);
+				background-color: var(--background-color, #1f1f21);
 			}
 		}
 	}
@@ -178,11 +190,11 @@
 		display: grid;
 		padding: 0.5rem 0;
 		margin-top: 0.25rem;
-		border: 1px solid var(--fg-surface, rgba(255, 255, 255, 0.65));
-		border-radius: var(--b-radius);
+		border: 1px solid var(--border-color, #e1e0e4);
+		border-radius: var(--border-radius, 0.5rem);
 
-		color: var(--fg-surface, rgba(255, 255, 255, 0.65));
-		background-color: var(--bg-overlay, #2d2f34);
+		color: var(--text-color, #e1e0e4);
+		background-color: var(--background-color, #1f1f21);
 
 		&:empty {
 			display: none;
@@ -200,7 +212,7 @@
 			&:hover {
 				cursor: pointer;
 				color: #ffffff;
-				background: #2e69e2;
+				background: var(--background-highlight, #2e69e2);
 			}
 		}
 	}

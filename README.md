@@ -19,11 +19,11 @@ pnpm add -D syv
 
 ## API Documentation
 
-| Module                               | Import                  |
-| ------------------------------------ | ----------------------- |
-| [`core`](/src/lib/core)              | `'syv'`                 |
-| [`core/*.svelte`](/src/lib/core)     | `'syv/core/*.svelte'`   |
-| [`attachment`](/src/lib/attachment)  | `'syv/attachment'`      |
-| [`action`](/src/lib/api)             | `'syv/action'`          |
-| [`loader/*.svelte`](/src/lib/loader) | `'syv/loader/*.svelte'` |
-| [`store`](/src/lib/store)            | `'syv/store'`           |
+| Module                                       | Import                  |
+| -------------------------------------------- | ----------------------- |
+| [`core`](/src/lib/core/index.ts)             | `'syv'`                 |
+| [`core/*.svelte`](/src/lib/core)             | `'syv/core/*.svelte'`   |
+| [`attachment`](/src/lib/attachment/index.ts) | `'syv/attachment'`      |
+| [`action`](/src/lib/api/index.ts)            | `'syv/action'`          |
+| [`loader/*.svelte`](/src/lib/loader)         | `'syv/loader/*.svelte'` |
+| [`store`](/src/lib/store/index.ts)           | `'syv/store'`           |
