@@ -1,23 +1,12 @@
 # syv
 
-> A small but capable Svelte utility library — built from the pieces I kept rewriting
+> the ideal svelte toolbox — components, attachments, and beyond
 
-syv provides essential building blocks for common UI and app patterns.
-
-- 🧩 **Core components** for common patterns:
-    - Handle meta tags with `import MetaHead from 'syv/core/MetaHead.svelte'`
-    - Lazy-load a component with `import LazyLoad from 'syv/core/LazyLoad.svelte'`
-    - Observer element visibility with `import Observe from 'syv/core/Observe.svelte'`
-- 🗂️ **Modular by design** — imports are organized by namespace
-- 🌐 **SSR-safe** — work seamlessly across client and server, no need to guard with `if (browser)`
-
-## Usage
+**syv** is a minimal yet powerful utility library for Svelte — built from patterns I found myself rewriting again and again. It offers a focused set of *essential building blocks* for UI and app logic, *organized by namespace* for clean imports, and *fully compatible with both client and server*, without needing to guard with `if (browser)`.
 
 ```bash
 pnpm add -D syv
 ```
-
-## API Documentation
 
 | Module                                       | Import                  |
 | -------------------------------------------- | ----------------------- |
@@ -27,3 +16,42 @@ pnpm add -D syv
 | [`action`](/src/lib/api/index.ts)            | `'syv/action'`          |
 | [`loader/*.svelte`](/src/lib/loader)         | `'syv/loader/*.svelte'` |
 | [`store`](/src/lib/store/index.ts)           | `'syv/store'`           |
+
+## `syv/core/MetaHead.svelte`
+
+A Svelte component for managing meta tags and custom scripts in the `<head>` of your document. Designed to live in your root `+layout.svelte`, it automatically handles metadata like `title`, `description`, `canonical`, and `alternate` links.
+
+It also supports conditionally loading any external scripts for analytics, performance tracking, and more. Just pass the script URLs and attributes via the `scripts` prop; only entries with truthy values will be included, this is useful for conditionally loading scripts in development or production environments.
+
+```svelte
+<script>
+	import MetaHead from 'syv/core/MetaHead.svelte';
+	// `dev` and `afterNavigate` are optional, only for loading scripts 
+	import { dev } from '$app/environment';
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/state';
+
+	afterNavigate(() => {
+		// @ts-expect-error - optional, if you use Vercel Analytics in the scripts
+		window.va?.('pageview', { route: page.route.id, url: page.url.pathname });
+	});
+</script>
+
+<MetaHead
+	domain="https://<YOUR_DOMAIN>"
+	title="{page.data.meta?.title || page.status} | <YOUR_SITE_NAME>"
+	canonical={page.data.meta?.canonical}
+	description={page.data.meta?.description}
+	authors={['<YOUR_NAME>']}
+	alternate={[
+		{ type: 'application/rss+xml', href: '/rss.xml', title: 'RSS Feed' },
+	]}
+	scripts={{
+		'/_vercel/insights/script.js': !dev && { 'data-disable-auto-track': '1' },
+		'/_vercel/speed-insights/script.js': !dev && { 'data-route': page.route.id },
+		'https://static.cloudflareinsights.com/beacon.min.js': !dev && {
+			'data-cf-beacon': '{"token": "<YOUR_CF_TOKEN>"}',
+		},
+	}}
+/>
+```

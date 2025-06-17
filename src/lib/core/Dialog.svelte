@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import type { SyvStyles } from '../types';
+	import { on } from 'svelte/events';
 	import { fly } from 'svelte/transition';
-	import { onMount } from 'svelte';
 	import { FOCUSABLE, INPUT_FIELDS, TIME } from '../options';
 	import { weave } from '../utils';
 
@@ -26,83 +26,72 @@
 		children: Snippet<[{ forward: typeof forward; nodes: typeof nodes }]>;
 	}
 
-	const { required = false, styles = {}, onclose, children }: Props = $props();
+	const { required = false, styles = {}, onclose = () => true, children }: Props = $props();
 
-	const elements = FOCUSABLE.join(', ');
-	async function forward<T extends Event>(event: T) {
-		if (onclose && !onclose(event.type as 'keydown' | 'pointerdown')) return;
-		void setTimeout(() => {
-			document.body.style.removeProperty('padding-right');
-			document.body.style.removeProperty('overflow');
-		}, TIME.FLY);
-		show = false;
-	}
-
-	function sieve(elements: NodeListOf<Element>) {
-		return Array.from(elements as NodeListOf<HTMLElement>).filter(
-			(node) => node.offsetParent != null && node.offsetParent !== document.body,
-		);
+	function forward<T extends Event>(event: T) {
+		if (onclose(event.type as 'keydown' | 'pointerdown')) show = false;
 	}
 
 	let show = $state(true);
 	let nodes: HTMLElement[] = $state([]);
-	let dialog: undefined | HTMLElement = $state();
-	onMount(() => {
-		const mb = dialog && window.getComputedStyle(dialog).marginBlock.split(' ');
-		const gap = mb ? Math.max(+mb[0].slice(0, -2), +(mb[1]?.slice(0, -2) || 0)) : 0;
-		const mxh = window.innerHeight - (gap * 2 + /* container y-padding */ 32);
-		const observer = new ResizeObserver(([observed]) => {
-			const target = observed.target as HTMLElement;
-			target.style.removeProperty('overflow');
-			if (target.clientHeight < mxh) return;
-			target.style.setProperty('overflow', 'auto');
-		});
-
-		if (dialog) {
-			observer.observe(dialog);
-			dialog.style.setProperty('max-height', `${mxh}px`);
-			const elements = INPUT_FIELDS.join(', ');
-			const inputs = sieve(dialog.querySelectorAll(elements));
-			if (inputs.length) inputs[0].focus();
-		}
-
-		// (scrollbar width) = (window width) - (<html> width)
-		const bar = window.innerWidth - document.documentElement.clientWidth;
-		document.body.style.setProperty('padding-right', `${bar}px`);
-		document.body.style.setProperty('overflow', 'hidden');
-
-		return () => observer.disconnect();
-	});
 </script>
-
-<svelte:window
-	onkeydown={(event) /** focus trapping */ => {
-		if (!show || !dialog) return; // closed but not destroyed
-		if (event.key === 'Escape') return forward(event);
-		nodes = sieve(dialog.querySelectorAll(elements));
-		if (event.key === 'Tab' && nodes.length) {
-			const index = nodes.findIndex((i) => i === document.activeElement);
-			if (index === -1) return nodes[0].focus(), event.preventDefault();
-
-			const back = (index === 0 ? nodes.length : index) - 1;
-			const next = index === nodes.length - 1 ? 0 : index + 1;
-			nodes[event.shiftKey ? back : next].focus(), event.preventDefault();
-		}
-	}}
-/>
 
 {#if show}
 	<div
 		style={weave(styles)}
 		onpointerdown={(event) => event.currentTarget === event.target && !required && forward(event)}
 	>
+		<!-- svelte-ignore a11y_no_noninteractive_element_to_interactive_role -->
 		<main
-			bind:this={dialog}
-			in:fly|global={{ duration: TIME.FLY, y: 64 }}
-			out:fly={{ duration: TIME.FLY, y: -64 }}
 			role="dialog"
 			aria-modal="true"
 			class="syv-core-dialog"
+			in:fly|global={{ duration: TIME.FLY, y: 64 }}
+			out:fly={{ duration: TIME.FLY, y: -64 }}
+			{@attach (dialog) => {
+				const mb = dialog && window.getComputedStyle(dialog).marginBlock.split(' ');
+				const gap = mb ? Math.max(+mb[0].slice(0, -2), +(mb[1]?.slice(0, -2) || 0)) : 0;
+				const mxh = window.innerHeight - (gap * 2 + /* container y-padding */ 32);
+				const observer = new ResizeObserver(([observed]) => {
+					const target = observed.target as HTMLElement;
+					target.style.removeProperty('overflow');
+					if (target.clientHeight < mxh) return;
+					target.style.setProperty('overflow', 'auto');
+				});
+
+				observer.observe(dialog);
+				dialog.style.setProperty('max-height', `${mxh}px`);
+				const field = dialog.querySelector(INPUT_FIELDS.join(', '));
+				field && (field as HTMLElement).focus();
+
+				// (scrollbar width) = (window width) - (<html> width)
+				const bar = window.innerWidth - document.documentElement.clientWidth;
+				document.body.style.setProperty('padding-right', `${bar}px`);
+				document.body.style.setProperty('overflow', 'hidden');
+
+				nodes = /* find all focusable elements in the dialog */ Array.from(
+					dialog.querySelectorAll(FOCUSABLE.join(', ')) as NodeListOf<HTMLElement>,
+				).filter((node) => node.offsetParent != null && node.offsetParent !== document.body);
+
+				const listener = on(window, 'keydown', (event) => {
+					if (event.key === 'Escape') return forward(event);
+					if (event.key === 'Tab' && nodes.length) {
+						const index = nodes.findIndex((i) => i === document.activeElement);
+						if (index === -1) return nodes[0].focus(), event.preventDefault();
+
+						const back = (index === 0 ? nodes.length : index) - 1;
+						const next = index === nodes.length - 1 ? 0 : index + 1;
+						nodes[event.shiftKey ? back : next].focus(), event.preventDefault();
+					}
+				});
+
+				return () => {
+					observer.disconnect();
+					listener(); // remove keydown event
+					document.body.style.removeProperty('padding-right');
+					document.body.style.removeProperty('overflow');
+				};
+			}}
 		>
 			{@render children({ forward, nodes })}
 		</main>
@@ -120,7 +109,7 @@
 		grid-template-columns: 1fr var(--max-width, min(80ch, 100%)) 1fr;
 		padding: 1rem var(--side-padding, 1rem);
 		background: var(--backdrop-color, rgba(0, 0, 0, 0.4));
-		backdrop-filter: var(--backdrop-filter, blur(0.1rem));
+		backdrop-filter: var(--backdrop-filter, none);
 	}
 	main {
 		width: 100%;

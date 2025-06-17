@@ -1,7 +1,7 @@
 {
 	"name": "syv",
-	"version": "0.0.44",
-	"description": "Svelte Complementary Library",
+	"version": "0.0.45",
+	"description": "the ideal svelte toolbox — components, attachments, and beyond",
 	"repository": "github:ignatiusmb/syv",
 	"author": "Ignatius Bagus",
 	"license": "MIT",
@@ -60,12 +60,19 @@
 	"prettier": "mauss/prettier.config.js",
 	"keywords": [
 		"svelte",
-		"complementary",
-		"components",
-		"loaders",
-		"stores",
+		"sveltekit",
+		"headless",
 		"library",
-		"kit"
+		"components",
+		"svelte-components",
+		"actions",
+		"attachments",
+		"utilities",
+		"toolbox",
+		"ssr-safe",
+		"typescript",
+		"progressive-enhancement",
+		"frontend"
 	],
 	"dependencies": {
 		"mauss": "^0.9.1"

@@ -27,3 +27,6 @@ export type SyvStyles<T extends string> = {
 namespace SyvCSS {
 	export type GlobalValues = Flexible<'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset'>;
 }
+
+// ---- Props ----
+export type { Props as MetaHead } from './core/MetaHead.svelte';

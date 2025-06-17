@@ -1,5 +1,6 @@
 import type { Attachment } from 'svelte/attachments';
 import { clipboard } from 'mauss/web';
+import { on } from 'svelte/events';
 
 /** autofocus element when condition is true */
 export const autofocus: (when: boolean) => Attachment = (when = true) => {
@@ -22,8 +23,7 @@ export const autoresize: Attachment = (element) => {
 
 	node.style.setProperty('overflow-y', 'hidden');
 	node.style.setProperty('height', `${memory}px`);
-	node.addEventListener('input', receiver);
-	return () => node.removeEventListener('input', receiver);
+	return on(node, 'input', receiver);
 };
 
 export const copy: (opts: {
@@ -36,10 +36,7 @@ export const copy: (opts: {
 		else clipboard.copy(clipboard.item(data.type, data), handler);
 	}
 
-	return (node) => {
-		node.addEventListener('click', write, true);
-		return () => node.removeEventListener('click', write, true);
-	};
+	return (node) => on(node, 'click', write, { capture: true });
 };
 
 /** determine if click is maintained for `duration` */
@@ -59,12 +56,8 @@ export const hold: (opts: {
 	}
 
 	return (node) => {
-		node.addEventListener('mousedown', press);
-		node.addEventListener('mouseup', release);
-		return () => {
-			node.removeEventListener('mousedown', press);
-			node.removeEventListener('mouseup', release);
-		};
+		const events = [on(node, 'mousedown', press), on(node, 'mouseup', release)];
+		return () => events.forEach((remove) => remove());
 	};
 };
 
@@ -100,7 +93,6 @@ export const outside: (callback: (event: MouseEvent) => void) => Attachment = (c
 			if (!node.contains(event.target as Node)) callback(event);
 		}
 
-		document.addEventListener('click', clicked, true);
-		return () => document.removeEventListener('click', clicked, true);
+		return on(document, 'click', clicked, { capture: true });
 	};
 };
