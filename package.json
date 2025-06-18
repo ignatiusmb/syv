@@ -1,7 +1,7 @@
 {
 	"name": "syv",
 	"version": "0.0.45",
-	"description": "the ideal svelte toolbox — components, attachments, and beyond",
+	"description": "practical svelte components and utilities",
 	"repository": "github:ignatiusmb/syv",
 	"author": "Ignatius Bagus",
 	"license": "MIT",
@@ -27,10 +27,6 @@
 		"./core/*.svelte": {
 			"types": "./core/*.svelte.d.ts",
 			"svelte": "./core/*.svelte"
-		},
-		"./action": {
-			"types": "./action/index.d.ts",
-			"default": "./action/index.js"
 		},
 		"./attachment": {
 			"types": "./attachment/index.d.ts",
@@ -74,9 +70,6 @@
 		"progressive-enhancement",
 		"frontend"
 	],
-	"dependencies": {
-		"mauss": "^0.9.1"
-	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
@@ -87,6 +80,7 @@
 		"@sveltejs/package": "^2.3.11",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"aubade": "^0.9.1",
+		"mauss": "^0.9.1",
 		"prettier": "^3.5.3",
 		"prettier-plugin-sort-package-json": "^1.0.1",
 		"prettier-plugin-svelte": "^3.4.0",

@@ -1,5 +1,4 @@
 import type { Attachment } from 'svelte/attachments';
-import { clipboard } from 'mauss/web';
 import { on } from 'svelte/events';
 
 /** autofocus element when condition is true */
@@ -28,12 +27,25 @@ export const autoresize: Attachment = (element) => {
 
 export const copy: (opts: {
 	data?: string | Blob;
-	handler?: Parameters<typeof clipboard.copy>[1];
-}) => Attachment = ({ data, handler }) => {
+	handler?: {
+		accept?(): Promise<void>;
+		reject?(): Promise<void>;
+	};
+}) => Attachment = ({ data, handler = {} }) => {
 	function write() {
 		if (!data) return;
-		if (typeof data === 'string') clipboard.copy(data, handler);
-		else clipboard.copy(clipboard.item(data.type, data), handler);
+		const ncb = navigator.clipboard;
+		let process: Promise<void>;
+		if (typeof data === 'string') {
+			process = ncb.writeText(data);
+		} else {
+			// https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write
+			// we can only pass one clipboard item at a time
+			process = ncb.write([new ClipboardItem({ [data.type]: data })]);
+		}
+
+		const { accept = () => {}, reject = () => {} } = handler;
+		return process.then(accept, reject);
 	}
 
 	return (node) => on(node, 'click', write, { capture: true });

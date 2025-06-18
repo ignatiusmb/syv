@@ -1,9 +1,12 @@
-<script lang="ts" generics="T extends { slug: string }">
+<script lang="ts">
+	import type { MouseEventHandler } from 'svelte/elements';
 	import type { SyvStyles } from '../types';
+	import { on } from 'svelte/events';
 	import { weave } from '../utils';
 
 	interface Props {
-		items: T[];
+		oninput(value: string): void;
+
 		value?: string;
 		placeholder?: string;
 		styles?: SyvStyles<
@@ -14,49 +17,22 @@
 			| 'gap'
 			| 'text-color'
 		>;
-
-		sieve(utils: {
-			item: T;
-			query: string;
-			normalize(s: string): string;
-		}): true | import('mauss/typings').Falsy;
-		filter?(event: MouseEvent & { currentTarget: EventTarget & HTMLButtonElement }): void;
-
-		autocomplete?: import('svelte').Snippet<[{ index: T[]; update(v: string): void }]>;
-		children?: import('svelte').Snippet<[{ query: string; index: T[] }]>;
+		filter?: MouseEventHandler<HTMLButtonElement>;
+		children?: import('svelte').Snippet;
 	}
 
 	let {
-		items,
+		oninput,
 
 		value = '',
 		placeholder = 'Type your queries here (Press "/" to focus)',
 		styles = {},
-
-		sieve,
 		filter,
-
-		autocomplete,
 		children,
 	}: Props = $props();
 
 	const show = $state({ autocomplete: false });
-	let searchbox: undefined | HTMLInputElement = $state();
-	const sifted = $derived.by(() => {
-		const normalize = (s: string) => s.replace(/[(){}[\]<>"']/g, '').toLowerCase();
-		return items.filter((item) => sieve({ item, query: value, normalize }));
-	});
 </script>
-
-<svelte:window
-	onkeydown={(event) => {
-		if (document.activeElement === searchbox) {
-			if (event.key === 'Escape') searchbox.blur();
-		} else if (event.key === '/') {
-			event.preventDefault(), searchbox?.focus();
-		}
-	}}
-/>
 
 <div class="syv-core-search-bar" style={weave(styles)}>
 	<label>
@@ -73,12 +49,21 @@
 		</svg>
 
 		<input
-			bind:this={searchbox}
-			bind:value
 			type="text"
+			{value}
 			{placeholder}
+			oninput={(e) => oninput((e.target as HTMLInputElement).value)}
 			onblur={() => (show.autocomplete = false)}
 			onfocus={() => (show.autocomplete = true)}
+			{@attach (searchbox) => {
+				return on(window, 'keydown', (event) => {
+					if (document.activeElement === searchbox) {
+						if (event.key === 'Escape') searchbox.blur();
+					} else if (event.key === '/') {
+						event.preventDefault(), searchbox?.focus();
+					}
+				});
+			}}
 		/>
 	</label>
 
@@ -105,20 +90,12 @@
 		</button>
 	{/if}
 
-	{#if show.autocomplete && value.length > 1 && autocomplete}
+	{#if show.autocomplete && value.length > 1 && children}
 		<div class="autocomplete">
-			{@render autocomplete({
-				index: sifted,
-				update(v) {
-					value = v;
-					searchbox?.blur();
-				},
-			})}
+			{@render children()}
 		</div>
 	{/if}
 </div>
-
-{@render children?.({ query: value, index: sifted })}
 
 <style>
 	.syv-core-search-bar {

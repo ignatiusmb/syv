@@ -1,8 +1,8 @@
 # syv
 
-> the ideal svelte toolbox — components, attachments, and beyond
+> practical svelte components and utilities
 
-**syv** is a minimal yet powerful utility library for Svelte — built from patterns I found myself rewriting again and again. It offers a focused set of *essential building blocks* for UI and app logic, *organized by namespace* for clean imports, and *fully compatible with both client and server*, without needing to guard with `if (browser)`.
+**syv** is a minimal yet powerful utility library for Svelte — built from patterns I found myself rewriting again and again. It offers a focused set of _essential building blocks_ for UI and app logic, _organized by namespace_ for clean imports, and _fully compatible with both client and server_, without needing to guard with `if (browser)`.
 
 ```bash
 pnpm add -D syv
@@ -13,7 +13,6 @@ pnpm add -D syv
 | [`core`](/src/lib/core/index.ts)             | `'syv'`                 |
 | [`core/*.svelte`](/src/lib/core)             | `'syv/core/*.svelte'`   |
 | [`attachment`](/src/lib/attachment/index.ts) | `'syv/attachment'`      |
-| [`action`](/src/lib/api/index.ts)            | `'syv/action'`          |
 | [`loader/*.svelte`](/src/lib/loader)         | `'syv/loader/*.svelte'` |
 | [`store`](/src/lib/store/index.ts)           | `'syv/store'`           |
 
@@ -24,9 +23,12 @@ A Svelte component for managing meta tags and custom scripts in the `<head>` of 
 It also supports conditionally loading any external scripts for analytics, performance tracking, and more. Just pass the script URLs and attributes via the `scripts` prop; only entries with truthy values will be included, this is useful for conditionally loading scripts in development or production environments.
 
 ```svelte
+<!-- file: src/routes/+layout.svelte -->
+
 <script>
 	import MetaHead from 'syv/core/MetaHead.svelte';
-	// `dev` and `afterNavigate` are optional, only for loading scripts 
+
+	// `dev` and `afterNavigate` are optional, only for loading scripts
 	import { dev } from '$app/environment';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
@@ -53,5 +55,44 @@ It also supports conditionally loading any external scripts for analytics, perfo
 			'data-cf-beacon': '{"token": "<YOUR_CF_TOKEN>"}',
 		},
 	}}
-/>
+>
+	<!-- optionally, define any additional tags manually if you need it  -->
+</MetaHead>
+```
+
+## `syv/core/Dialog.svelte`
+
+```svelte
+<!-- file: src/lib/MyDialog.svelte -->
+
+<script lang="ts">
+	import Dialog from 'syv/core/Dialog.svelte';
+
+	import type { ComponentProps } from 'svelte';
+	type Forwarded = ComponentProps<typeof Dialog>;
+	interface Props {
+		// your own props
+
+		onclose?: Forwarded['onclose'];
+	}
+	let props: Props = $props();
+</script>
+
+<Dialog
+	{...props}
+	styles={{
+		'--backdrop-filter': 'none', // or 'blur(10px)' for a blurred background
+		'--background': 'var(--color-base)', // use your own css variables
+		'--border-radius': 'var(--rounding-box)', // same as above
+		'--padding': '1rem 1.5rem 1.5rem', // adjust padding as needed
+	}}
+>
+	{#snippet children({ forward })}
+		<!-- structure your own dialog content here -->
+	{/snippet}
+</Dialog>
+
+<style>
+	/* style your own dialog */
+</style>
 ```

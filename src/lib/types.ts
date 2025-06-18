@@ -1,4 +1,3 @@
-import type { Flexible } from 'mauss/typings';
 import type { Component } from 'svelte';
 
 export type Demand<T> = {
@@ -24,6 +23,7 @@ export type SyvStyles<T extends string> = {
 
 // ---- CSS ----
 
+type Flexible<Union extends T, T = string> = Union | (T & Record<never, never>);
 namespace SyvCSS {
 	export type GlobalValues = Flexible<'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset'>;
 }

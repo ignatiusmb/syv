@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      mauss:
-        specifier: ^0.9.1
-        version: 0.9.1
     devDependencies:
       '@ignatiusmb/styles':
         specifier: ^0.1.1
@@ -28,6 +24,9 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(svelte@5.33.13)(vite@6.3.5)
       aubade:
+        specifier: ^0.9.1
+        version: 0.9.1
+      mauss:
         specifier: ^0.9.1
         version: 0.9.1
       prettier:
