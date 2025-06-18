@@ -14,7 +14,8 @@ pnpm add -D syv
 | [`core/*.svelte`](/src/lib/core)             | `'syv/core/*.svelte'`   |
 | [`attachment`](/src/lib/attachment/index.ts) | `'syv/attachment'`      |
 | [`loader/*.svelte`](/src/lib/loader)         | `'syv/loader/*.svelte'` |
-| [`store`](/src/lib/store/index.ts)           | `'syv/store'`           |
+| [`options`](/src/lib/options.ts)             | `'syv/options'`         |
+| [`types`](/src/lib/types.ts)                 | `'syv/types'`           |
 
 ## `syv/core/MetaHead.svelte`
 

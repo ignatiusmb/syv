@@ -10,7 +10,11 @@
 	let value = $state('');
 </script>
 
-<SearchBar items={[]} sieve={() => true} />
+<SearchBar
+	oninput={() => {
+		// call worker and delegate search
+	}}
+/>
 
 <textarea bind:value {@attach autoresize}></textarea>
 
