@@ -1,6 +1,6 @@
 {
 	"name": "syv",
-	"version": "0.0.45",
+	"version": "0.0.46",
 	"description": "practical svelte components and utilities",
 	"repository": "github:ignatiusmb/syv",
 	"author": "Ignatius Bagus",
@@ -52,7 +52,7 @@
 			"default": "./utils.js"
 		}
 	},
-	"packageManager": "pnpm@10.11.0",
+	"packageManager": "pnpm@10.12.1",
 	"prettier": "mauss/prettier.config.js",
 	"keywords": [
 		"svelte",
