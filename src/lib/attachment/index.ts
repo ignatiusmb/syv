@@ -40,7 +40,6 @@ export const copy: (opts: {
 			process = ncb.writeText(data);
 		} else {
 			// https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write
-			// we can only pass one clipboard item at a time
 			process = ncb.write([new ClipboardItem({ [data.type]: data })]);
 		}
 
