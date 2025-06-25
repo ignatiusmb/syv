@@ -70,11 +70,8 @@ It also supports conditionally loading any external scripts for analytics, perfo
 	import Dialog from 'syv/core/Dialog.svelte';
 
 	import type { ComponentProps } from 'svelte';
-	type Forwarded = ComponentProps<typeof Dialog>;
-	interface Props {
+	type Props = Omit<ComponentProps<typeof Dialog>, 'children'> & {
 		// your own props
-
-		onclose?: Forwarded['onclose'];
 	}
 	let props: Props = $props();
 </script>
