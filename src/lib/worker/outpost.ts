@@ -7,7 +7,10 @@ type Invoke<T extends Commands> = <C extends keyof T>(
 	payload: T[C][0],
 ) => Promise<T[C][1]>;
 
-export function spawn<T extends Commands>(url: URL, init?: (invoke: Invoke<T>) => void): Invoke<T> {
+export function spawn<T extends Commands>(
+	url: string | URL,
+	init?: (invoke: Invoke<T>) => void,
+): Invoke<T> {
 	const pending = new Map<number, { resolve(v: any): void; reject(e: any): void }>();
 	let invoke: Invoke<T> = async () => {
 		throw new Error('Worker not ready — did you call during SSR?');
@@ -26,7 +29,8 @@ export function spawn<T extends Commands>(url: URL, init?: (invoke: Invoke<T>) =
 		});
 
 		cog.addEventListener('error', (e) => {
-			console.group(`%c[WorkerError] ${url.pathname}`, 'color: indianred;');
+			const path = typeof url === 'string' ? url : url.pathname;
+			console.group(`%c[WorkerError] ${path}`, 'color: indianred;');
 			console.log(`at ${e.filename}:${e.lineno}:${e.colno}`);
 			console.log(e.message);
 			e.error ? console.error('Error:', e.error) : console.warn('No error object');
