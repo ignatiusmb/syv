@@ -28,7 +28,7 @@
 
 	async function worker() {
 		const diff = Date.now() - time.start;
-		if (diff >= refresh) task(), reset();
+		if (diff >= refresh) (task(), reset());
 		timeout = setTimeout(worker, interval);
 	}
 

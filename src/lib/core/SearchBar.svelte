@@ -60,7 +60,7 @@
 					if (document.activeElement === searchbox) {
 						if (event.key === 'Escape') searchbox.blur();
 					} else if (event.key === '/') {
-						event.preventDefault(), searchbox?.focus();
+						(event.preventDefault(), searchbox?.focus());
 					}
 				});
 			}}

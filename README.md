@@ -14,6 +14,7 @@ pnpm add -D syv
 | [`core/*.svelte`](/src/lib/core)             | `'syv/core/*.svelte'`   |
 | [`attachment`](/src/lib/attachment/index.ts) | `'syv/attachment'`      |
 | [`loader/*.svelte`](/src/lib/loader)         | `'syv/loader/*.svelte'` |
+| [`worker`](/src/lib/worker)                  | `'syv/worker'`          |
 | [`options`](/src/lib/options.ts)             | `'syv/options'`         |
 | [`types`](/src/lib/types.ts)                 | `'syv/types'`           |
 
