@@ -20,14 +20,14 @@ pnpm add -D syv
 
 ## API
 
-### `syv/worker` - `spawn`/`commander`
+### `syv/worker` - `commander`/`spawn`
 
-The `/worker` submodule provides `spawn` and `commander` functions for creating and managing web workers in Svelte, along with `type Dispatch` for type-safe communication. Use `spawn` to create a worker instance in your `.svelte` file, and `commander` to register commands that the worker can handle.
+The `/worker` submodule provides `commander` and `spawn` functions for creating and managing web workers in Svelte, along with a generic `Dispatch` to generate the type-safe commands. Use `commander` to register commands that the worker can handle, and `spawn` to create the worker instance in your `.svelte` file.
 
 ```ts
 // file: src/routes/search.worker.ts
 // note: having `.worker` in the filename is optional
-//       it just helps to identify the file as a worker
+//       it just helps us identify the file as a worker
 import { commander } from 'syv/worker';
 
 // example of a command payload
@@ -55,24 +55,23 @@ export type Commands = Dispatch<typeof commands>;
 addEventListener('message', commander(commands));
 ```
 
-with the worker defined, you can now use it in your Svelte component(s):
+with the worker file defined with the `commander`, you can now use it in your Svelte component. since Vite worker detection only works with statically analyzed `new Worker(new URL('./worker'), import.meta.url)`, we'll import the worker with query suffixes to ensure it is not inlined as base64 strings and treated as a worker file.
+
+```ts
 
 ```svelte
 <!-- file: src/routes/+page.svelte -->
 <script lang="ts">
 	import type { Commands } from './search.worker';
 	import { spawn } from 'syv/worker';
+	import worker from './search.worker?worker&url';
 
 	const { data } = $props();
-	// `invoke` is type-safe with `Commands`
-	const invoke = spawn<Commands>(
-		new URL('./search.worker', import.meta.url), // relative worker URL
-		(invoke) => invoke('init', data.items), // optional, initial call
-	);
 
 	// do not call `invoke` directly in the script tag, it will
 	// throw a "Worker not ready" error unless you disable SSR.
 	// and, make sure to `await` any subsequent `invoke` calls.
+	const invoke = spawn<Commands>(worker, (invoke) => invoke('init', data.items));
 </script>
 
 <!-- use `invoke` anywhere inside a function in your markup -->
