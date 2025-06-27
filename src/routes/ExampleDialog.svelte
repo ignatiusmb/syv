@@ -2,18 +2,16 @@
 	import Dialog from '$lib/core/Dialog.svelte';
 	import type { ComponentProps } from 'svelte';
 
-	type Props = Omit<ComponentProps<typeof Dialog>, 'children'> & {
+	interface Props extends Omit<ComponentProps<typeof Dialog>, 'children'> {
 		required: boolean;
-	};
-	let { required = false }: Props = $props();
+	}
+	let { required = false, ...props }: Props = $props();
 </script>
 
-<Dialog {required}>
-	{#snippet children({ close })}
-		<h2>Hello from Dialog</h2>
+<Dialog {required} {...props}>
+	<h2>Hello from Dialog</h2>
 
-		<input type="text" />
+	<input type="text" />
 
-		<button onclick={close}>Close Dialog</button>
-	{/snippet}
+	<button onclick={props.onclose}>Close Dialog</button>
 </Dialog>

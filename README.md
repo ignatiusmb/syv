@@ -133,7 +133,7 @@ It also supports conditionally loading any external scripts for analytics, perfo
 	import Dialog from 'syv/core/Dialog.svelte';
 
 	import type { ComponentProps } from 'svelte';
-	type Props = Omit<ComponentProps<typeof Dialog>, 'children'> & {
+	interface Props extends Omit<ComponentProps<typeof Dialog>, 'children'> {
 		// your own props
 	}
 	let props: Props = $props();
@@ -148,9 +148,8 @@ It also supports conditionally loading any external scripts for analytics, perfo
 		'--padding': '1rem 1.5rem 1.5rem', // adjust padding as needed
 	}}
 >
-	{#snippet children({ forward })}
-		<!-- structure your own dialog content here -->
-	{/snippet}
+	<!-- structure your own dialog content here -->
+	<button onclick={props.onclose}>close</button>
 </Dialog>
 
 <style>
