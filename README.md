@@ -57,8 +57,6 @@ addEventListener('message', commander(commands));
 
 with the worker file defined with the `commander`, you can now use it in your Svelte component. since Vite worker detection only works with statically analyzed `new Worker(new URL('./worker'), import.meta.url)`, we'll import the worker with query suffixes to ensure it is not inlined as base64 strings and treated as a worker file.
 
-```ts
-
 ```svelte
 <!-- file: src/routes/+page.svelte -->
 <script lang="ts">
