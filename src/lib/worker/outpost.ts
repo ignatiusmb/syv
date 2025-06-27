@@ -7,10 +7,7 @@ type Invoke<T extends Commands> = <C extends keyof T>(
 	payload: T[C][0],
 ) => Promise<T[C][1]>;
 
-export function worker<T extends Commands>(
-	url: URL,
-	init?: (invoke: Invoke<T>) => void,
-): Invoke<T> {
+export function spawn<T extends Commands>(url: URL, init?: (invoke: Invoke<T>) => void): Invoke<T> {
 	const pending = new Map<number, { resolve(v: any): void; reject(e: any): void }>();
 	let invoke: Invoke<T> = async () => {
 		throw new Error('Worker not ready — did you call during SSR?');
@@ -29,7 +26,11 @@ export function worker<T extends Commands>(
 		});
 
 		cog.addEventListener('error', (e) => {
-			console.error(`WorkerError: ${JSON.stringify(e)}`);
+			console.group(`%c[WorkerError] ${url.pathname}`, 'color: indianred;');
+			console.log(`at ${e.filename}:${e.lineno}:${e.colno}`);
+			console.log(e.message);
+			e.error ? console.error('Error:', e.error) : console.warn('No error object');
+			console.groupEnd();
 		});
 
 		invoke = <K extends keyof T>(command: K, payload: T[K][0]) => {

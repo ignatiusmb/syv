@@ -24,7 +24,7 @@
 		>;
 
 		onclose?(): void;
-		children: Snippet<[{ close(): void; focusable: typeof focusable }]>;
+		children: Snippet<[{ focusable: typeof focusable }]>;
 	}
 
 	const {
@@ -79,11 +79,11 @@
 				if (event.key === 'Escape') return onclose();
 				if (event.key === 'Tab' && focusable.length) {
 					const index = focusable.findIndex((i) => i === document.activeElement);
-					if (index === -1) return focusable[0].focus(), event.preventDefault();
+					if (index === -1) return (focusable[0].focus(), event.preventDefault());
 
 					const back = (index === 0 ? focusable.length : index) - 1;
 					const next = index === focusable.length - 1 ? 0 : index + 1;
-					focusable[event.shiftKey ? back : next].focus(), event.preventDefault();
+					(focusable[event.shiftKey ? back : next].focus(), event.preventDefault());
 				}
 			});
 
@@ -95,7 +95,7 @@
 			};
 		}}
 	>
-		{@render children({ close, focusable })}
+		{@render children({ focusable })}
 	</main>
 </div>
 

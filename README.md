@@ -17,7 +17,69 @@ pnpm add -D syv
 | [`options`](/src/lib/options.ts)             | `'syv/options'`         |
 | [`types`](/src/lib/types.ts)                 | `'syv/types'`           |
 
-## `syv/core/MetaHead.svelte`
+## API
+
+### `syv/worker` - `spawn`/`commander`
+
+The `/worker` submodule provides `spawn` and `commander` functions for creating and managing web workers in Svelte, along with `type Dispatch` for type-safe communication. Use `spawn` to create a worker instance in your `.svelte` file, and `commander` to register commands that the worker can handle.
+
+```ts
+// file: src/routes/search.worker.ts
+// note: having `.worker` in the filename is optional
+//       it just helps to identify the file as a worker
+import { commander } from 'syv/worker';
+
+// example of a command payload
+type Query = {
+	search: string;
+	category: string;
+	genres: string[];
+	sort_by: 'newest' | 'oldest' | 'popular';
+};
+
+let dataset: Item[] = [];
+const commands = {
+	init(payload: Item[]) {
+		dataset = payload;
+		return true;
+	},
+	search(payload: Query) {
+		// @TODO: do your search logic here
+		// `sift` is the helper function
+		return sift(dataset, payload);
+	},
+};
+
+export type Commands = Dispatch<typeof commands>;
+addEventListener('message', commander(commands));
+```
+
+with the worker defined, you can now use it in your Svelte component(s):
+
+```svelte
+<!-- file: src/routes/+page.svelte -->
+<script lang="ts">
+	import type { Commands } from './search.worker';
+	import { spawn } from 'syv/worker';
+
+	const { data } = $props();
+	// `invoke` is type-safe with `Commands`
+	const invoke = spawn<Commands>(
+		new URL('./search.worker', import.meta.url), // relative worker URL
+		(invoke) => invoke('init', data.items), // optional, initial call
+	);
+
+	// do not call `invoke` directly in the script tag, it will
+	// throw a "Worker not ready" error unless you disable SSR.
+	// and, make sure to `await` any subsequent `invoke` calls.
+</script>
+
+<!-- use `invoke` anywhere inside a function in your markup -->
+```
+
+## `*.svelte`
+
+### `syv/core/MetaHead.svelte`
 
 A Svelte component for managing meta tags and custom scripts in the `<head>` of your document. Designed to live in your root `+layout.svelte`, it automatically handles metadata like `title`, `description`, `canonical`, and `alternate` links.
 
@@ -61,7 +123,7 @@ It also supports conditionally loading any external scripts for analytics, perfo
 </MetaHead>
 ```
 
-## `syv/core/Dialog.svelte`
+### `syv/core/Dialog.svelte`
 
 ```svelte
 <!-- file: src/lib/MyDialog.svelte -->
