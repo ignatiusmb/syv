@@ -3,8 +3,8 @@ import { traverse } from 'aubade/compass';
 import { version } from '../../../package.json';
 
 export const prerender = true;
-export const GET: import('./$types').RequestHandler = () => {
-	const docs = traverse('docs', ({ breadcrumb: [file] }) => {
+export async function GET() {
+	const docs = await traverse('docs', ({ breadcrumb: [file] }) => {
 		if (file.startsWith('draft')) return;
 		return async ({ buffer, parse }) => {
 			const { body, frontmatter } = parse(buffer.toString());
@@ -22,4 +22,4 @@ export const GET: import('./$types').RequestHandler = () => {
 	});
 
 	return json(docs);
-};
+}

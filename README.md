@@ -28,7 +28,7 @@ The `/worker` submodule provides `commander` and `spawn` functions for creating 
 // file: src/routes/search.worker.ts
 // note: having `.worker` in the filename is optional
 //       it just helps us identify the file as a worker
-import { commander } from 'syv/worker';
+import { commander, type Dispatch } from 'syv/worker';
 
 // example of a command payload
 type Query = {
@@ -37,6 +37,12 @@ type Query = {
 	genres: string[];
 	sort_by: 'newest' | 'oldest' | 'popular';
 };
+
+interface Item {
+	title: string;
+	description: string;
+	// other properties
+}
 
 let dataset: Item[] = [];
 const commands = {
@@ -68,11 +74,19 @@ with the worker file defined with the `commander`, you can now use it in your Sv
 
 	// do not call `invoke` directly in the script tag, it will
 	// throw a "Worker not ready" error unless you disable SSR.
-	// and, make sure to `await` any subsequent `invoke` calls.
 	const invoke = spawn<Commands>(worker, (invoke) => invoke('init', data.items));
+
+	let index = $state(data.items);
 </script>
 
 <!-- use `invoke` anywhere inside a function in your markup -->
+
+<SearchBar
+	value={data.query}
+	oninput={async (value) => {
+		index = await invoke('search', value);
+	}}
+/>
 ```
 
 ## `*.svelte`

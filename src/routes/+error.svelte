@@ -1,17 +1,10 @@
 <script>
-	import { dev } from '$app/environment';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 </script>
 
-<svelte:head>
-	<title>{$page.status}</title>
-</svelte:head>
-
 <article>
-	<h1>{$page.status}</h1>
-	{#if dev}
-		<pre>{$page.error?.message}</pre>
-	{/if}
+	<h1>{page.status}</h1>
+	<pre>{page.error?.message}</pre>
 </article>
 
 <style>
@@ -22,11 +15,13 @@
 		margin-top: auto;
 		text-align: center;
 	}
+
 	h1 {
-		font-family: var(--aqua-monospace);
+		font-family: var(--font-monospace);
 		font-size: 5rem;
 	}
 	pre {
-		text-align: left;
+		white-space: pre-wrap;
+		text-align: center;
 	}
 </style>
