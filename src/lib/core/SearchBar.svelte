@@ -105,7 +105,7 @@
 		display: flex;
 		gap: var(--gap, 0.5rem);
 		align-items: center;
-		border-radius: inherit;
+		border-radius: var(--border-radius, inherit);
 
 		label,
 		input {

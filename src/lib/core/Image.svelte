@@ -14,7 +14,7 @@
 		contain?: boolean;
 		/** fade in options */
 		transition?: import('svelte/transition').FadeParams;
-		styles?: SyvStyles<'background' | 'padding' | 'transition-duration'>;
+		styles?: SyvStyles<'border-radius'>;
 		children?: import('svelte').Snippet;
 	}
 
@@ -30,18 +30,14 @@
 </script>
 
 <div class="syv-core-image" style:padding-top="{ratio * 100}%" style={weave(styles)}>
-	<img {src} {alt} loading="lazy" in:fade={transition} class:contain />
-	{#if children}
-		<div class="canvas">
-			{@render children()}
-		</div>
-	{/if}
+	<img {src} {alt} loading="lazy" class:contain in:fade={transition} />
+	{#if children}{@render children()}{/if}
 </div>
 
 <style>
 	div {
 		position: relative;
-		border-radius: inherit;
+		border-radius: var(--border-radius, inherit);
 
 		img {
 			width: 100%;
@@ -55,27 +51,6 @@
 
 			&.contain {
 				object-fit: contain;
-			}
-		}
-
-		.canvas {
-			opacity: 0;
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			display: grid;
-			align-items: center;
-			justify-content: center;
-			padding: var(--padding, 1rem);
-			border-radius: inherit;
-			text-align: center;
-			background: var(--background, rgba(0, 0, 0, 0.5));
-			transition: var(--transition-duration, 300ms);
-
-			&:hover {
-				opacity: 1;
 			}
 		}
 	}
