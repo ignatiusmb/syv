@@ -17,8 +17,9 @@ export interface SyvOptions {
 	'syv:intro'?: boolean;
 }
 
-export type SyvStyles<T extends string> = {
-	[K in T as `--${K}`]?: 'none' | number | SyvCSS.GlobalValues;
+type CSSValue = false | number | 'none' | SyvCSS.GlobalValues;
+export type SyvStyles<T extends string> = Record<string, CSSValue> & {
+	[K in T as `--${K}`]?: CSSValue;
 };
 
 // ---- CSS ----
