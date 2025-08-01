@@ -1,6 +1,5 @@
 <script lang="ts">
 	import SearchBar from '$lib/core/SearchBar.svelte';
-
 	import ExampleDialog from './ExampleDialog.svelte';
 
 	import { autoresize, copy } from '$lib/attachment';
@@ -14,6 +13,11 @@
 {/if}
 
 <SearchBar
+	styles={{
+		'--background-color': 'var(--color-surface)',
+		'--border-radius': 'var(--rounding-base)',
+		'font-family': 'var(--font-sans)',
+	}}
 	oninput={() => {
 		// call worker and delegate search
 	}}

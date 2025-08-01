@@ -3,6 +3,7 @@
 	import '../app.css';
 
 	import Logo from './Logo.svelte';
+	import { page } from '$app/state';
 	const { children } = $props();
 </script>
 
@@ -15,7 +16,7 @@
 		</a>
 	</header>
 
-	<main>
+	<main class:centered={page.error}>
 		{@render children()}
 	</main>
 
@@ -47,6 +48,7 @@
 		--breakout: calc((calc(var(--max-content) + 12rem) - var(--max-content)) / 2);
 		--pad: 2rem;
 
+		min-height: 100dvh;
 		display: grid;
 		gap: 2rem 0;
 		align-content: center;
@@ -61,7 +63,7 @@
 			[full-bleed-padding-end] var(--pad)
 			[full-bleed-end];
 
-		padding: 0.5rem 0;
+		padding: 0.5rem 0 1rem;
 		background: var(--color-base);
 
 		/* children styles */
@@ -96,6 +98,10 @@
 			display: grid;
 			gap: 2rem;
 			align-content: start;
+
+			&.centered {
+				align-content: center;
+			}
 		}
 
 		footer {
