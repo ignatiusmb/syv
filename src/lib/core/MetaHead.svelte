@@ -68,12 +68,14 @@
 		/** @see https://ogp.me */
 		og?: {
 			site_name: string;
-			url?: string;
-			title?: string;
-			description?: string;
+			/** relative to `domain` */
+			url: string;
+			image: string;
+			/** @default 'website' */
 			type?: string;
-			image?: string;
+			/** @default 'en_001' */
 			locale?: string;
+			description?: string;
 		};
 
 		children?: import('svelte').Snippet;
@@ -114,12 +116,15 @@
 	{/each}
 
 	{#if og}
-		{@const { site_name, url, title: heading, type, locale, ...rest } = og}
+		{@const { site_name, url, type = 'website', locale = 'en_001', ...rest } = og}
 		<meta property="og:site_name" content={site_name} />
 		<meta property="og:url" content={domain + url} />
-		<meta property="og:title" content={heading || title} />
-		<meta property="og:type" content={type || 'website'} />
-		<meta property="og:locale" content={locale || 'en_001'} />
+		<meta property="og:title" content={title} />
+		<meta property="og:type" content={type} />
+		<meta property="og:locale" content={locale} />
+		{#if description && rest.description == null}
+			<meta name="description" content={description} />
+		{/if}
 		{#each Object.entries(rest) as [key, content]}
 			{#if content}<meta property="og:{key}" {content} />{/if}
 		{/each}

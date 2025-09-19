@@ -1,6 +1,6 @@
 {
 	"name": "syv",
-	"version": "0.0.52",
+	"version": "0.0.53",
 	"description": "practical svelte components and utilities",
 	"repository": "github:ignatiusmb/syv",
 	"author": "Ignatius Bagus",
