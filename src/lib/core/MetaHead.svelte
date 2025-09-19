@@ -119,9 +119,9 @@
 		<meta property="og:url" content={domain + url} />
 		<meta property="og:title" content={heading || title} />
 		<meta property="og:type" content={type || 'website'} />
-		<meta property="og:locale" content={locale || 'en'} />
+		<meta property="og:locale" content={locale || 'en_001'} />
 		{#each Object.entries(rest) as [key, content]}
-			<meta property="og:{key}" {content} />
+			{#if content}<meta property="og:{key}" {content} />{/if}
 		{/each}
 	{/if}
 
